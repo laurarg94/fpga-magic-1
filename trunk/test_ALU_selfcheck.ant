@@ -1,0 +1,234 @@
+--------------------------------------------------------------------------------
+-- Copyright (c) 1995-2003 Xilinx, Inc.
+-- All Right Reserved.
+--------------------------------------------------------------------------------
+--   ____  ____ 
+--  /   /\/   / 
+-- /___/  \  /    Vendor: Xilinx 
+-- \   \   \/     Version : 10.1
+--  \   \         Application : ISE
+--  /   /         Filename : test_ALU_selfcheck.ant
+-- /___/   /\     Timestamp : Sun Mar 22 21:27:48 2009
+-- \   \  /  \ 
+--  \___\/\___\ 
+--
+--Command: 
+--Design Name: test_ALU_selfcheck
+--Device: Xilinx
+--
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+USE IEEE.STD_LOGIC_TEXTIO.ALL;
+USE STD.TEXTIO.ALL;
+
+ENTITY test_ALU_selfcheck IS
+END test_ALU_selfcheck;
+
+ARCHITECTURE testbench_arch OF test_ALU_selfcheck IS
+    FILE RESULTS: TEXT OPEN WRITE_MODE IS "C:\Magic-1_FPGA\Magic_1\test_ALU_selfcheck.ano";
+
+    COMPONENT ALU
+        PORT (
+            R : In std_logic_vector (0 To 15);
+            L : In std_logic_vector (0 To 15);
+            Z : Out std_logic_vector (0 To 15);
+            DO_RSHIFT : In std_logic;
+            ALUOP_SZ : In std_logic;
+            MSWC : In std_logic;
+            USE_CARRY : In std_logic;
+            ALUOP : In std_logic_vector (0 To 1);
+            IR : In std_logic_vector (0 To 7);
+            ALUV : Out std_logic;
+            ALUC : Out std_logic;
+            ALUS : Out std_logic;
+            ALUZ : Out std_logic
+        );
+    END COMPONENT;
+
+    SIGNAL R : std_logic_vector (0 To 15) := "0000000000000000";
+    SIGNAL L : std_logic_vector (0 To 15) := "0000000000000000";
+    SIGNAL Z : std_logic_vector (0 To 15) := "0000000000000000";
+    SIGNAL DO_RSHIFT : std_logic := '0';
+    SIGNAL ALUOP_SZ : std_logic := '0';
+    SIGNAL MSWC : std_logic := '0';
+    SIGNAL USE_CARRY : std_logic := '0';
+    SIGNAL ALUOP : std_logic_vector (0 To 1) := "00";
+    SIGNAL IR : std_logic_vector (0 To 7) := "00000000";
+    SIGNAL ALUV : std_logic := '1';
+    SIGNAL ALUC : std_logic := '1';
+    SIGNAL ALUS : std_logic := '1';
+    SIGNAL ALUZ : std_logic := '1';
+
+    SHARED VARIABLE TX_ERROR : INTEGER := 0;
+    SHARED VARIABLE TX_OUT : LINE;
+
+    BEGIN
+        UUT : ALU
+        PORT MAP (
+            R => R,
+            L => L,
+            Z => Z,
+            DO_RSHIFT => DO_RSHIFT,
+            ALUOP_SZ => ALUOP_SZ,
+            MSWC => MSWC,
+            USE_CARRY => USE_CARRY,
+            ALUOP => ALUOP,
+            IR => IR,
+            ALUV => ALUV,
+            ALUC => ALUC,
+            ALUS => ALUS,
+            ALUZ => ALUZ
+        );
+
+        PROCESS    -- Annotation process
+            VARIABLE TX_TIME : INTEGER := 0;
+
+            PROCEDURE ANNOTATE_Z(
+                TX_TIME : INTEGER
+            ) IS
+                VARIABLE TX_STR : String(1 to 4096);
+                VARIABLE TX_LOC : LINE;
+            BEGIN
+                STD.TEXTIO.write(TX_LOC, string'("Annotate["));
+                STD.TEXTIO.write(TX_LOC, TX_TIME);
+                STD.TEXTIO.write(TX_LOC, string'(", Z, "));
+                IEEE.STD_LOGIC_TEXTIO.write(TX_LOC, Z);
+                STD.TEXTIO.write(TX_LOC, string'("]"));
+                TX_STR(TX_LOC.all'range) := TX_LOC.all;
+                STD.TEXTIO.writeline(RESULTS, TX_LOC);
+                STD.TEXTIO.Deallocate(TX_LOC);
+            END;
+            PROCEDURE ANNOTATE_ALUV(
+                TX_TIME : INTEGER
+            ) IS
+                VARIABLE TX_STR : String(1 to 4096);
+                VARIABLE TX_LOC : LINE;
+            BEGIN
+                STD.TEXTIO.write(TX_LOC, string'("Annotate["));
+                STD.TEXTIO.write(TX_LOC, TX_TIME);
+                STD.TEXTIO.write(TX_LOC, string'(", ALUV, "));
+                IEEE.STD_LOGIC_TEXTIO.write(TX_LOC, ALUV);
+                STD.TEXTIO.write(TX_LOC, string'("]"));
+                TX_STR(TX_LOC.all'range) := TX_LOC.all;
+                STD.TEXTIO.writeline(RESULTS, TX_LOC);
+                STD.TEXTIO.Deallocate(TX_LOC);
+            END;
+            PROCEDURE ANNOTATE_ALUC(
+                TX_TIME : INTEGER
+            ) IS
+                VARIABLE TX_STR : String(1 to 4096);
+                VARIABLE TX_LOC : LINE;
+            BEGIN
+                STD.TEXTIO.write(TX_LOC, string'("Annotate["));
+                STD.TEXTIO.write(TX_LOC, TX_TIME);
+                STD.TEXTIO.write(TX_LOC, string'(", ALUC, "));
+                IEEE.STD_LOGIC_TEXTIO.write(TX_LOC, ALUC);
+                STD.TEXTIO.write(TX_LOC, string'("]"));
+                TX_STR(TX_LOC.all'range) := TX_LOC.all;
+                STD.TEXTIO.writeline(RESULTS, TX_LOC);
+                STD.TEXTIO.Deallocate(TX_LOC);
+            END;
+            PROCEDURE ANNOTATE_ALUS(
+                TX_TIME : INTEGER
+            ) IS
+                VARIABLE TX_STR : String(1 to 4096);
+                VARIABLE TX_LOC : LINE;
+            BEGIN
+                STD.TEXTIO.write(TX_LOC, string'("Annotate["));
+                STD.TEXTIO.write(TX_LOC, TX_TIME);
+                STD.TEXTIO.write(TX_LOC, string'(", ALUS, "));
+                IEEE.STD_LOGIC_TEXTIO.write(TX_LOC, ALUS);
+                STD.TEXTIO.write(TX_LOC, string'("]"));
+                TX_STR(TX_LOC.all'range) := TX_LOC.all;
+                STD.TEXTIO.writeline(RESULTS, TX_LOC);
+                STD.TEXTIO.Deallocate(TX_LOC);
+            END;
+            PROCEDURE ANNOTATE_ALUZ(
+                TX_TIME : INTEGER
+            ) IS
+                VARIABLE TX_STR : String(1 to 4096);
+                VARIABLE TX_LOC : LINE;
+            BEGIN
+                STD.TEXTIO.write(TX_LOC, string'("Annotate["));
+                STD.TEXTIO.write(TX_LOC, TX_TIME);
+                STD.TEXTIO.write(TX_LOC, string'(", ALUZ, "));
+                IEEE.STD_LOGIC_TEXTIO.write(TX_LOC, ALUZ);
+                STD.TEXTIO.write(TX_LOC, string'("]"));
+                TX_STR(TX_LOC.all'range) := TX_LOC.all;
+                STD.TEXTIO.writeline(RESULTS, TX_LOC);
+                STD.TEXTIO.Deallocate(TX_LOC);
+            END;
+        BEGIN
+            WAIT for 1 fs;
+            ANNOTATE_Z(0);
+            ANNOTATE_ALUV(0);
+            ANNOTATE_ALUC(0);
+            ANNOTATE_ALUS(0);
+            ANNOTATE_ALUZ(0);
+            ANNO_LOOP : LOOP
+                WAIT for 50 ns;
+                TX_TIME := TX_TIME + 50;
+                ANNOTATE_Z(TX_TIME);
+                ANNOTATE_ALUV(TX_TIME);
+                ANNOTATE_ALUC(TX_TIME);
+                ANNOTATE_ALUS(TX_TIME);
+                ANNOTATE_ALUZ(TX_TIME);
+                WAIT for 50 ns;
+                TX_TIME := TX_TIME + 50;
+            END LOOP ANNO_LOOP;
+        END PROCESS;
+
+        PROCESS
+            BEGIN
+                -- -------------  Current Time:  100ns
+                WAIT FOR 100 ns;
+                R <= "0000000000000010";
+                L <= "0000000000000011";
+                -- -------------------------------------
+                -- -------------  Current Time:  200ns
+                WAIT FOR 100 ns;
+                ALUOP <= "01";
+                IR <= "00000001";
+                -- -------------------------------------
+                -- -------------  Current Time:  300ns
+                WAIT FOR 100 ns;
+                ALUOP <= "10";
+                IR <= "00000010";
+                -- -------------------------------------
+                -- -------------  Current Time:  400ns
+                WAIT FOR 100 ns;
+                ALUOP <= "11";
+                IR <= "00000011";
+                -- -------------------------------------
+                -- -------------  Current Time:  500ns
+                WAIT FOR 100 ns;
+                DO_RSHIFT <= '1';
+                IR <= "00000100";
+                -- -------------------------------------
+                -- -------------  Current Time:  600ns
+                WAIT FOR 100 ns;
+                DO_RSHIFT <= '0';
+                IR <= "00000101";
+                -- -------------------------------------
+                -- -------------  Current Time:  700ns
+                WAIT FOR 100 ns;
+                IR <= "00000110";
+                -- -------------------------------------
+                -- -------------  Current Time:  800ns
+                WAIT FOR 100 ns;
+                IR <= "00000111";
+                -- -------------------------------------
+                WAIT FOR 200 ns;
+
+                STD.TEXTIO.write(TX_OUT, string'("Total[]"));
+                STD.TEXTIO.writeline(RESULTS, TX_OUT);
+                ASSERT (FALSE) REPORT
+                    "Success! Simulation for annotation completed"
+                    SEVERITY FAILURE;
+            END PROCESS;
+
+    END testbench_arch;
+
