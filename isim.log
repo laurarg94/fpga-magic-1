@@ -1,0 +1,46 @@
+Command line:
+   ./test_ALU_isim_beh.exe
+     -intstyle  ise
+     -ipchost  localhost
+     -ipcport  3018
+
+Sun Mar 22 21:46:45 2009
+
+Total Line Count : 42
+
+ Elaboration Time: 0.03125 sec
+
+ Current Memory Usage: 141.328 Meg
+
+ Total Signals          : 27
+ Total Nets             : 82
+ Total Signal Drivers   : 11
+ Total Blocks           : 7
+ Total Primitive Blocks : 1
+ Total Processes        : 4
+ Total Traceable Variables  : 13
+ Total Scalar Nets and Variables : 981
+ntrace select -o on -n /test_alu/r 
+ntrace select -o on -n /test_alu/l 
+ntrace select -o on -n /test_alu/z 
+ntrace select -o on -n /test_alu/do_rshift 
+ntrace select -o on -n /test_alu/aluop_sz 
+ntrace select -o on -n /test_alu/mswc 
+ntrace select -o on -n /test_alu/use_carry 
+ntrace select -o on -n /test_alu/aluop 
+ntrace select -o on -n /test_alu/ir 
+ntrace select -o on -n /test_alu/aluv 
+ntrace select -o on -n /test_alu/aluc 
+ntrace select -o on -n /test_alu/alus 
+ntrace select -o on -n /test_alu/aluz 
+ntrace start 
+isimrun 1000 ns 
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+
+ Total Simulation Time: 0.09375 sec
+
+ Current Memory Usage: 151.814 Meg
+
+Sun Mar 22 22:09:22 2009
+

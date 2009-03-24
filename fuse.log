@@ -1,0 +1,34 @@
+Determining compilation order of HDL files
+Analyzing VHDL file ALU.vhd
+Restoring VHDL parse-tree ieee.std_logic_1164 from
+c:/xilinx/10.1/ise/vhdl/hdp/nt/ieee/std_logic_1164.vdb
+Restoring VHDL parse-tree std.standard from
+c:/xilinx/10.1/ise/vhdl/hdp/nt/std/standard.vdb
+Restoring VHDL parse-tree ieee.std_logic_arith from
+c:/xilinx/10.1/ise/vhdl/hdp/nt/ieee/std_logic_arith.vdb
+Restoring VHDL parse-tree ieee.std_logic_unsigned from
+c:/xilinx/10.1/ise/vhdl/hdp/nt/ieee/std_logic_unsigned.vdb
+Analyzing VHDL file test_ALU.vhw
+Restoring VHDL parse-tree ieee.std_logic_textio from
+c:/xilinx/10.1/ise/vhdl/hdp/nt/ieee/std_logic_textio.vdb
+Restoring VHDL parse-tree std.textio from
+c:/xilinx/10.1/ise/vhdl/hdp/nt/std/textio.vdb
+Saving VHDL parse-tree work.alu into c:/magic-1_fpga/magic_1/isim/work/alu.vdb
+Saving VHDL parse-tree work.test_alu into
+c:/magic-1_fpga/magic_1/isim/work/test_alu.vdb
+Starting static elaboration
+Completed static elaboration
+Fuse Memory Usage: 55992 Kb
+Fuse CPU Usage: 483 ms
+Using precompiled package standard from library std
+Using precompiled package std_logic_1164 from library ieee
+Using precompiled package std_logic_arith from library ieee
+Using precompiled package std_logic_unsigned from library ieee
+Using precompiled package textio from library std
+Using precompiled package std_logic_textio from library ieee
+Compiling architecture behavioral of entity alu [alu_default]
+Compiling architecture testbench_arch of entity test_alu
+Compiled 9 VHDL Units
+Built simulation executable test_ALU_isim_beh.exe
+Fuse Memory Usage: 57276 Kb
+Fuse CPU Usage: 514 ms
