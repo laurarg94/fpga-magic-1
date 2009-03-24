@@ -1,0 +1,16 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+This project will be the VHDL description of the Magic-1 computer. I will work on this every day (except weekends).
+
+24-mar-2009
+   * Working on ALU (Register / ALU Card)
+
+
+= Details =
+
+Important links:
+  * http://groups.google.com/group/comp.lang.vhdl/topics
+  * http://www.homebrewcpu.com/
+  * http://www.youtube.com/view_play_list?p=D2350A83B752C861
