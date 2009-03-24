@@ -4,13 +4,13 @@ Copyright (c) 1995-2008 Xilinx, Inc.  All rights reserved.
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.27 secs
+Total CPU time to Xst completion: 0.26 secs
  
 --> Parameter xsthdpdir set to C:/fpga-magic-1/xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.27 secs
+Total CPU time to Xst completion: 0.26 secs
  
 --> Reading design: ALU.prj
 
@@ -106,8 +106,7 @@ Slice Utilization Ratio Delta      : 5
 *                          HDL Compilation                              *
 =========================================================================
 Compiling vhdl file "C:/fpga-magic-1/ALU.vhd" in Library work.
-Entity <alu> compiled.
-Entity <alu> (Architecture <behavioral>) compiled.
+Architecture behavioral of Entity alu is up to date.
 
 =========================================================================
 *                     Design Hierarchy Analysis                         *

@@ -27,3 +27,4 @@ xst -ise "C:/Magic-1_FPGA/Magic_1/Magic_1.ise" -intstyle ise -ifn "C:/Magic-1_FP
 xst -ise "C:/fpga-magic-1/Magic_1.ise" -intstyle ise -ifn "C:/fpga-magic-1/ALU.xst" -ofn "C:/fpga-magic-1/ALU.syr"
 xst -ise "C:/fpga-magic-1/Magic_1.ise" -intstyle ise -ifn "C:/fpga-magic-1/ALU.xst" -ofn "C:/fpga-magic-1/ALU.syr"
 xst -ise "C:/fpga-magic-1/Magic_1.ise" -intstyle ise -ifn "C:/fpga-magic-1/ALU.xst" -ofn "C:/fpga-magic-1/ALU.syr"
+xst -ise "C:/fpga-magic-1/Magic_1.ise" -intstyle ise -ifn "C:/fpga-magic-1/ALU.xst" -ofn "C:/fpga-magic-1/ALU.syr"
