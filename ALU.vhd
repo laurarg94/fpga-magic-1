@@ -74,7 +74,7 @@ begin
 	--Process to define ALU Behavior (Combinational Circuit)
 	process (R,L,Alu_ControlInput)
 	begin
-		case IR(1 to 3) is
+		case Alu_ControlInput is
 			when "000" => 
 				Z_Intermediate <= (OTHERS => '0');
 			when "001" => 
