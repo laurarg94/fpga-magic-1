@@ -1,6 +1,0 @@
-CommandLine
-C:\Xilinx\10.1\ISE\bin\nt\unwrapped\xst.exe -ise C:/Magic-1_FPGA/Magic_1/Magic_1.ise -intstyle ise -ifn C:/Magic-1_FPGA/Magic_1/ALU.xst -ofn C:/Magic-1_FPGA/Magic_1/ALU.syr -finalclean 1
-s
-FormatString
-xst [-ifn <InputFile>] [-ofn <OutputFile>] [-ise <iseProjectFile>] [--quiet] [-intstyle <Style>] [--deb <DebugLevel>] [--finalclean <Clean>] [--PcubeFlow] [--globOptFlow] [--XstNtrc]
-s
