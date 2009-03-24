@@ -1,7 +1,7 @@
 V3 4
 FL C:/fpga-magic-1/ALU.vhd 2009/03/24.19:55:46 K.31
-EN work/ALU 1237935603 FL C:/fpga-magic-1/ALU.vhd PB ieee/std_logic_1164 1200023565 \
+EN work/ALU 1237935755 FL C:/fpga-magic-1/ALU.vhd PB ieee/std_logic_1164 1200023565 \
       PB ieee/std_logic_arith 1200023566 PB ieee/STD_LOGIC_UNSIGNED 1200023567
-AR work/ALU/Behavioral 1237935604 \
-      FL C:/fpga-magic-1/ALU.vhd EN work/ALU 1237935603
+AR work/ALU/Behavioral 1237935756 \
+      FL C:/fpga-magic-1/ALU.vhd EN work/ALU 1237935755
 FL C:/Magic-1_FPGA/Magic_1/ALU.vhd 2009/03/23.23:19:55 K.31
