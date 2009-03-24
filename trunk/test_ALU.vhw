@@ -8,7 +8,7 @@
 -- \   \   \/     Version : 10.1
 --  \   \         Application : ISE
 --  /   /         Filename : test_ALU.vhw
--- /___/   /\     Timestamp : Sun Mar 22 21:46:36 2009
+-- /___/   /\     Timestamp : Tue Mar 24 20:12:54 2009
 -- \   \  /  \ 
 --  \___\/\___\ 
 --
@@ -28,8 +28,6 @@ ENTITY test_ALU IS
 END test_ALU;
 
 ARCHITECTURE testbench_arch OF test_ALU IS
-    FILE RESULTS: TEXT OPEN WRITE_MODE IS "results.txt";
-
     COMPONENT ALU
         PORT (
             R : In std_logic_vector (0 To 15);

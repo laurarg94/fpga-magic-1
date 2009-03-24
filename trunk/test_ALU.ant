@@ -8,7 +8,7 @@
 -- \   \   \/     Version : 10.1
 --  \   \         Application : ISE
 --  /   /         Filename : test_ALU.ant
--- /___/   /\     Timestamp : Sun Mar 22 21:46:36 2009
+-- /___/   /\     Timestamp : Tue Mar 24 20:12:55 2009
 -- \   \  /  \ 
 --  \___\/\___\ 
 --
@@ -28,7 +28,7 @@ ENTITY test_ALU IS
 END test_ALU;
 
 ARCHITECTURE testbench_arch OF test_ALU IS
-    FILE RESULTS: TEXT OPEN WRITE_MODE IS "C:\Magic-1_FPGA\Magic_1\test_ALU.ano";
+    FILE RESULTS: TEXT OPEN WRITE_MODE IS "C:\fpga-magic-1\test_ALU.ano";
 
     COMPONENT ALU
         PORT (
