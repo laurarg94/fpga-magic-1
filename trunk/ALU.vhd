@@ -46,19 +46,33 @@ entity ALU is
 end ALU;
 
 architecture Behavioral of ALU is
---signal Alu_ControlInput : std_logic_vector(0 to 4);
+signal Alu_ControlInput : std_logic_vector(0 to 2);
 signal Z_Intermediate : STD_LOGIC_VECTOR (0 to 16);
---signal overflow: STD_LOGIC_VECTOR(2 downto 0); 
 begin
 	-- Combinational logic to decode ALUOP and IR to control ALU operations
-	-- If ALUOP='11' operation is ADD
+	-- If ALUOP='11' operation is ADD	(Check 74F382)
 	-- If ALUOP='10' operation is SUB
 	-- if ALUOP='01' operation is AND
 	-- if ALUOP='00' operation is defined in IR(1 to 3)
 	--Alu_ControlInput <= ALUOP & IR(1 to 3);
+	 SEL_ALU_CONTROL: process (ALUOP,IR(1 to 3))
+	 begin
+		case ALUOP is
+			when "00" =>
+				Alu_ControlInput <= IR(1 to 3);		-- Pass IR(1 to 3) directly
+			when "01" =>
+				Alu_ControlInput <= "011";				-- AND
+			when "10" =>
+				Alu_ControlInput <= "011";				-- SUB
+			when "11" =>
+				Alu_ControlInput <= "110";				-- ADD
+			WHEN OTHERS => 
+				Alu_ControlInput <= (OTHERS => 'U');
+		end case;
+	 end process;
 	
 	--Process to define ALU Behavior (Combinational Circuit)
-	process (R,L,IR(1 to 3))
+	process (R,L,Alu_ControlInput)
 	begin
 		case IR(1 to 3) is
 			when "000" => 
@@ -93,7 +107,7 @@ begin
 		end if;		
 		
 		-- Sign flag
-		if Z_Intermediate(15) = '0' then)
+		if Z_Intermediate(15) = '0' then
 			ALUS <= '0';
 		else
 			ALUS <= '1';
@@ -112,7 +126,7 @@ begin
 	process (Z_Intermediate,DO_RSHIFT)
 	begin
 		if DO_RSHIFT = '1' then
-			Z <= Z_Intermediate(0 to 15) + Z_Intermediate(0 to 15);
+			Z <= Z_Intermediate(0 to 15) + Z_Intermediate(0 to 15);	-- Simple Addition
 		else
 			Z <= Z_Intermediate(0 to 15);
 		end if;	

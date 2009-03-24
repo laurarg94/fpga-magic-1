@@ -1,5 +1,5 @@
-set -tmpdir "C:/Magic-1_FPGA/Magic_1/xst/projnav.tmp"
-set -xsthdpdir "C:/Magic-1_FPGA/Magic_1/xst"
+set -tmpdir "C:/fpga-magic-1/xst/projnav.tmp"
+set -xsthdpdir "C:/fpga-magic-1/xst"
 run
 -ifn ALU.prj
 -ifmt mixed
