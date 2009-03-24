@@ -2,24 +2,24 @@ Command line:
    ./test_ALU_isim_beh.exe
      -intstyle  ise
      -ipchost  localhost
-     -ipcport  3018
+     -ipcport  1812
 
-Sun Mar 22 21:46:45 2009
+Tue Mar 24 20:13:01 2009
 
-Total Line Count : 42
+Total Line Count : 50
 
- Elaboration Time: 0.03125 sec
+ Elaboration Time: 0 sec
 
  Current Memory Usage: 141.328 Meg
 
- Total Signals          : 27
- Total Nets             : 82
- Total Signal Drivers   : 11
+ Total Signals          : 28
+ Total Nets             : 86
+ Total Signal Drivers   : 12
  Total Blocks           : 7
  Total Primitive Blocks : 1
- Total Processes        : 4
+ Total Processes        : 5
  Total Traceable Variables  : 13
- Total Scalar Nets and Variables : 981
+ Total Scalar Nets and Variables : 985
 ntrace select -o on -n /test_alu/r 
 ntrace select -o on -n /test_alu/l 
 ntrace select -o on -n /test_alu/z 
@@ -38,9 +38,9 @@ isimrun 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
 
- Total Simulation Time: 0.09375 sec
+ Total Simulation Time: 0.078125 sec
 
- Current Memory Usage: 151.814 Meg
+ Current Memory Usage: 151.88 Meg
 
-Sun Mar 22 22:09:22 2009
+Tue Mar 24 20:15:46 2009
 
