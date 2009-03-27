@@ -48,7 +48,7 @@ ARCHITECTURE behavior OF SpecialRegisterTester IS
          RESET : IN  std_logic;
          L_MAR : IN  std_logic;
          Z : IN  std_logic_vector(0 to 15);
-         MAR : OUT  std_logic_vector(0 to 15);
+         MAR : inout  std_logic_vector(0 to 15);
          EL_MAR : IN  std_logic;
          L : OUT  std_logic_vector(0 to 15)
         );
@@ -99,6 +99,16 @@ BEGIN
       IMMVAL <= "01";
 		ER_IMM <= '0';
 		wait for 20 ns;
+		
+		REPORT "RESET" SEVERITY WARNING;
+      RESET <= '1';		
+		wait for 20 ns;
+		
+		REPORT "LOAD MAR" SEVERITY WARNING;
+      RESET <= '0';		
+		MAR <= "1111000011110011";
+		L_MAR <= '1';
+		--wait for 20 ns;
 
       wait;
    end process;

@@ -35,19 +35,19 @@ entity SpecialRegisters is
            RESET : in  STD_LOGIC;
            L_MAR : in  STD_LOGIC;
            Z : in  STD_LOGIC_VECTOR (0 to 15);
-           MAR : out  STD_LOGIC_VECTOR (0 to 15);
+           MAR : inout  STD_LOGIC_VECTOR (0 to 15);
            EL_MAR : in  STD_LOGIC;
            L : out  STD_LOGIC_VECTOR (0 to 15));
 end SpecialRegisters;
 
 architecture Behavioral of SpecialRegisters is
-
+--signal MAR_tmp : std_logic_vector(0 to 15);
 begin
 
 	-- Process to describe behavior of IMM
 	process (IMMVAL,ER_IMM)
 	begin
-		if ER_IMM = '1' then
+		if ER_IMM = '0' then
 			R(15) <= IMMVAL(1);
 			
 			-- Let all other bits (0 to 14) receive value from IMMVAL(0)
@@ -58,7 +58,28 @@ begin
 			R <= (OTHERS => 'Z');
 		end if;
 	end process;
-
+	
+	-- Process to describe behavior of MAR (Memory Address register)
+	process (RESET,L_MAR)
+	begin
+		if RESET = '0' then
+			MAR <= (others => '0');
+		else
+			if rising_edge(L_MAR) then
+				MAR <= Z;				
+			end if;
+		end if;
+	end process;
+	
+	-- Process to describe behavior of loading MAR value in L bus
+	process (EL_MAR)
+	begin
+		if EL_MAR = '0' then
+			L <= MAR;
+		else
+			L <= (OTHERS => 'Z');
+		end if;
+	end process;
 
 end Behavioral;
 
