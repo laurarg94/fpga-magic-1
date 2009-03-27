@@ -1,2 +1,1 @@
-work	ALU.vhd
-work	standardDefinitions.vhd
+work	SpecialRegisters.vhd
