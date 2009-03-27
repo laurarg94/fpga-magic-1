@@ -846,8 +846,7 @@ proc restore { { project_dir "" } } {
     AddUserFiles $iProjHelper $user_files
   } "A problem occured while restoring user files."
 
-  set imported_files { 
-      "SpecialRegisters.sym"}
+  set imported_files {}
 
   set origination 2
 
