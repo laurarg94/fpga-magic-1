@@ -21,6 +21,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use work.standardDefinitions.ALL;
 
 ---- Uncomment the following library declaration if instantiating
 ---- any Xilinx primitives in this code.
@@ -28,6 +29,16 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --use UNISIM.VComponents.all;
 
 -- Describe ALU using Behavior description (Logic Based on 74F382 4-bit ALU)
+-- This ALU will provide the following operations
+-- Code   Operation
+-- 0
+-- 1
+-- 2		SUB	
+-- 3		ADD
+-- 4		XOR
+-- 5		OR
+-- 6		AND
+-- 7
 
 entity ALU is
     Port ( R : in  STD_LOGIC_VECTOR (0 to 15);     -- Operand 1 (Big endian)
@@ -46,11 +57,11 @@ entity ALU is
 end ALU;
 
 architecture Behavioral of ALU is
-signal Alu_ControlInput : std_logic_vector(0 to 2);
+signal Alu_ControlInput : aluControl_type;
 signal Z_Intermediate : STD_LOGIC_VECTOR (0 to 16);
 begin
 	-- Combinational logic to decode ALUOP and IR to control ALU operations
-	-- If ALUOP='11' operation is ADD	(Check 74F382)
+	-- If ALUOP='11' operation is ADD	(Check 74F382, for right bits of each operation)
 	-- If ALUOP='10' operation is SUB
 	-- if ALUOP='01' operation is AND
 	-- if ALUOP='00' operation is defined in IR(1 to 3)
@@ -61,38 +72,32 @@ begin
 			when "00" =>
 				Alu_ControlInput <= IR(1 to 3);		-- Pass IR(1 to 3) directly
 			when "01" =>
-				Alu_ControlInput <= "011";				-- AND
+				Alu_ControlInput <= alu_and;
 			when "10" =>
-				Alu_ControlInput <= "011";				-- SUB
+				Alu_ControlInput <= alu_sub;				
 			when "11" =>
-				Alu_ControlInput <= "110";				-- ADD
+				Alu_ControlInput <= alu_add;	
 			WHEN OTHERS => 
-				Alu_ControlInput <= (OTHERS => 'U');
+				Alu_ControlInput <= alu_dontcare;
 		end case;
 	 end process;
 	
 	--Process to define ALU Behavior (Combinational Circuit)
 	process (R,L,Alu_ControlInput)
 	begin
-		case Alu_ControlInput is
-			when "000" => 
-				Z_Intermediate <= (OTHERS => '0');
-			when "001" => 
-				Z_Intermediate <= ('0' & L) - ('0' & R);
-			when "010" => 
-				Z_Intermediate <= ('0' & R) - ('0' & L);				
-			when "011" => 
+		case Alu_ControlInput is			
+			when alu_sub => 
+				Z_Intermediate <= ('0' & R) - ('0' & L);				-- The & is used to append the bit
+			when alu_add => 
 				Z_Intermediate <= ('0' & R) + ('0' & L);				
-			when "100" => 
+			when alu_xor => 
 				Z_Intermediate <= ('0' & R) xor ('0' & L);				
-			when "101" => 
+			when alu_or => 
 				Z_Intermediate <= ('0' & R) or ('0' & L);				
-			when "110" => 
-				Z_Intermediate <= ('0' & R) and ('0' & L);				
-			when "111" => 
-				Z_Intermediate <= (OTHERS => '1');
+			when alu_and => 
+				Z_Intermediate <= ('0' & R) and ('0' & L);							
 			WHEN OTHERS => 
-				Z_Intermediate <= (OTHERS => 'U');
+				Z_Intermediate <= (OTHERS => 'X');
 		end case;
 	end process;
 	
