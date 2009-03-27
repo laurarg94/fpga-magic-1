@@ -41,7 +41,7 @@ use work.standardDefinitions.ALL;
 -- 7
 
 entity ALU is
-    Port ( R : in  STD_LOGIC_VECTOR (0 to 15);     -- Operand 1 (Big endian)
+    Port ( R : in  STD_LOGIC_VECTOR (0 to 15);     -- Operand 1 (Big endian, MSB is bit 0)
            L : in  STD_LOGIC_VECTOR (0 to 15);		-- Operand 2
            Z : out  STD_LOGIC_VECTOR (0 to 15);		-- Result
            DO_RSHIFT : in  STD_LOGIC;					-- Right shift
@@ -83,7 +83,7 @@ begin
 	 end process;
 	
 	--Process to define ALU Behavior (Combinational Circuit)
-	process (R,L,Alu_ControlInput)
+	process (Alu_ControlInput)
 	begin
 		case Alu_ControlInput is			
 			when alu_sub => 
@@ -115,7 +115,7 @@ begin
 	end process;
 	
 	-- Process to generate flags (Zero, Sign, Carry, Overflow)
-	process (R,L,Z_Intermediate)
+	process (Z_Intermediate)
 	begin
 		-- Zero flag
 		if Z_Intermediate = "00000000000000000" then
@@ -132,7 +132,7 @@ begin
 		end if;
 						
 		-- Carry flag
-		ALUC <= Z_Intermediate(16);
+		ALUC <= Z_Intermediate(0);
 		
 		-- Overflow (http://www.csee.umbc.edu/~squire/cs411_l8.html) and (http://intelliwiki.kylesblog.com/index.php/Overflow_Flag)
 		-- Two complement addition overflow when signs of input are the same but
@@ -144,29 +144,28 @@ begin
 				-- Adding two positive numbers producing a negative result
 				-- OR
 				-- Adding two negative numbers producing a positive result
-				ALUV <= (R(15) and L(15) and (not Z_Intermediate(15)))   or   ((not R(15)) and (not L(15)) and Z_Intermediate(15));
+				ALUV <= (R(0) and L(0) and (not Z_Intermediate(1)))   or   ((not R(0)) and (not L(0)) and Z_Intermediate(1));
 			
 			when alu_sub =>
 				-- When substracting we can get two overflow situations.....
 				-- Substracting a positive number from a negative number gaving a positive result
 				-- OR
 				-- Substracting a negative number from a positive number gaving a negative result
-				ALUV <= ((not R(15)) and (L(15)) and (not Z_Intermediate(15)))    or    ((R(15)) and (not L(15)) and Z_Intermediate(15));
+				ALUV <= ((not R(0)) and (L(0)) and (not Z_Intermediate(1)))    or    ((R(0)) and (not L(0)) and Z_Intermediate(1));
 			
 			when others => 
 				ALUV <= '0';
 		end case;
-	end process;
-	
-	-- Process to deal with DO_RSHIFT signal
-	process (Z_Intermediate,DO_RSHIFT)
-	begin
+		
+		-- Deal with DO_RSHIFT (Remember that the now the MSB is 0 Big endian
 		if DO_RSHIFT = '1' then
-			Z <= Z_Intermediate(0 to 15) + Z_Intermediate(0 to 15);	-- Simple Addition
+			Z <= Z_Intermediate(1 to 16) + Z_Intermediate(1 to 16);	-- Simple Addition
 		else
-			Z <= Z_Intermediate(0 to 15);
+			Z <= Z_Intermediate(1 to 16);
 		end if;	
-	end process;		
+		
+	end process;
+		
 
 end Behavioral;
 
