@@ -1,1 +1,2 @@
+vhdl work "standardDefinitions.vhd"
 vhdl work "ALU.vhd"
