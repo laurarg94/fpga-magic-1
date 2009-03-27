@@ -1,1 +1,2 @@
-work	C:/fpga-magic-1/ALU.vhd
+work	ALU.vhd
+work	standardDefinitions.vhd

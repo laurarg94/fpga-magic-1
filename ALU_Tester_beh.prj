@@ -1,0 +1,3 @@
+vhdl work "standardDefinitions.vhd"
+vhdl work "ALU.vhd"
+vhdl work "ALU_Tester.vhd"
