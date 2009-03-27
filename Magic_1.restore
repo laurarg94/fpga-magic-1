@@ -839,8 +839,7 @@ proc restore { { project_dir "" } } {
       "ALU.vhd" 
       "standardDefinitions.vhd" 
       "test_ALU.tbw" 
-      "test_ALU_selfcheck_beh.vhd" 
-      "test_ALU_tb_0.v"}
+      "test_ALU_selfcheck_beh.vhd"}
 
   HandleException {
     AddUserFiles $iProjHelper $user_files
