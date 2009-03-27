@@ -29,7 +29,7 @@ use work.standardDefinitions.ALL;
 --use UNISIM.VComponents.all;
 
 -- Describe ALU using Behavior description (Logic Based on 74F382 4-bit ALU)
--- This ALU will provide the following operations
+-- This ALU will provide the following operations (Other operations from 74F382 will be unused)
 -- Code   Operation
 -- 0
 -- 1
@@ -50,7 +50,7 @@ entity ALU is
            USE_CARRY : in  STD_LOGIC;					-- Use carry
            ALUOP : in  STD_LOGIC_VECTOR (0 to 1);  -- Define ALU operations (ADD,SUB,ABD,pass to IR)
            IR : in  STD_LOGIC_VECTOR (0 to 7);		-- (1 to 3) define ALU operations
-           ALUV : out  STD_LOGIC;						-- Overflow flag
+           ALUV : out  STD_LOGIC;						-- Overflow flag (Only have meaning in signed operations (and, sub)
            ALUC : out  STD_LOGIC;						-- Carry flag
            ALUS : out  STD_LOGIC;						-- Sign flag
            ALUZ : out  STD_LOGIC);						-- Zero flag
@@ -87,21 +87,34 @@ begin
 	begin
 		case Alu_ControlInput is			
 			when alu_sub => 
-				Z_Intermediate <= ('0' & R) - ('0' & L);				-- The & is used to append the bit
+				if USE_CARRY = '0' then
+					Z_Intermediate <= ('0' & R) - ('0' & L);				-- The & is used to concatenate the bits
+				else
+					Z_Intermediate <= ('0' & R) - ('0' & L) - ("000000000000000" & MSWC);
+				end if;
+				
 			when alu_add => 
-				Z_Intermediate <= ('0' & R) + ('0' & L);				
+				if USE_CARRY = '0' then
+					Z_Intermediate <= ('0' & R) + ('0' & L);				
+				else
+					Z_Intermediate <= ('0' & R) + ('0' & L) + ("000000000000000" & MSWC);				
+				end if;
+				
 			when alu_xor => 
-				Z_Intermediate <= ('0' & R) xor ('0' & L);				
+				Z_Intermediate <= ('0' & R) xor ('0' & L);								
+				
 			when alu_or => 
 				Z_Intermediate <= ('0' & R) or ('0' & L);				
+				
 			when alu_and => 
-				Z_Intermediate <= ('0' & R) and ('0' & L);							
-			WHEN OTHERS => 
+				Z_Intermediate <= ('0' & R) and ('0' & L);											
+				
+			when others => 
 				Z_Intermediate <= (OTHERS => 'X');
 		end case;
 	end process;
 	
-	-- Process to generate flags
+	-- Process to generate flags (Zero, Sign, Carry, Overflow)
 	process (R,L,Z_Intermediate)
 	begin
 		-- Zero flag
@@ -121,10 +134,28 @@ begin
 		-- Carry flag
 		ALUC <= Z_Intermediate(16);
 		
-		-- Overflow (http://www.csee.umbc.edu/~squire/cs411_l8.html)
+		-- Overflow (http://www.csee.umbc.edu/~squire/cs411_l8.html) and (http://intelliwiki.kylesblog.com/index.php/Overflow_Flag)
 		-- Two complement addition overflow when signs of input are the same but
 		-- sign of output is different
-		ALUV <= '1';
+		-- Overflow only make sense in sign operations.
+		case Alu_ControlInput is
+			when alu_add =>
+				-- When adding we can get two overflow situations.....
+				-- Adding two positive numbers producing a negative result
+				-- OR
+				-- Adding two negative numbers producing a positive result
+				ALUV <= (R(15) and L(15) and (not Z_Intermediate(15)))   or   ((not R(15)) and (not L(15)) and Z_Intermediate(15));
+			
+			when alu_sub =>
+				-- When substracting we can get two overflow situations.....
+				-- Substracting a positive number from a negative number gaving a positive result
+				-- OR
+				-- Substracting a negative number from a positive number gaving a negative result
+				ALUV <= ((not R(15)) and (L(15)) and (not Z_Intermediate(15)))    or    ((R(15)) and (not L(15)) and Z_Intermediate(15));
+			
+			when others => 
+				ALUV <= '0';
+		end case;
 	end process;
 	
 	-- Process to deal with DO_RSHIFT signal
