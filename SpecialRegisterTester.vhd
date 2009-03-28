@@ -88,6 +88,9 @@ BEGIN
    -- Stimulus process
    stim_proc: process
    begin		
+	   RESET <= '1';
+		EL_MAR <= '1';
+		MAR <= (others => 'Z');
       wait for 20 ns;			
 		-- Wait 20 ns for system to settle
 		REPORT "IMMVAL=01 and ER_IMM=1" SEVERITY WARNING;
@@ -101,14 +104,27 @@ BEGIN
 		wait for 20 ns;
 		
 		REPORT "RESET" SEVERITY WARNING;
-      RESET <= '1';		
+      RESET <= '0';		
 		wait for 20 ns;
 		
-		REPORT "LOAD MAR" SEVERITY WARNING;
-      RESET <= '0';		
-		MAR <= "1111000011110011";
+		REPORT "LOAD MAR from Z" SEVERITY WARNING;
+      RESET <= '1';		
+		Z <= "1111000011110011";
 		L_MAR <= '1';
-		--wait for 20 ns;
+		wait for 20 ns;
+		
+		REPORT "LOAD L from MAR" SEVERITY WARNING;      
+		EL_MAR <= '0';
+		wait for 20 ns;
+		
+		REPORT "PUT L High Impedance" SEVERITY WARNING;      
+		EL_MAR <= '1';
+		wait for 20 ns;
+		
+		REPORT "Test MAR memory" SEVERITY WARNING;      
+		L_MAR <= '0';
+		Z <= "1111111111000000";
+		wait for 20 ns;
 
       wait;
    end process;
