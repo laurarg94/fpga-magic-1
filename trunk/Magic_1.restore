@@ -838,6 +838,8 @@ proc restore { { project_dir "" } } {
   set user_files { 
       "ALU.vhd" 
       "ALU_Tester.vhd" 
+      "GeneralRegisters.vhd" 
+      "GeneralRegistersTester.vhd" 
       "SpecialRegisterTester.vhd" 
       "SpecialRegisters.vhd" 
       "standardDefinitions.vhd"}
