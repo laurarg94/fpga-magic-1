@@ -1,8 +1,20 @@
-#summary One-sentence summary of this page.
+#summary Magic-1 VHDL Port Introduction page
 
 = Introduction =
 
 This project will be the VHDL description of the Magic-1 computer. I will work on this every day (except weekends).
+
+Sample code in M1 assembly language.
+{{{
+next4:
+    ld.16   a,0xabfd
+    ld.16   b,0xab00
+    cmpb.eq.16	a,b,fail
+    ld.8    b,0xfd
+    cmpb.ne.16	a,b,fail
+    cmpb.eq.16	a,b,next5
+    br	fail
+}}}
 
 24-mar-2009
    * Working on ALU (Register / ALU Card)
