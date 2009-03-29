@@ -14,3 +14,6 @@ Important links:
   * http://groups.google.com/group/comp.lang.vhdl/topics
   * http://www.homebrewcpu.com/
   * http://www.youtube.com/view_play_list?p=D2350A83B752C861
+  * http://code.google.com/p/edain/
+  * http://code.google.com/p/gle-mips/
+  * http://en.wikipedia.org/wiki/DLX
