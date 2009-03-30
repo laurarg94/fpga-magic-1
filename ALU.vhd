@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: 
+-- Engineer:       Leonardo Araujo dos Santos
 -- 
 -- Create Date:    10:22:55 03/21/2009 
 -- Design Name: 	 ALU Magic-1
