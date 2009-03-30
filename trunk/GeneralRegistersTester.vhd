@@ -58,30 +58,30 @@ ARCHITECTURE behavior OF GeneralRegistersTester IS
          COMMIT : IN  std_logic;
          EL_TPC : IN  std_logic;
          Z : IN  std_logic_vector(0 to 15);
-         L : OUT  std_logic_vector(0 to 15)
+         L : INOUT  std_logic_vector(0 to 15)
         );
     END COMPONENT;
     
 
    --Inputs
-   signal EL_A : std_logic := '0';
+   signal EL_A : std_logic := '1';
    signal L_A_HI : std_logic := '0';
    signal L_A_LO : std_logic := '0';
-   signal EL_B : std_logic := '0';
+   signal EL_B : std_logic := '1';
    signal L_B_HI : std_logic := '0';
    signal L_B_LO : std_logic := '0';
-   signal EL_C : std_logic := '0';
+   signal EL_C : std_logic := '1';
    signal L_C : std_logic := '0';
-   signal EL_DP : std_logic := '0';
+   signal EL_DP : std_logic := '1';
    signal L_DP : std_logic := '0';
-   signal EL_SP : std_logic := '0';
+   signal EL_SP : std_logic := '1';
    signal L_SP : std_logic := '0';
-   signal EL_SSP : std_logic := '0';
+   signal EL_SSP : std_logic := '1';
    signal L_SSP : std_logic := '0';
-   signal EL_PC : std_logic := '0';
+   signal EL_PC : std_logic := '1';
    signal L_PC : std_logic := '0';
    signal COMMIT : std_logic := '0';
-   signal EL_TPC : std_logic := '0';
+   signal EL_TPC : std_logic := '1';
    signal Z : std_logic_vector(0 to 15) := (others => '0');
 
  	--Outputs
@@ -113,29 +113,128 @@ BEGIN
           L => L
         );
  
-   -- No clocks detected in port list. Replace <clock> below with 
-   -- appropriate port name 
- 
-   constant <clock>_period := 1ns;
- 
-   <clock>_process :process
-   begin
-		<clock> <= '0';
-		wait for <clock>_period/2;
-		<clock> <= '1';
-		wait for <clock>_period/2;
-   end process;
- 
-
-   -- Stimulus process
+  -- Stimulus process
    stim_proc: process
    begin		
-      -- hold reset state for 100ms.
-      wait for 100ms;	
+      -- Test low byte load in REG_A
+		Z <= "0000111111110000";
+		L_A_HI <= '0';
+		L_A_LO <= '1';		
+      wait for 20 ns;	
 
-      wait for <clock>_period*10;
+		Z <= (others => 'U');
+		L_A_HI <= '0';
+		L_A_LO <= '0';
+		EL_A <= '0';
+      wait for 20 ns;	      
+		
+		-- Test high byte load in REG_A
+		Z <= "0000111111110000";
+		L_A_HI <= '1';
+		L_A_LO <= '0';		
+		EL_A <= '1';
+      wait for 20 ns;	
 
-      -- insert stimulus here 
+		Z <= (others => 'U');
+		L_A_HI <= '0';
+		L_A_LO <= '0';
+		EL_A <= '0';
+      wait for 20 ns;
+---------------------------------------------------------------------------------------
+		-- Test low byte load in REG_B
+		Z <= "1111111100000000";
+		L_B_HI <= '0';
+		L_B_LO <= '1';		
+		EL_A <= '1';
+      wait for 20 ns;	
+
+		Z <= (others => 'U');
+		L_B_HI <= '0';
+		L_B_LO <= '0';
+		EL_B <= '0';
+      wait for 20 ns;	      
+		
+		-- Test high byte load in REG_B
+		Z <= "0000000011111111";
+		L_B_HI <= '1';
+		L_B_LO <= '0';		
+		EL_B <= '1';
+      wait for 20 ns;	
+
+		Z <= (others => 'U');
+		L_B_HI <= '0';
+		L_B_LO <= '0';
+		EL_B <= '0';
+      wait for 20 ns;
+---------------------------------------------------------------------------------------
+		-- Test load in REG_C
+		Z <= "1111111100000000";
+		L_C <= '1';		
+		EL_B <= '1';
+      wait for 20 ns;
+		
+		Z <= (others => 'U');
+		L_C <= '0';				
+		EL_C <= '0';
+      wait for 20 ns;
+---------------------------------------------------------------------------------------
+		-- Test load in REG_DP
+		Z <= "0000000011111111";
+		L_DP <= '1';		
+		EL_C <= '1';
+      wait for 20 ns;
+		
+		Z <= (others => 'U');
+		L_DP <= '0';				
+		EL_DP <= '0';
+      wait for 20 ns;
+---------------------------------------------------------------------------------------
+		-- Test load in REG_SP
+		Z <= "1010101010101010";
+		L_SP <= '1';		
+		EL_DP <= '1';
+      wait for 20 ns;
+		
+		Z <= (others => 'U');
+		L_SP <= '0';				
+		EL_SP <= '0';
+      wait for 20 ns;
+---------------------------------------------------------------------------------------
+		-- Test load in REG_SSP
+		Z <= "0101010101010101";
+		L_SSP <= '1';		
+		EL_SP <= '1';
+      wait for 20 ns;
+		
+		Z <= (others => 'U');
+		L_SSP <= '0';				
+		EL_SSP <= '0';
+      wait for 20 ns;
+---------------------------------------------------------------------------------------
+		-- Test load in REG_PC
+		Z <= "0000000000000001";
+		L_PC <= '1';		
+		EL_SSP <= '1';
+      wait for 20 ns;
+		
+		Z <= (others => 'U');
+		L_PC <= '0';				
+		EL_PC <= '0';
+      wait for 20 ns;
+---------------------------------------------------------------------------------------
+		-- Test load in REG_TPC		
+		COMMIT <= '1';	-- Save "0000000000000001" from L (Last value in REG_PC)
+      wait for 20 ns;
+		
+		EL_PC <= '1';
+		COMMIT <= '0';				
+		-- Get REG_A
+		EL_A <= '0';
+      wait for 20 ns;
+		
+		-- Get REG_TPC
+		EL_A <= '1';
+		EL_TPC <= '0';
 
       wait;
    end process;

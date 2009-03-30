@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: 
+-- Engineer:       Leonardo Araujo dos Santos
 -- 
 -- Create Date:    16:28:22 03/27/2009 
 -- Design Name: 	 Special Registers Magic-1 
