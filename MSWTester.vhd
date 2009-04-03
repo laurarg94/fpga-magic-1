@@ -75,7 +75,7 @@ ARCHITECTURE behavior OF MSWTester IS
    signal ALUZ : std_logic := '0';
    signal L_MSW : std_logic := '0';
    signal RESET : std_logic := '0';
-   signal L_MODE : std_logic := '0';
+   signal L_MODE : std_logic := '1';
    signal L_PAGING : std_logic := '0';
    signal L_FAULT : std_logic := '0';
    signal MEMREF : std_logic := '0';
@@ -127,15 +127,63 @@ BEGIN
    begin		
       -- RESET
 		RESET <= '1';
+		L_MODE <= '0';
+		SET_FLAGS <= '1';	-- Select flags comming from Z		
 		wait for 20 ns;
 		
-		-- Test ALU flags comming from line Z
-		SET_FLAGS <= '1';	-- Select flags comming from Z		
-		Z <= "UUUUUUUUUUUU1010";
+		-- Test ALU flags comming from line Z		
+		Z <= "UUUUUUUUUUUU1100";
 		EL_MSW <= '1';
 		L_MSW <= '1';		
-      wait for 20 ns;	
+      wait for 20 ns;			
 
+		-- Select L line for output flags
+		EL_MSW <= '0';
+		L_MSW <= '0';
+		wait for 20 ns;
+		
+		-- Test ALU flags comming from ALU signals
+		Z <= (others => 'U');
+		SET_FLAGS <= '0';
+		L_MSW <= '1';
+		ALUZ <= '1';
+		ALUC <= '1';
+		ALUS <= '0';
+		ALUV <= '0';
+		EL_MSW <= '1';
+		wait for 20 ns;		
+		
+		-- Select L line for output flags
+		EL_MSW <= '0';
+		L_MSW <= '0';		
+		wait for 20 ns;
+		
+		-- Test P E M flags
+		SET_FLAGS <= '1';
+		Z <= "UUUUUUUU10U10000";
+		L_PAGING <= '1';
+		L_EI <= '1';
+		L_MODE <= '1';
+		EL_MSW <= '0';				
+		L_MSW <= '1';	
+		wait for 20 ns;		
+		
+		-- RESET
+		RESET <= '0';
+		wait for 20 ns;		
+		
+		-- Test D flags
+		RESET <= '1';
+		Z <= (others => 'U');
+		L_PAGING <= '0';
+		L_EI <= '0';
+		L_MODE <= '0';		
+		L_FAULT <= '1';
+		MEMREF <= '1';
+		xCODE_PTB <= '1';
+		
+		wait for 20 ns;
+		
       wait;
    end process;
 

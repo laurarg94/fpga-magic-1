@@ -55,7 +55,6 @@ end MSW;
 
 architecture Behavioral of MSW is
 signal MEMREF_AND_LFAULT : std_logic;
-signal SIG_FLAGS : std_logic_vector(0 to 3);
 
 -- Infer FLIP_FLOPD for holding flags
 signal P_FLAG           : std_logic;
@@ -114,24 +113,19 @@ begin
 		end if;
 	end process;
 	
-	-- Process to describe selection of flags comming from ALU, or Z (U27)
-	process (SET_FLAGS,ALUZ,ALUC,ALUS,ALUV)
-	begin
-		if SET_FLAGS = '0' then
-			SIG_FLAGS <= ALUZ & ALUC & ALUS & ALUV;
-		else
-			SIG_FLAGS <= Z(12 to 15);
-		end if;
-	end process;
-	
-	-- Process to describe flags holding in U26
-	process (RESET,L_MSW,SIG_FLAGS)
+	-- Process to describe selection of flags comming from ALU, or Z (U27) and holding
+	-- it's value.	
+	process (RESET,L_MSW,SET_FLAGS,ALUZ,ALUC,ALUS,ALUV,Z(12 to 15))
 	begin
 		if RESET = '0' then
 			ARITHMETIC_FLAGS <= (others => '0');
 		else
 			if rising_edge(L_MSW) then
-				ARITHMETIC_FLAGS <= SIG_FLAGS;
+				if SET_FLAGS = '0' then
+					ARITHMETIC_FLAGS <= ALUV & ALUS & ALUC & ALUZ;
+				else
+					ARITHMETIC_FLAGS <= Z(12 to 15);
+				end if;				
 			end if;
 		end if;
 	end process;
@@ -148,18 +142,18 @@ begin
 			L(9)  <= E_FLAG;
 			L(10) <= D_FLAG;
 			L(11) <= M_FLAG;
-			L(12) <= ARITHMETIC_FLAGS(3);
-			L(13) <= ARITHMETIC_FLAGS(2);
-			L(14) <= ARITHMETIC_FLAGS(1);
-			L(15) <= ARITHMETIC_FLAGS(0);
+			L(12) <= ARITHMETIC_FLAGS(0);
+			L(13) <= ARITHMETIC_FLAGS(1);
+			L(14) <= ARITHMETIC_FLAGS(2);
+			L(15) <= ARITHMETIC_FLAGS(3);
 		end if;
 	end process;
 	
 	-- Output signal Flags
-	MSWZ <= ARITHMETIC_FLAGS(0);
-	MSWC <= ARITHMETIC_FLAGS(1);
-	MSWS <= ARITHMETIC_FLAGS(2);
-	MSWV <= ARITHMETIC_FLAGS(3);
+	MSWZ <= ARITHMETIC_FLAGS(3);
+	MSWC <= ARITHMETIC_FLAGS(2);
+	MSWS <= ARITHMETIC_FLAGS(1);
+	MSWV <= ARITHMETIC_FLAGS(0);
 	
 	MSWM <= M_FLAG;
 	MSWE <= E_FLAG;
