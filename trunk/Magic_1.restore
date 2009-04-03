@@ -850,8 +850,7 @@ proc restore { { project_dir "" } } {
     AddUserFiles $iProjHelper $user_files
   } "A problem occured while restoring user files."
 
-  set imported_files { 
-      "MSW_guide.ncd"}
+  set imported_files {}
 
   set origination 2
 
