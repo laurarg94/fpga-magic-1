@@ -42,14 +42,83 @@ entity MDR is
            ER_MDR : in  STD_LOGIC;
            EL_MDR : in  STD_LOGIC;
            R : out  STD_LOGIC_VECTOR (0 to 15);
-           L : out  STD_LOGIC_VECTOR (0 to 15);
-           D : out  STD_LOGIC_VECTOR (0 to 7));
+           L : out  STD_LOGIC_VECTOR (0 to 15));
 end MDR;
 
 architecture Behavioral of MDR is
-
+	signal D :  std_logic_vector (0 to 7);
+	signal MDR_HIGH : std_logic_vector(0 to 7);
+	signal MDR_LOW : std_logic_vector(0 to 7);
 begin
-
+	-- Process to implement behavior of 74f245, the DMA_ACK signal will detach MDR from memory bus (DBUS) so
+	-- the data bus (DBUS) can be driven by panel switches
+	process (RW,DMA_ACK,DBUS)
+	begin
+		if DMA_ACK = '0' then
+			DBUS <= (others => 'Z');
+		else
+			if RW = '0' then
+				-- B to A (DBUS to D)
+				D <= DBUS;
+			else
+				-- A to B (D to DBUS)
+				DBUS <= D;
+			end if;
+		end if;
+	end process;
+	
+	-- Process to describe row of 4 74153(U62 63 64 65) used to select DataBus,Z(0..7), or
+	-- or the value of bit 7 of the low byte (i.e. - for sign extension). And describe also
+	-- 74273 octal D ff
+	process (XL_MDR_HI,XL_MDR_LO,Z(0 to 7),D(0 to 7),COMMIT,L_MDR_HI)
+	variable concat_sel : std_logic_vector(0 to 1);
+	begin
+		concat_sel := XL_MDR_LO & XL_MDR_HI;
+		if COMMIT = '1' then
+			MDR_HIGH <= (others => '0');
+		else
+			if rising_edge(L_MDR_HI) then
+				-- Can be from D,Z or D(0)				
+				case concat_sel is
+					
+					-- From Z
+					when "00" =>
+						MDR_HIGH <= Z(0 to 7);
+					
+					-- From D
+					when "01" =>
+						MDR_HIGH <= D(0 to 7);  
+					
+					-- Sign extension??
+					when "11" =>					
+						MDR_HIGH <= D(0) & D(0) & D(0) & D(0) & D(0) & D(0) & D(0) & D(0);
+					when others =>
+						null;
+				end case;
+			end if;
+		end if;
+	end process;
+	
+	-- Process to describe row of 2x 74157 for select of DataBus or Z into 74273 octal D FF
+	-- used to store low byte of MDR
+	process(XL_MDR_LO,D(0 to 7) Z(8 to 15),COMMIT, L_MDR_LO)
+	begin
+		if COMMIT = '1' then
+			MDR_LOW <= (others => '0');
+		else
+			if rising_edge(L_MDR_LO) then
+				case XL_MDR_LO is
+					when '0' =>
+						MDR_LOW <= Z(8 to 15);
+					when '1' =>
+						MDR_LOW <= D(0 to 7);  
+					when others =>
+						null;
+				end case;
+			end if;
+		end if;
+	end process;
+	
 
 end Behavioral;
 

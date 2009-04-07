@@ -53,8 +53,7 @@ ARCHITECTURE behavior OF MDRTester IS
          ER_MDR : IN  std_logic;
          EL_MDR : IN  std_logic;
          R : OUT  std_logic_vector(0 to 15);
-         L : OUT  std_logic_vector(0 to 15);
-         D : OUT  std_logic_vector(0 to 7)
+         L : OUT  std_logic_vector(0 to 15)
         );
     END COMPONENT;
     
@@ -78,8 +77,7 @@ ARCHITECTURE behavior OF MDRTester IS
 
  	--Outputs
    signal R : std_logic_vector(0 to 15);
-   signal L : std_logic_vector(0 to 15);
-   signal D : std_logic_vector(0 to 7);
+   signal L : std_logic_vector(0 to 15);   
  
 BEGIN
  
@@ -99,8 +97,7 @@ BEGIN
           ER_MDR => ER_MDR,
           EL_MDR => EL_MDR,
           R => R,
-          L => L,
-          D => D
+          L => L          
         );
  
    -- No clocks detected in port list. Replace <clock> below with 
