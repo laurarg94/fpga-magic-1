@@ -53,7 +53,7 @@ architecture Behavioral of MDR is
 begin
 	-- Process to implement behavior of 74f245, the DMA_ACK signal will detach MDR from memory bus (DBUS) so
 	-- the data bus (DBUS) can be driven by panel switches
-	process (RW,DMA_ACK,DBUS)
+	process (RW,DMA_ACK,DBUS,E_MDR_HI,E_MDR_LO)
 	begin
 		if DMA_ACK = '0' then
 			DBUS <= (others => 'Z');
@@ -65,6 +65,14 @@ begin
 				-- A to B (D to DBUS)
 				DBUS <= D;
 			end if;
+		end if;
+		
+		if E_MDR_HI = '0' then
+			D <= D_Sel;
+		end if;
+		
+		if E_MDR_LO = '0' then
+			D <= D_Sel;
 		end if;
 	end process;
 	
