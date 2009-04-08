@@ -46,9 +46,10 @@ entity MDR is
 end MDR;
 
 architecture Behavioral of MDR is
-	signal D :  std_logic_vector (0 to 7);
+	signal D        : std_logic_vector(0 to 7);
+	signal D_Sel    : std_logic_vector(0 to 7);
 	signal MDR_HIGH : std_logic_vector(0 to 7);
-	signal MDR_LOW : std_logic_vector(0 to 7);
+	signal MDR_LOW  : std_logic_vector(0 to 7);
 begin
 	-- Process to implement behavior of 74f245, the DMA_ACK signal will detach MDR from memory bus (DBUS) so
 	-- the data bus (DBUS) can be driven by panel switches
@@ -101,7 +102,7 @@ begin
 	
 	-- Process to describe row of 2x 74157 for select of DataBus or Z into 74273 octal D FF
 	-- used to store low byte of MDR
-	process(XL_MDR_LO,D(0 to 7) Z(8 to 15),COMMIT, L_MDR_LO)
+	process(XL_MDR_LO,D(0 to 7), Z(8 to 15),COMMIT, L_MDR_LO)
 	begin
 		if COMMIT = '1' then
 			MDR_LOW <= (others => '0');
@@ -117,6 +118,36 @@ begin
 				end case;
 			end if;
 		end if;
+	end process;
+	
+	-- Process to describe row of 74f244(U55,56,57,58,59,60) used to multiplex output to
+	-- R, L, or D
+	process (E_MDR_HI,E_MDR_LO,ER_MDR,EL_MDR,MDR_LOW,MDR_HIGH)
+	variable concat_sel_nibble : std_logic_vector(0 to 1);
+	begin		
+		if EL_MDR = '0' then
+			L <= MDR_HIGH & MDR_LOW;
+		else
+			L <= (others => 'Z');
+		end if;
+		
+		if ER_MDR = '0' then
+			R <= MDR_HIGH & MDR_LOW;
+		else
+			R <= (others => 'Z');
+		end if;
+		
+		concat_sel_nibble := E_MDR_HI & E_MDR_LO;
+		case concat_sel_nibble is
+			when "01"   =>
+				D_Sel <= MDR_HIGH;
+				
+			when "10"   =>
+				D_Sel <= MDR_LOW;
+				
+			when others =>
+				D_Sel <= (others => 'Z');
+		end case;
 	end process;
 	
 
