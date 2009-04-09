@@ -80,7 +80,7 @@ begin
 					when "11" =>					
 						MDR_HIGH <= D(0) & D(0) & D(0) & D(0) & D(0) & D(0) & D(0) & D(0);
 					when others =>
-						null;
+						MDR_HIGH <= (others => 'Z');
 				end case;
 			end if;
 		end if;
@@ -100,7 +100,7 @@ begin
 					when '1' =>
 						MDR_LOW <= D(0 to 7);  
 					when others =>
-						null;
+						MDR_LOW <= (others => 'Z');
 				end case;
 			end if;
 		end if;
@@ -135,7 +135,7 @@ begin
 				D <= (others => 'Z');
 		end case;
 		
-		if DMA_ACK = '0' then
+		if DMA_ACK = '0' then			 
 			DBUS <= (others => 'Z');
 		else
 			if RW = '0' then
@@ -151,7 +151,7 @@ begin
 						DBUS <= MDR_LOW;
 						
 					when others =>
-						null;
+						DBUS <= (others => 'Z');
 				end case;
 			end if;
 		end if;
