@@ -46,32 +46,13 @@ entity MDR is
 end MDR;
 
 architecture Behavioral of MDR is
-	signal D        : std_logic_vector(0 to 7);
-	signal D_Sel    : std_logic_vector(0 to 7);
+	signal D        : std_logic_vector(0 to 7);	
 	signal MDR_HIGH : std_logic_vector(0 to 7);
 	signal MDR_LOW  : std_logic_vector(0 to 7);
 begin
 	-- Process to implement behavior of 74f245, the DMA_ACK signal will detach MDR from memory bus (DBUS) so
 	-- the data bus (DBUS) can be driven by panel switches
-	process (RW,DMA_ACK,DBUS,E_MDR_HI,E_MDR_LO,D_Sel)
-	begin
-		if DMA_ACK = '0' then
-			DBUS <= (others => 'Z');
-		else
-			if RW = '0' then
-				-- B to A (DBUS to D)
-				D <= DBUS;
-			else
-				-- A to B (D to DBUS)
-				DBUS <= D;
-			end if;
-		end if;
-		
-		if (E_MDR_HI = '0' or E_MDR_LO = '0') then
-			D <= D_Sel;
-		end if;
-				
-	end process;
+	--
 	
 	-- Process to describe row of 4 74153(U62 63 64 65) used to select DataBus,Z(0..7), or
 	-- or the value of bit 7 of the low byte (i.e. - for sign extension). And describe also
@@ -127,7 +108,7 @@ begin
 	
 	-- Process to describe row of 74f244(U55,56,57,58,59,60) used to multiplex output to
 	-- R, L, or D
-	process (E_MDR_HI,E_MDR_LO,ER_MDR,EL_MDR,MDR_LOW,MDR_HIGH)
+	process (E_MDR_HI,E_MDR_LO,ER_MDR,EL_MDR,MDR_LOW,MDR_HIGH,RW,DMA_ACK,DBUS)
 	variable concat_sel_nibble : std_logic_vector(0 to 1);
 	begin		
 		if EL_MDR = '0' then
@@ -145,14 +126,36 @@ begin
 		concat_sel_nibble := E_MDR_HI & E_MDR_LO;
 		case concat_sel_nibble is
 			when "01"   =>
-				D_Sel <= MDR_HIGH;
+				D <= MDR_HIGH;
 				
 			when "10"   =>
-				D_Sel <= MDR_LOW;
+				D <= MDR_LOW;
 				
 			when others =>
-				D_Sel <= (others => 'Z');
+				D <= (others => 'Z');
 		end case;
+		
+		if DMA_ACK = '0' then
+			DBUS <= (others => 'Z');
+		else
+			if RW = '0' then
+				-- B to A (DBUS to D)
+				D <= DBUS;
+			else
+				-- A to B (D to DBUS)
+				case concat_sel_nibble is
+					when "01"   =>
+						DBUS <= MDR_HIGH;
+						
+					when "10"   =>
+						DBUS <= MDR_LOW;
+						
+					when others =>
+						null;
+				end case;
+			end if;
+		end if;
+				
 	end process;
 	
 

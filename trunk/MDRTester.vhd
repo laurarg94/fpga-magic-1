@@ -135,12 +135,40 @@ BEGIN
 		DBUS <= (others => 'Z');
 		wait for 2 ns;
 		COMMIT <= '0';
+		L_MDR_LO <= '0';
+		L_MDR_HI <= '0';
 		wait for 20 ns;
 		
 		-- Relase line R and L
 		EL_MDR <= '1';
 		ER_MDR <= '1';
 		wait for 20 ns;
+		
+		-- Load MDR with Z
+		Z <= "1010101001000001";
+		XL_MDR_LO <= '0';			
+		XL_MDR_HI <= '0';
+		L_MDR_LO <= '1'; -- Latch from Z		
+		L_MDR_HI <= '1'; -- Latch from Z
+		wait for 20 ns;
+		
+		-- Relase line R and L
+		EL_MDR <= '0';
+		ER_MDR <= '0';
+		wait for 20 ns;
+		
+		-- Now read the result(high) in DBUS
+		E_MDR_HI <= '0';
+		E_MDR_LO <= '1';
+		RW <= '1';
+		wait for 20 ns;
+		
+		-- Now read the result(low) in DBUS
+		E_MDR_HI <= '1';
+		E_MDR_LO <= '0';
+		RW <= '1';
+		wait for 20 ns;
+		
 		
       wait;
    end process;
