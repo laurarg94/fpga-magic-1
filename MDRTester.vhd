@@ -66,11 +66,11 @@ ARCHITECTURE behavior OF MDRTester IS
    signal XL_MDR_LO : std_logic := '0';
    signal L_MDR_HI : std_logic := '0';
    signal L_MDR_LO : std_logic := '0';
-   signal COMMIT : std_logic := '0';
-   signal E_MDR_HI : std_logic := '0';
-   signal E_MDR_LO : std_logic := '0';
-   signal ER_MDR : std_logic := '0';
-   signal EL_MDR : std_logic := '0';
+   signal COMMIT : std_logic := '1';
+   signal E_MDR_HI : std_logic := '1';
+   signal E_MDR_LO : std_logic := '1';
+   signal ER_MDR : std_logic := '1';
+   signal EL_MDR : std_logic := '1';
 
 	--BiDirs
    signal DBUS : std_logic_vector(0 to 7);
@@ -103,27 +103,45 @@ BEGIN
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
  
-   constant <clock>_period := 1ns;
- 
-   <clock>_process :process
-   begin
-		<clock> <= '0';
-		wait for <clock>_period/2;
-		<clock> <= '1';
-		wait for <clock>_period/2;
-   end process;
- 
-
    -- Stimulus process
    stim_proc: process
    begin		
-      -- hold reset state for 100ms.
-      wait for 100ms;	
-
-      wait for <clock>_period*10;
-
-      -- insert stimulus here 
-
+      -- Loading value from DBUS
+		COMMIT <= '0';
+		DBUS <= "10010001";
+		RW <= '0';
+		Z <= "0000000011111111";
+		DMA_ACK <= '1';		
+		wait for 20 ns;
+		
+		-- Latch D into MDR HIGH and get results in R(High)
+		--XL_MDR_LO <= '0';	
+		XL_MDR_HI <= '1';
+		L_MDR_HI <= '1'; -- Latch from D
+		ER_MDR <= '0';	  -- Get output in R
+		wait for 20 ns;
+		
+		-- Latch Z(8..15) into MDR LOW and get results in R(LOW)
+		XL_MDR_LO <= '0';			
+		L_MDR_LO <= '1'; -- Latch from Z		
+		wait for 20 ns;
+		
+		-- Get output in L also
+		EL_MDR <= '0';
+		wait for 20 ns;
+		
+		-- Clean MDR with commit signal
+		COMMIT <= '1';
+		DBUS <= (others => 'Z');
+		wait for 2 ns;
+		COMMIT <= '0';
+		wait for 20 ns;
+		
+		-- Relase line R and L
+		EL_MDR <= '1';
+		ER_MDR <= '1';
+		wait for 20 ns;
+		
       wait;
    end process;
 
