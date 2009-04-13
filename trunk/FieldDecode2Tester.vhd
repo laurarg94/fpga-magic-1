@@ -206,30 +206,52 @@ BEGIN
           IMMVAL => IMMVAL
         );
  
-   -- No clocks detected in port list. Replace <clock> below with 
-   -- appropriate port name 
- 
-   constant <clock>_period := 1ns;
- 
-   <clock>_process :process
-   begin
-		<clock> <= '0';
-		wait for <clock>_period/2;
-		<clock> <= '1';
-		wait for <clock>_period/2;
-   end process;
- 
-
    -- Stimulus process
    stim_proc: process
    begin		
-      -- hold reset state for 100ms.
-      wait for 100ms;	
+      -- Test Clock inversion
+		CLKS <= '1';
+		wait for 5 ns;
+		CLKS <= '0';
+		wait for 5 ns;
+		CLKS <= '1';
+      wait for 20 ns;
 
-      wait for <clock>_period*10;
-
-      -- insert stimulus here 
-
+		-- Test L_MODE
+		XL_MODE <= '1';
+		wait for 5 ns;
+		CLKS <= '0';
+		XL_MODE <= '0';
+		wait for 20 ns;
+		
+		-- Test L_PAGING
+		XL_PAGING <= '1';
+		CLKS <= '1';
+		wait for 5 ns;
+		CLKS <= '0';
+		XL_PAGING <= '0';
+		wait for 20 ns;
+		
+		-- Test L_MDR_LO
+		XL_MDR_LO <= '1';
+		CLKS <= '1';
+		RL_MDR <= '1';
+		wait for 5 ns;
+		CLKS <= '0';
+		RL_MDR <= '0';
+		XL_MDR_LO <= '0';
+		wait for 20 ns;
+		
+		-- Test L_MDR_HI
+		XL_MDR_HI <= '1';
+		CLKS <= '1';
+		RL_MDR <= '1';
+		wait for 5 ns;
+		CLKS <= '0';
+		RL_MDR <= '0';
+		XL_MDR_HI <= '0';
+		wait for 20 ns;
+		
       wait;
    end process;
 
