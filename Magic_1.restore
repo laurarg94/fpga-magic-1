@@ -851,9 +851,9 @@ proc restore { { project_dir "" } } {
       "PROM_74S472.vhd" 
       "SpecialRegisterTester.vhd" 
       "SpecialRegisters.vhd" 
+      "eprom_defs_pack.vhd" 
       "prom0.vhd" 
-      "standardDefinitions.vhd" 
-      "x_defs_pack.vhd"}
+      "standardDefinitions.vhd"}
 
   HandleException {
     AddUserFiles $iProjHelper $user_files
