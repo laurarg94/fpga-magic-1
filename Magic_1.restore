@@ -848,8 +848,10 @@ proc restore { { project_dir "" } } {
       "MDRTester.vhd" 
       "MSW.vhd" 
       "MSWTester.vhd" 
+      "PROM_74S472.vhd" 
       "SpecialRegisterTester.vhd" 
       "SpecialRegisters.vhd" 
+      "prom0.vhd" 
       "standardDefinitions.vhd" 
       "x_defs_pack.vhd"}
 
