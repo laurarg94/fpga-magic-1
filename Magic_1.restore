@@ -850,7 +850,8 @@ proc restore { { project_dir "" } } {
       "MSWTester.vhd" 
       "SpecialRegisterTester.vhd" 
       "SpecialRegisters.vhd" 
-      "standardDefinitions.vhd"}
+      "standardDefinitions.vhd" 
+      "x_defs_pack.vhd"}
 
   HandleException {
     AddUserFiles $iProjHelper $user_files
