@@ -9,11 +9,12 @@ The register and Alu card includes most of the datapath of Magic-1, who receives
 = Details =
 
 This card will be described and will include the following parts:
-* A list
-  * Of bulleted items
+* ALU
+  * General Registers
     # This is a numbered sublist
     # Which is done by indenting further
-  * And back to the main bulleted list
+  * MDR
+  * MSW
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
