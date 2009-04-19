@@ -11,7 +11,9 @@ The register and Alu card includes most of the datapath of Magic-1, who receives
 This card will be described and will include the following parts:
   * ALU
   * General Registers
-    # This is a numbered sublist
+    # Register A
+    # Register B
+    # Register C
     # Which is done by indenting further
   * MDR
   * MSW
