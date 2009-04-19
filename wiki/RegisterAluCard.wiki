@@ -77,6 +77,21 @@ Here is the link for the ALU VHDL description:
 Here is a simulation:
 [http://i219.photobucket.com/albums/cc244/leonardoaraujo/ALU_SIM.png]
 
+==MSW==
+This register will hold the ALU results flags and some control bits.
+
+|| *Flag* || *Description* ||
+|| Zero || Result of some ALU operation returned zero ||
+|| Carry || A Carry operation occurs when some arithimetic operation overflowed the ALU size  ||
+|| Sign || Indicate if the result of ALU is positive or negative||
+|| Overflow || Occurs when the sum of two positive numbers lead to a negative result||
+
+Here is the link of MSW VHDL description:
+
+[http://code.google.com/p/fpga-magic-1/source/browse/trunk/MSW.vhd]
+
+
+
 ==General Registers==
 This card stores the value of the following registers:
 
