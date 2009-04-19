@@ -3,7 +3,8 @@
 
 = Introduction =
 
-Magic-1 opcodes will be an index pointing to the Microinstruction memory, so each opcode will point one or more microinstruction stored in PROM memory.
+This wiki page will list all 256 opcodes used in Magic-1
+M1 opcodes will be an index pointing to the Microinstruction memory, so each opcode will point one or more microinstruction stored in PROM memory.
 
 In the fpga-magic-1 project all proms will be described inside the FPGA.
 
