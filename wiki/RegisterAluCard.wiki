@@ -35,14 +35,14 @@ Magic-1 ALU will handle the following operations:
 
 The ALU card were made with 74F381 (ALU) chip wich has much more operations but for simplicity m1(Magic-1) will use just this operations:
 || *Code* || *Operation* ||
-|| 0 || -10 ||
-|| 1 || -15 ||
-|| 2 || -10 ||
-|| 3 || _N/A_ ||
-|| 4 || -2 ||
-|| 5 || -2 ||
-|| 6 || -2 ||
-|| 7 || -2 ||
+|| 0 || _Not used_ ||
+|| 1 || _Not used_  ||
+|| 2 || sub ||
+|| 3 || add ||
+|| 4 || xor ||
+|| 5 || or ||
+|| 6 || and ||
+|| 7 || _Not used_ ||
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
