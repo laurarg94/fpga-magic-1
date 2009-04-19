@@ -1,12 +1,19 @@
+#summary Register and ALU card documentation
 #labels Featured,Phase-Design,Phase-Implementation
-# Register and ALU card description
 
 = Introduction =
 
-The register and Alu card includes most of the datapath of Magic-1
+The register and Alu card includes most of the datapath of Magic-1, who receives control signals from Control card in order to execute each microinstruction of Magic-1 programs.
 
 
 = Details =
+
+This card will be described and will include the following parts:
+* A list
+  * Of bulleted items
+    # This is a numbered sublist
+    # Which is done by indenting further
+  * And back to the main bulleted list
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
