@@ -90,3 +90,12 @@ This card stores the value of the following registers:
 || PC || Program Counter||
 || TPC || Temporary Program Counter ||
 
+Here is the link of GeneralRegisters VHDL description:
+
+[http://code.google.com/p/fpga-magic-1/source/browse/trunk/GeneralRegisters.vhd]
+
+==Special Registers==
+This card stores the value of the following registers:
+|| *Register* || *Description* ||
+|| MAR || Register used to Access memory in Page Table. ||
+|| IMMVAL || Imediate value.  ||
