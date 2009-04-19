@@ -25,7 +25,7 @@ This card will be described and will include the following parts:
     # Register MAR
 
 ==ALU==
-The ALU will handle all logic and arithimetic operations of Magic-1, ALU operands will be the L and R bus and will post the results in the Z bus, the ALU can also work with 8/16 bits wich is controled by the "aluop_size" opcode bit.
+The ALU handles all logic and arithimetic operations of Magic-1, ALU operands will be the L and R bus and will post the results in the Z bus, the ALU can also work with 8/16 bits wich is controled by the "aluop_size" opcode bit.
 
 Magic-1 ALU will handle the following operations:
     # Operation AND
@@ -76,3 +76,17 @@ Here is the link for the ALU VHDL description:
 
 Here is a simulation:
 [http://i219.photobucket.com/albums/cc244/leonardoaraujo/ALU_SIM.png]
+
+==General Registers==
+This card stores the value of the following registers:
+
+|| *Register* || *Description* ||
+|| A || Accumulator.  Can be addressed as 8 or 16 bits.  Implied target of most operations and also used as a general load/store base register and memop operand. ||
+|| B || General load/store base register, plus source operand of alu ops and memops and target of some loads.  ||
+|| C || Special-purpose count register for block moves and variable shifts.||
+|| DP || Global data pointer.  Most data references are relative to a base.||
+|| SP || Stack pointer.  Always pushes and pop 16 bits at a time.||
+|| SSP || Supervisor stack pointer.  Used when in supervisor mode.||
+|| PC || Program Counter||
+|| TPC || Temporary Program Counter ||
+
