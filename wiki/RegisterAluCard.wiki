@@ -73,3 +73,6 @@ Also ALU uses carry in bit, if you put low in signal USE_CARRY no carry will be 
 Here is the link for the ALU VHDL description:
 
 [http://code.google.com/p/fpga-magic-1/source/browse/trunk/ALU.vhd]
+
+Here is a simulation:
+[http://i219.photobucket.com/albums/cc244/leonardoaraujo/ALU_SIM.png]
