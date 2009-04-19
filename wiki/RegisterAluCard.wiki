@@ -46,7 +46,8 @@ The ALU card were made with 74F381 (ALU) chip wich has much more operations but 
 
 Let's make an example on how IR(1..3) bits is used to select some ALU operation
 "XOR.16 A,A"
-* [Articles HOWTO articles]
+
+* [Opcodes Opcodes]
 
 The listing bellow is a first description of ALU and maybe is not up to date with SVN (Real ALU)
 
