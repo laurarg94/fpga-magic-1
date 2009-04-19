@@ -1,4 +1,5 @@
 #summary Magic-1 VHDL Port Introduction page
+#labels Featured,Phase-Design
 
 = Introduction =
 
