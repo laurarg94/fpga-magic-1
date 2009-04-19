@@ -1,0 +1,14 @@
+#summary Control Card documentation
+#labels Featured,Phase-Design
+
+= Introduction =
+
+This card includes the Control part of Magic-1 it fetches and decodes each instruction to generate signals to control the data path.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
