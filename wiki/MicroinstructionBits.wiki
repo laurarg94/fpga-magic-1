@@ -1,8 +1,9 @@
 #summary Description of Microinstruction bits
+#labels Featured,Phase-Design
 
 = Introduction =
 
-Magic-1 uses a Microinstruction word formed by 40 bits and placed into 5 512x8 Proms chips(74S472)thus forming a 512x40 bits Microstruction PROM wich will hold all subroutines to execute each opcode. Actually the opcode is an index to this PROM array memory
+Magic-1 uses a Microinstruction word formed by 40 bits and placed into 5 512x8 Proms chips(74S472) thus forming a 512x40 bits Microstruction PROM wich will hold all subroutines to execute each opcode. Actually the opcode is an index to this PROM array memory.
 
 
 = Details =
