@@ -50,4 +50,5 @@ Let's make an example on how IR(1..3) bits is used to select some ALU operation
 * [Opcodes Opcodes Listing]
 
 Here is the link for the ALU VHDL description:
+
 [http://code.google.com/p/fpga-magic-1/source/browse/trunk/ALU.vhd]
