@@ -14,9 +14,15 @@ This card will be described and will include the following parts:
     # Register A
     # Register B
     # Register C
-    # Which is done by indenting further
+    # Register DP
+    # Register SP
+    # Register SSP
+    # Register PC
+    # Register TPC
   * MDR
   * MSW
+  * Special Registers
+    # Register MAR
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
