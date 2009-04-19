@@ -9,7 +9,7 @@ The register and Alu card includes most of the datapath of Magic-1, who receives
 = Details =
 
 This card will be described and will include the following parts:
-* ALU
+  * ALU
   * General Registers
     # This is a numbered sublist
     # Which is done by indenting further
