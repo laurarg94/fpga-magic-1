@@ -26,10 +26,10 @@ This card will be described and will include the following parts:
 
 ==ALU==
 The ALU (Arithimetic Logic unit) is made to handle the following operations:
-# Operation AND
-# Operation SUB
-# Operation ADD
-# Operation determined in IR[1..3]
+    # Operation AND
+    # Operation SUB
+    # Operation ADD
+    # Operation determined in IR[1..3]
 
 The ALU card were made with 74F381 (ALU) chip wich has much more operations 
 
