@@ -7,4 +7,15 @@ This document will explain how the microcode will be stored in PROMS
 
 = Details =
 
-In order to maintain the circuitry regarding the Control part simpler Magic-1 uses the microcode stored in PROMS in this way you gain more flexibility.
+In order to maintain the circuitry regarding the Control part simpler M1 uses the microcode stored in PROMS in this way you gain more flexibility. M1 uses 5 Proms(U1,U2,U3,U4,U5) chips forming a 40 bit microinstruction.
+
+[http://i219.photobucket.com/albums/cc244/leonardoaraujo/PromsCircuitry.png]
+
+Taking a look to the schematic we can easily observe each prom forming the control signals to be decoded.
+
+|| *PROM name* || *Signals created* ||
+|| U1 || ||
+|| U2 || ||
+|| U3 || _E_MDR_HI, PRIV, XL_MODE, XL_PAGING, MISC(0..3)||
+|| U4 || Latch(0..3) XL_MAR, XL_MDR_LO, XL_MDR_HI||
+|| U5 || Next(0..7)||
