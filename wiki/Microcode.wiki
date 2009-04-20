@@ -1,8 +1,11 @@
 #summary Microcode listing
+#labels Featured,Phase-Design
 
 = Introduction =
 
 This document will list all microcode stored in Magic-1 PROMS. In order to understand those symbols in the *Operations* field take a look at * [MicroinstructionDefines Operation definitions listing]*
+
+The microcode will be stored in 5 PROMS forming a array of 512x40 bits memory. This proms files are included in 
 
 For look at all 256 instruction opcodes of M1 look at * [Opcodes Opcode listing]*
 
