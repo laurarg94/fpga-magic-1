@@ -31,3 +31,6 @@ Here you can see the * [PROMHex PROM Hex listing]* in Intel Hex format. Those He
 This will create an VHDL description of a PROM with the hex contents.
 
 [http://code.google.com/p/fpga-magic-1/source/browse/trunk/prom0.vhd]
+
+= Reading instructions from PROMs =
+Now we're going to explain a instruction *halt* from the proms perspective.
