@@ -22,3 +22,7 @@ Taking a look to the schematic we can easily observe each prom forming the contr
 || U5 || Next(0..7)||
 
 Here you can see the * [PROMHex PROM Hex listing]* in Intel Hex format. Those Hex files will be converted to VHDL using a tool called srecord [http://srecord.sourceforge.net/]
+
+*srec_cat prom0.hex -Intel -o prom0.vhd -VHdl*
+
+This will create an VHDL description of a PROM with the hex contents.
