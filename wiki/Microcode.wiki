@@ -4,6 +4,21 @@
 
 This document will list all microcode stored in Magic-1 PROMS. In order to understand those symbols in the *Operations* field take a look at * [MicroinstructionDefines Operation definitions listing]*
 
+For look at all 256 instruction opcodes of M1 look at * [Opcodes Opcode listing]*
+
+We're going to show a simple opcode for ilustrate the process.
+
+*add.16 a,b*
+
+This instruction index is 0x3f if you check the "Operations" field you will check this values:
+
+*TO_Z(R_B),L(R_MDR,LWORD),NEXT(Aluop16)*
+
+|| *Operations* ||	*Description*	||
+|| TO_Z(R_B) || Place the contents of register B in Z bus ||
+|| L(R_MDR,LWORD) || Place the contents of register B in Z bus ||
+|| NEXT(Aluop16) || Place the contents of register B in Z bus ||
+
 
 = Details =
 || *Microcode Index* ||	*Instruction*	||	*Operations* ||
