@@ -49,3 +49,12 @@ Also reading the *[MicroinstructionBits microinstruction bits]* to verify the fi
 
 || *next:8* || *latch:4* || *lmar:1* || *lmdrlo:1* || *lmdrhi:1* || *emdrlo:1* || *emdrhi:1* || *priv:1* || *lmode:1* || *lpaging:1* || *misc:4* || *e_l:4* || *e_r:2* || *immval:2* || *aluop_size:1* || *aluop:2* || *carry:1* || *l_size:1* || *br_sense:1* || *user_ptb:1* || *code_ptb:1* ||
 ||00000000||0011||1||0||0||0||0||0||0||0||0010||0011||01||11||0||11||0||1||0||0||1||
+
+Looking those bits separated by proms we got:
+
+|| *prom 0* || *prom 1* || *prom 2* || *prom 3* || *prom 4* || 
+||00000000||00111000||00000010||00110111||01101001||
+
+Now let's read the first line looking for the first byte of each prom hex file
+|| *prom0* || *prom1* || *prom2* || *prom3* || *prom4* ||
+||:10000000*00*3E3636364136362E39393939393939A6||:10000000*13*5308080853080853101010101010104C||:10000000*20*000000000000000000000000000000D0||:10000000*D3*53D2DBD453D6D753D5D5D5D5D5D5D523||:10000000*96*96121212961212960202020202020230||
