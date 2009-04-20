@@ -34,3 +34,13 @@ This will create an VHDL description of a PROM with the hex contents.
 
 = Reading instructions from PROMs =
 Now we're going to explain a instruction *halt* from the proms perspective.
+
+If you read the halt instruction in *[Microcode microcode]* you have:
+
+||*Microcode Index*||*Instruction*||*Operations*||
+||0x00||halt||MISC(M_HALT),DEC_TO_Z(R_PC),L(R_PC,LWORD),CODE,NEXT(Fetch)||
+
+Also if you read in *[Prombits prombits.h]* you have:
+{{{
+/* 0 */ {(0x100&0xff),3,1,0,0,0,0,0,0,0,2,3,1,3,0,3,0,1,0,0,1}
+}}}
