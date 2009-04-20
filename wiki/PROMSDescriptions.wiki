@@ -1,0 +1,10 @@
+#summary PROMS Documentation
+
+= Introduction =
+
+This document will explain how the microcode will be stored in PROMS
+
+
+= Details =
+
+In order to maintain the circuitry regarding the Control part simpler Magic-1 uses the microcode stored in PROMS in this way you gain more flexibility.
