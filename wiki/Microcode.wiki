@@ -6,7 +6,7 @@ This document will list all microcode stored in Magic-1 PROMS. In order to under
 
 
 = Details =
-|| *Description* ||	*Instruction*	||	*Operations* ||
+|| *Microcode Index* ||	*Instruction*	||	*Operations* ||
 ||0x00||	halt	||	MISC(M_HALT),DEC_TO_Z(R_PC),L(R_PC,LWORD),CODE,NEXT(Fetch)                                 ||
 ||0x01||	ld.8 A,#u16_u8_10(SP)	||	LDIMMHI,NEXT(Lda8_16)                                                      ||
 ||0x02||	push C	||	TO_Z(R_C),L(R_MDR,LWORD),NEXT(Push16)                                                      ||
