@@ -85,10 +85,13 @@ Wich match exatcly with prombits.h
 ||lmdrhi:1||0||
 ||emdrlo:1||0||
 
-But will not match with the byte comming from prom 1 (0x13), which seems wrong at first. However, if you parse it into fields from least significant to most significant, it works out.  0x13 is *00010011* , but from left to right in fields it is *0011 1 0 0 0* .
+But will not match with the byte comming from prom 1 (0x13), which seems wrong at first. However, if you parse it into fields from least significant to most significant, it works out.  0x13 is *00010011* , but from left to right in fields it is *0011 1 0 0 0* Wich is exactly what we want.
 
 ||latch:4||3(0011)||
 ||lmar:1||1||
 ||lmdrlo:1||0||
 ||lmdrhi:1||0||
 ||emdrlo:1||0||
+
+So this inverse bits reading is what is done in hardware.
+[http://i219.photobucket.com/albums/cc244/leonardoaraujo/Understand_Proms.png]
