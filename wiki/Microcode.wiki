@@ -16,8 +16,8 @@ This instruction index is 0x3f if you check the "Operations" field you will chec
 
 || *Operations* ||	*Description*	||
 || TO_Z(R_B) || Place the contents of register B in Z bus ||
-|| L(R_MDR,LWORD) || Place the contents of register B in Z bus ||
-|| NEXT(Aluop16) || Place the contents of register B in Z bus ||
+|| L(R_MDR,LWORD) || Store the contents of Z in MDR register as a 16 bits word ||
+|| NEXT(Aluop16) || Continue the execution at the label *Aluop16* wich index is 0x117  ||
 
 
 = Details =
