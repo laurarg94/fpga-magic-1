@@ -20,3 +20,5 @@ Taking a look to the schematic we can easily observe each prom forming the contr
 || U3 || E_MDR_HI, PRIV, XL_MODE, XL_PAGING, MISC(0..3)||
 || U4 || Latch(0..3) XL_MAR, XL_MDR_LO, XL_MDR_HI||
 || U5 || Next(0..7)||
+
+Here you can see the * [PROMHex PROM Hex listing]* in Intel Hex format. Those Hex files will be converted to VHDL using a tool called srecord [http://srecord.sourceforge.net/]
