@@ -65,8 +65,8 @@ Now let's read the first line looking for the first byte of each prom hex file
 
 Converting those bytes to binary we got:
 
-*00000000 00010011 00100000 11010011 10010110*  (From Proms)
+* 00000000 00010011 00100000 11010011 10010110*  (From Proms)
 
 *00000000 00111000 00000010 00110111 01101001*  (From prombits.h)
 
-{{color c="blue" text="This is a test."}}
+That's happen because the way gcc packs bit fields in structures (And this behavior is not default, all compilers could be different)
