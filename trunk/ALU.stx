@@ -3,8 +3,8 @@ Copyright (c) 1995-2008 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to ./xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.25 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.30 secs
  
 --> 
 =========================================================================
@@ -12,11 +12,12 @@ Total CPU time to Xst completion: 0.25 secs
 =========================================================================
 Compiling vhdl file "C:/fpga-magic-1/standardDefinitions.vhd" in Library work.
 Compiling vhdl file "C:/fpga-magic-1/ALU.vhd" in Library work.
-Architecture behavioral of Entity alu is up to date.
+Entity <alu> compiled.
+Entity <alu> (Architecture <behavioral>) compiled.
 
 
-Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.42 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.41 secs
  
 --> 
 

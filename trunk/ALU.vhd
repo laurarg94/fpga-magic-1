@@ -66,7 +66,7 @@ begin
 	-- if ALUOP='01' operation is AND
 	-- if ALUOP='00' operation is defined in IR(1 to 3)
 	--Alu_ControlInput <= ALUOP & IR(1 to 3);
-	 SEL_ALU_CONTROL: process (ALUOP,IR(1 to 3))
+	 SEL_ALU_CONTROL: process (ALUOP,IR(1 to 3),R,L)
 	 begin
 		case ALUOP is
 			when "00" =>
@@ -83,7 +83,7 @@ begin
 	 end process;
 	
 	--Process to define ALU Behavior (Combinational Circuit)
-	process (Alu_ControlInput)
+	process (Alu_ControlInput,IR(1 to 3),R,L)
 	begin
 		case Alu_ControlInput is			
 			when alu_sub => 
@@ -159,9 +159,32 @@ begin
 		
 		-- Deal with DO_RSHIFT (Remember that the now the MSB is 0 Big endian
 		if DO_RSHIFT = '1' then
-			Z <= Z_Intermediate(1 to 16) + Z_Intermediate(1 to 16);	-- Simple Addition
+			-- Z(0)=0 Z(1)=ALU(0) Z(2)=ALU(1) Z(3)=ALU(2) Z(4)=ALU(3) Z(5)=ALU(4) Z(6)=ALU(5) Z(7)=ALU(6)
+			Z(0) <= '0';
+			Z(1) <= Z_Intermediate(0);
+			Z(2) <= Z_Intermediate(1);
+			Z(3) <= Z_Intermediate(2);
+			Z(4) <= Z_Intermediate(3);
+			Z(5) <= Z_Intermediate(4);
+			Z(6) <= Z_Intermediate(5);
+			Z(7) <= Z_Intermediate(6);			
+			Z(8) <= Z_Intermediate(7);
+			Z(9) <= Z_Intermediate(8);
+			Z(10) <= Z_Intermediate(9);
+			Z(11) <= Z_Intermediate(10);
+			Z(12) <= Z_Intermediate(11);
+			Z(13) <= Z_Intermediate(12);
+			Z(14) <= Z_Intermediate(13);
+			Z(15) <= Z_Intermediate(14);
 		else
-			Z <= Z_Intermediate(1 to 16);
+			if ALUOP_SZ = '1' then
+				-- Sign extension
+				Z(0 to 7) <= Z_Intermediate(9) & Z_Intermediate(9) & Z_Intermediate(9) & Z_Intermediate(9) & Z_Intermediate(9) & Z_Intermediate(9) & Z_Intermediate(9) & Z_Intermediate(9);
+				Z(8 to 15) <= Z_Intermediate(9 to 16);
+			else
+				-- Normal operation			
+				Z <= Z_Intermediate(1 to 16);
+			end if;			
 		end if;	
 		
 	end process;

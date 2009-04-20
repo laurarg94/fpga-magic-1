@@ -100,28 +100,28 @@ BEGIN
    begin		
       wait for 20 ns;			
 		-- Wait 20 ns for system to settle		
-		REPORT "ADD without carry" SEVERITY WARNING;
+		REPORT "ADD without carry 2 + 3" SEVERITY WARNING;
 		USE_CARRY <= '0';
 		ALUOP <= "11";
 		R <= conv_std_logic_vector(2, 16);
 		L <= conv_std_logic_vector(3, 16);		
 		wait for 20 ns;			
 				
-		REPORT "SUB wintout carry" SEVERITY WARNING;
+		REPORT "SUB wintout carry 3 - 2" SEVERITY WARNING;
 		USE_CARRY <= '0';
 		ALUOP <= "10";
 		R <= conv_std_logic_vector(3, 16);
 		L <= conv_std_logic_vector(2, 16);		
 		wait for 20 ns;
 
-		REPORT "AND" SEVERITY WARNING;
+		REPORT "0000000001000000 AND 0000000001000100" SEVERITY WARNING;
 		USE_CARRY <= '0';
 		ALUOP <= "01";
 		R <= "0000000001000000";
 		L <= "0000000001000100";
 		wait for 20 ns;		
 		
-		REPORT "SUB by IR without carry" SEVERITY WARNING;
+		REPORT "SUB by IR without carry: 6 - 2" SEVERITY WARNING;
 		USE_CARRY <= '0';
 		ALUOP <= "00";
 		IR <= "X010XXXX";
@@ -129,7 +129,7 @@ BEGIN
 		L <= conv_std_logic_vector(2, 16);		
 		wait for 20 ns;
 		
-		REPORT "ADD by IR without carry" SEVERITY WARNING;
+		REPORT "ADD by IR without carry: 6 + 2" SEVERITY WARNING;
 		USE_CARRY <= '0';
 		ALUOP <= "00";
 		IR <= "X011XXXX";
@@ -137,7 +137,7 @@ BEGIN
 		L <= conv_std_logic_vector(2, 16);		
 		wait for 20 ns;
 		
-		REPORT "XOR by IR" SEVERITY WARNING;
+		REPORT "XOR by IR: 6 xor 6" SEVERITY WARNING;
 		USE_CARRY <= '0';
 		ALUOP <= "00";
 		IR <= "X100XXXX";
@@ -145,7 +145,7 @@ BEGIN
 		L <= conv_std_logic_vector(6, 16);		
 		wait for 20 ns;
 		
-		REPORT "OR by IR" SEVERITY WARNING;
+		REPORT "OR by IR: 0000000001000000 OR 0000000001000100" SEVERITY WARNING;
 		USE_CARRY <= '0';
 		ALUOP <= "00";
 		IR <= "X101XXXX";
@@ -153,7 +153,7 @@ BEGIN
 		L <= "0000000001000100";
 		wait for 20 ns;
 		
-		REPORT "AND by IR" SEVERITY WARNING;
+		REPORT "AND by IR: 0000000001000000 AND 0000000001000100" SEVERITY WARNING;
 		USE_CARRY <= '0';
 		ALUOP <= "00";
 		IR <= "X110XXXX";
@@ -161,7 +161,7 @@ BEGIN
 		L <= "0000000001000100";
 		wait for 20 ns;
 		
-		REPORT "ADD by IR with carry" SEVERITY WARNING;
+		REPORT "ADD by IR with carry:4 + 4 + 1" SEVERITY WARNING;
 		USE_CARRY <= '1';
 		MSWC <= '1';
 		ALUOP <= "00";
@@ -170,7 +170,7 @@ BEGIN
 		L <= conv_std_logic_vector(4, 16);		
 		wait for 20 ns;
 		
-		REPORT "SUB by IR with carry" SEVERITY WARNING;
+		REPORT "SUB by IR with carry: 4 - 4 -1" SEVERITY WARNING;
 		USE_CARRY <= '1';
 		MSWC <= '1';
 		ALUOP <= "00";
@@ -179,7 +179,7 @@ BEGIN
 		L <= conv_std_logic_vector(4, 16);		
 		wait for 20 ns;
 		
-		REPORT "ADD by IR creating Carry" SEVERITY WARNING;
+		REPORT "ADD by IR creating Carry: 40000 + 40000" SEVERITY WARNING;
 		USE_CARRY <= '0';
 		MSWC <= '0';
 		ALUOP <= "00";
@@ -188,7 +188,7 @@ BEGIN
 		L <= conv_std_logic_vector(40000, 16);		
 		wait for 20 ns;
 		
-		REPORT "SUB by IR creating zero flag" SEVERITY WARNING;
+		REPORT "SUB by IR creating zero flag: 10 - 10" SEVERITY WARNING;
 		USE_CARRY <= '0';
 		MSWC <= '0';
 		ALUOP <= "00";
@@ -197,7 +197,7 @@ BEGIN
 		L <= conv_std_logic_vector(10, 16);		
 		wait for 20 ns;
 		
-		REPORT "ADD by IR creating Overflow" SEVERITY WARNING;
+		REPORT "ADD by IR creating Overflow: 32760 + 14" SEVERITY WARNING;
 		USE_CARRY <= '0';
 		MSWC <= '0';
 		ALUOP <= "00";
@@ -205,6 +205,27 @@ BEGIN
 		R <= conv_std_logic_vector(32760, 16);
 		L <= conv_std_logic_vector(14, 16);		
 		wait for 20 ns;
+		
+		-- Wait 20 ns for system to settle		
+		REPORT "ADD without carry for latter test right shift: 4 + 4=8 (00000100 rsh ---> 00000010)" SEVERITY WARNING;
+		USE_CARRY <= '0';
+		ALUOP <= "11";
+		DO_RSHIFT <= '1';
+		IR <= "XXXXXXXX";
+		R <= conv_std_logic_vector(4, 16);
+		L <= conv_std_logic_vector(4, 16);		
+		wait for 20 ns;			
+		
+		-- Wait 20 ns for system to settle		
+		REPORT "ADD without carry for latter test right shift: 130 + 1=8 (10000011 sign extension ---> 11111111 10000011)" SEVERITY WARNING;
+		USE_CARRY <= '0';
+		ALUOP <= "11";
+		DO_RSHIFT <= '0';
+		ALUOP_SZ <= '1';
+		IR <= "XXXXXXXX";
+		R <= conv_std_logic_vector(130, 16);
+		L <= conv_std_logic_vector(1, 16);		
+		wait for 20 ns;			
 
       wait;
    end process;
