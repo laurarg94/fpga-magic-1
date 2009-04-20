@@ -24,8 +24,6 @@ Taking a look to the schematic we can easily observe each prom forming the contr
 The signals are better explained in *[MicroinstructionBits here] *
 These hex files are created with *[Prombits prombits.h]*
 
-{{color c="blue" text="This is a test."}}
-
 Here you can see the * [PROMHex PROM Hex listing]* in Intel Hex format. Those Hex files will be converted to VHDL using a tool called srecord [http://srecord.sourceforge.net/]
 
 *srec_cat prom0.hex -Intel -o prom0.vhd -VHdl*
