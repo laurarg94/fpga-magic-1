@@ -4,7 +4,7 @@
 
 This file contains all microinstruction bits used to create the prom files.
 
-Each entry contain 40 bits explained here
+Each entry contain 40 bits explained *[MicroinstructionBits here]*
 
 
 = Details =
