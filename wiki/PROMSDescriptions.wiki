@@ -24,6 +24,8 @@ Taking a look to the schematic we can easily observe each prom forming the contr
 The signals are better explained in *[MicroinstructionBits here] *
 These hex files are created with *[Prombits prombits.h]*
 
+{{color c="blue" text="This is a test."}}
+
 Here you can see the * [PROMHex PROM Hex listing]* in Intel Hex format. Those Hex files will be converted to VHDL using a tool called srecord [http://srecord.sourceforge.net/]
 
 *srec_cat prom0.hex -Intel -o prom0.vhd -VHdl*
@@ -60,3 +62,11 @@ Now let's read the first line looking for the first byte of each prom hex file
 ||:10000000003E3636364136362E39393939393939A6||:10000000135308080853080853101010101010104C||:1000000020000000000000000000000000000000D0||:10000000D353D2DBD453D6D753D5D5D5D5D5D5D523||:100000009696121212961212960202020202020230||
 || *byte 0* || *byte 1* || *byte 2* || *byte 3* || *byte 4* ||
 || 0x00 || 0x13 || 0x20 || 0xD3 || 0x96 ||
+
+Converting those bytes to binary we got:
+
+*00000000 00010011 00100000 11010011 10010110*  (From Proms)
+
+*00000000 00111000 00000010 00110111 01101001*  (From prombits.h)
+
+{{color c="blue" text="This is a test."}}
