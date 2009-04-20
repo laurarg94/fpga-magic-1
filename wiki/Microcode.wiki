@@ -2,7 +2,7 @@
 
 = Introduction =
 
-This document will list all microcode stored in Magic-1 PROMS. In order to understand those symbols in the *Operations* field take a look at * [Microcode Microcode listing]*
+This document will list all microcode stored in Magic-1 PROMS. In order to understand those symbols in the *Operations* field take a look at * [MicroinstructionDefines Operation definitions listing]*
 
 
 = Details =
