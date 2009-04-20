@@ -19,6 +19,25 @@ This instruction index is 0x3f if you check the "Operations" field you will chec
 || L(R_MDR,LWORD) || Store the contents of Z in MDR register as a 16 bits word ||
 || NEXT(Aluop16) || Continue the execution at the label *Aluop16* wich index is 0x117  ||
 
+So continuing the execution in 0x117 we got:
+
+*E_L(R_A),E_R(ER_MDR),ALU(OP_IR13,WORD,NO_CARRY),L(R_A,LWORD),MISC(M_SET_FLAGS),NEXT(Fetch)*
+
+|| *Operations* ||	*Description*	||
+|| E_L(R_A) || Place the contents of register B in Z bus ||
+|| E_R(ER_MDR) || Place the contents of register B in Z bus ||
+|| ALU(OP_IR13,WORD,NO_CARRY) || Place the contents of register B in Z bus ||
+|| L(R_A,LWORD) || Place the contents of register B in Z bus ||
+|| MISC(M_SET_FLAGS) || Place the contents of register B in Z bus ||
+|| NEXT(Fetch) || Go to the Fetch(0x100) microinstruction to start the next instruction. ||
+
+Continuing the execution in 0x100 we got:
+
+*FETCH_OP*
+
+|| *Operations* ||	*Description*	||
+|| FETCH_OP || Searching this symbol in *[MicroinstructionDefines Operation definitions listing]* we got *FETCH_OP READLO,MISC(M_INIT_INST),INC_TO_Z(R_MAR),L(R_PC,LWORD),CODE,NEXT(UNUSABLE)* ||
+
 
 = Details =
 || *Microcode Index* ||	*Instruction*	||	*Operations* ||
