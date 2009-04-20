@@ -24,11 +24,11 @@ So continuing the execution in 0x117 we got:
 *E_L(R_A),E_R(ER_MDR),ALU(OP_IR13,WORD,NO_CARRY),L(R_A,LWORD),MISC(M_SET_FLAGS),NEXT(Fetch)*
 
 || *Operations* ||	*Description*	||
-|| E_L(R_A) || Place the contents of register B in Z bus ||
-|| E_R(ER_MDR) || Place the contents of register B in Z bus ||
-|| ALU(OP_IR13,WORD,NO_CARRY) || Place the contents of register B in Z bus ||
+|| E_L(R_A) || place the contents of the A register on the L bus ||
+|| E_R(ER_MDR) || place the contents of the MDR register on the R bus ||
+|| ALU(OP_IR13,WORD,NO_CARRY) || perform an ALU operation based on bits 1-3 of the value in the instruction register (which in this case selects an ADD operation), do the operation using 16 bits, and feed a "0" in for incoming carry). ||
 || L(R_A,LWORD) || Place the contents of register B in Z bus ||
-|| MISC(M_SET_FLAGS) || Place the contents of register B in Z bus ||
+|| MISC(M_SET_FLAGS) || Set the Z, C, V and S bits of the MSW based on the result of the ALU operation ||
 || NEXT(Fetch) || Go to the Fetch(0x100) microinstruction to start the next instruction. ||
 
 Continuing the execution in 0x100 we got:
