@@ -36,7 +36,7 @@ Continuing the execution in 0x100 we got:
 *FETCH_OP*
 
 || *Operations* ||	*Description*	||
-|| FETCH_OP || Searching this symbol in *[MicroinstructionDefines Operation definitions listing]* we got *FETCH_OP READLO,MISC(M_INIT_INST),INC_TO_Z(R_MAR),L(R_PC,LWORD),CODE,NEXT(UNUSABLE)* ||
+|| FETCH_OP || Searching this symbol "FETCH_OP" in *[MicroinstructionDefines Operation definitions listing]* we got *READLO,MISC(M_INIT_INST),INC_TO_Z(R_MAR),L(R_PC,LWORD),CODE,NEXT(UNUSABLE)* ||
 
 
 = Details =
