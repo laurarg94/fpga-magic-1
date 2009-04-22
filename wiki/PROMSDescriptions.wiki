@@ -32,6 +32,18 @@ This will create an VHDL description of a PROM with the hex contents.
 
 [http://code.google.com/p/fpga-magic-1/source/browse/trunk/prom0.vhd]
 
+[http://code.google.com/p/fpga-magic-1/source/browse/trunk/prom1.vhd]
+
+[http://code.google.com/p/fpga-magic-1/source/browse/trunk/prom2.vhd]
+
+[http://code.google.com/p/fpga-magic-1/source/browse/trunk/prom3.vhd]
+
+[http://code.google.com/p/fpga-magic-1/source/browse/trunk/prom4.vhd]
+
+Other option is to use FPGA Block Ram memory, so as we configure the FPGA we could load the microinstruction as .COE files
+
+*Sample:* [http://www.xilinx.com/itp/xilinx9/help/iseguide/mergedProjects/coregen/html/cgn_coe_file_syntax.htm]
+
 = Reading instructions from PROMs =
 Now we're going to explain a instruction *halt* from the proms perspective.
 
