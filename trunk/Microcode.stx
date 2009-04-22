@@ -1,0 +1,45 @@
+Release 10.1 - xst K.31 (nt)
+Copyright (c) 1995-2008 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to ./xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.27 secs
+ 
+--> 
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "C:/fpga-magic-1/eprom_defs_pack.vhd" in Library work.
+Architecture eprom_defs_pack of Entity eprom_defs_pack is up to date.
+Compiling vhdl file "C:/fpga-magic-1/prom4.vhd" in Library work.
+Compiling vhdl file "C:/fpga-magic-1/prom3.vhd" in Library work.
+Compiling vhdl file "C:/fpga-magic-1/prom2.vhd" in Library work.
+Compiling vhdl file "C:/fpga-magic-1/prom1.vhd" in Library work.
+Compiling vhdl file "C:/fpga-magic-1/prom0.vhd" in Library work.
+Compiling vhdl file "C:/fpga-magic-1/PROM_74S472_Eprom0_U5.vhd" in Library work.
+Architecture behavioral of Entity prom_74s472_eprom0_u5 is up to date.
+Compiling vhdl file "C:/fpga-magic-1/PROM_74S472_Eprom1_U4.vhd" in Library work.
+Architecture behavioral of Entity prom_74s472_eprom1_u4 is up to date.
+Compiling vhdl file "C:/fpga-magic-1/PROM_74S472_Eprom2_U3.vhd" in Library work.
+Architecture behavioral of Entity prom_74s472_eprom2_u3 is up to date.
+Compiling vhdl file "C:/fpga-magic-1/PROM_74S472_Eprom3_U2.vhd" in Library work.
+Architecture behavioral of Entity prom_74s472_eprom3_u2 is up to date.
+Compiling vhdl file "C:/fpga-magic-1/PROM_74S472_Eprom4_U1.vhd" in Library work.
+Architecture behavioral of Entity prom_74s472_eprom4_u1 is up to date.
+Compiling vhdl file "C:/fpga-magic-1/Microcode.vhd" in Library work.
+Entity <microcode> compiled.
+Entity <microcode> (Architecture <behavioral>) compiled.
+
+
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 1.00 secs
+ 
+--> 
+
+Total memory usage is 123460 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :    0 (   0 filtered)
+Number of infos    :    0 (   0 filtered)
+

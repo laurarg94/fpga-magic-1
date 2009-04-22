@@ -848,6 +848,8 @@ proc restore { { project_dir "" } } {
       "MDRTester.vhd" 
       "MSW.vhd" 
       "MSWTester.vhd" 
+      "Microcode.vhd" 
+      "MicrocodeTester.vhd" 
       "PROM_74S472_Eprom0_U5.vhd" 
       "PROM_74S472_Eprom1_U4.vhd" 
       "PROM_74S472_Eprom2_U3.vhd" 
