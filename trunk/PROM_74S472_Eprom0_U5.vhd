@@ -23,28 +23,28 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEEE.numeric_std.all;
 
-use work.x_defs_pack.all;
-use work.eprom_pack.all;
+use work.eprom_defs_pack.all;
+use work.eprom_pack_0.all;
 
 ---- Uncomment the following library declaration if instantiating
 ---- any Xilinx primitives in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity PROM_74S472 is
+entity PROM_74S472_Eprom0_U5 is	
     Port ( CE : in  STD_LOGIC;
            A : in  STD_LOGIC_VECTOR(8 downto 0);
            O : out  STD_LOGIC_VECTOR (7 downto 0));
-end PROM_74S472;
+end PROM_74S472_Eprom0_U5;
 
-architecture Behavioral of PROM_74S472 is
+architecture Behavioral of PROM_74S472_Eprom0_U5 is
 
 begin
 	-- Process to describe generic PROM memory
 	process (CE,A)
 	begin 
 		if (CE = '0') then
-			O <= eprom_rom(conv_integer(A));
+			O <= eprom_rom_0(conv_integer(A));
 		else 
 			O <= (others => 'Z');
 		end if;

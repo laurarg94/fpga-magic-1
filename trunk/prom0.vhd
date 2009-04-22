@@ -6,9 +6,9 @@ library IEEE;
 use IEEE.numeric_std.all;
 use work.eprom_defs_pack.all;
 
-package eprom_pack is
+package eprom_pack_0 is
  --constant eprom_rom : eprom_rom_array;
- constant eprom_rom : eprom_rom_array := eprom_rom_array'(
+ constant eprom_rom_0 : eprom_rom_array := eprom_rom_array'(
   0 => eprom_entry(0),
   1 => eprom_entry(62),
   2 => eprom_entry(54),
@@ -523,8 +523,4 @@ package eprom_pack is
   511 => eprom_entry(0),
   others => eprom_dont_care
  );
-end package eprom_pack;
-
---package body eprom_pack is
- 
---end package body eprom_pack;
+end package eprom_pack_0;
