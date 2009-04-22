@@ -15,6 +15,7 @@ This card includes the following  parts
 || Field Decode || Prepare signals delivered from Microcode || 
 || Faults and Interrupts || Stores Interrupt, Fault bits and Encoder signal marshalled to Microcode ||
 
+
 == Microcode ==
 
 [http://i219.photobucket.com/albums/cc244/leonardoaraujo/Microcode_Schematic.png]
@@ -33,3 +34,7 @@ And stores IR signal.
 This module is described here:
 
 [http://code.google.com/p/fpga-magic-1/source/browse/trunk/Microcode.vhd]
+
+== Field Decode ==
+In 
+[http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/CompOrg/fetchDecode.html decode]
