@@ -4,24 +4,23 @@ Copyright (c) 1995-2008 Xilinx, Inc.  All rights reserved.
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.27 secs
+Total CPU time to Xst completion: 0.25 secs
  
 --> 
 =========================================================================
 *                          HDL Compilation                              *
 =========================================================================
 Compiling vhdl file "C:/fpga-magic-1/eprom_defs_pack.vhd" in Library work.
-Package <eprom_defs_pack> compiled.
-Package body <eprom_defs_pack> compiled.
-Compiling vhdl file "C:/fpga-magic-1/prom0.vhd" in Library work.
-Package <eprom_pack_0> compiled.
-Compiling vhdl file "C:/fpga-magic-1/PROM_74S472_Eprom0_U5.vhd" in Library work.
-Entity <PROM_74S472_Eprom0_U5> compiled.
-Entity <PROM_74S472_Eprom0_U5> (Architecture <Behavioral>) compiled.
+Architecture eprom_defs_pack of Entity eprom_defs_pack is up to date.
+Compiling vhdl file "C:/fpga-magic-1/prom3.vhd" in Library work.
+Package <eprom_pack_3> compiled.
+Compiling vhdl file "C:/fpga-magic-1/PROM_74S472_Eprom3_U2.vhd" in Library work.
+Entity <PROM_74S472_Eprom3_U2> compiled.
+Entity <PROM_74S472_Eprom3_U2> (Architecture <Behavioral>) compiled.
 
 
-Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.58 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.49 secs
  
 --> 
 
