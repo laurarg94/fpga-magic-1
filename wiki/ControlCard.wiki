@@ -22,4 +22,12 @@ This part will use the following signals:
   * ENCODER    
   * Next
 
-As indexes for PROM microinstruction area, so after fetching each microinstruction it will create the 40 bit signals needed for controlling magic-1
+As indexes for PROM microinstruction area, so after fetching each microinstruction it will create the 40 bit signals needed for controlling magic-1.
+
+It also handles the branch (jumps in code)
+
+And stores IR signal.
+
+This module is described here:
+
+[http://code.google.com/p/fpga-magic-1/source/browse/trunk/Microcode.vhd]
