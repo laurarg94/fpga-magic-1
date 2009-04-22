@@ -45,8 +45,8 @@ entity Microcode is
            NEXT_SIG : inout  STD_LOGIC_VECTOR (0 to 7);
            NEG_NEXT0 : out  STD_LOGIC;
            R_RW : out  STD_LOGIC;
-           NEG_E_MDR_HI : out  STD_LOGIC;
-           NEG_E_MDR_LO : out  STD_LOGIC;
+           NEG_E_MDR_HI : inout  STD_LOGIC;
+           NEG_E_MDR_LO : inout  STD_LOGIC;
            LATCH : out  STD_LOGIC_VECTOR (0 to 3);
            XL_MAR : out  STD_LOGIC;
            XL_MDR_LO : out  STD_LOGIC;
@@ -131,6 +131,7 @@ begin
 	
 	-- Describe U6
 	FAULT_OR_NEXT_ZERO <= FAULT_PENDING or NEXT_IS_ZERO;
+	NEG_NEXT0_SIG <= '1'; -- Remember to take out --------------------------------------------------------------
 	NEG_NEXT0 <= NEG_NEXT0_SIG;
 	OPCODE_SELECT <= FAULT_OR_NEXT_ZERO & NEG_NEXT0_SIG;
 	-- Process to describe array of 74153 to select signals from NEXT,IR,Encoder(0..3)
@@ -216,6 +217,12 @@ begin
 				NEXT_SIG <= OUTPUT_MICROINSTRUCTION(7 downto 0);
 			end if;
 		end if;
+	end process;
+	
+	-- Process to handle signal R_RW
+	process (NEG_E_MDR_HI, NEG_E_MDR_LO, NEG_DMA_ACK, NEG_FP_WRITE)
+	begin
+		R_RW <= not (NEG_E_MDR_LO and NEG_E_MDR_HI and (NEG_DMA_ACK or NEG_FP_WRITE));
 	end process;
 
 end Behavioral;
