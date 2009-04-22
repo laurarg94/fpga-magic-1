@@ -9,14 +9,13 @@ This card includes the Control part of Magic-1 it fetches and decodes each instr
 = Details =
 
 This card includes the following  parts
-|| *Part* || *Description* ||
+|| * Part * || * Description * ||
 || Microcode || It uses the M1 opcodes to fetch the microinstruction data from Proms ||
-|| FieldDecode  || Prepare signals delivered from Microcode || 
+|| FieldDecod  || Prepare signals delivered from Microcode || 
 || Faults and Interrupts || Stores Interrupt, Fault bits and Encoder signal marshalled to Microcode ||
 
 == Microcode ==
 This part will use the following signals:
-
 * IR
 * ENCODER
 * NEXT
