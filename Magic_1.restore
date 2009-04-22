@@ -848,11 +848,15 @@ proc restore { { project_dir "" } } {
       "MDRTester.vhd" 
       "MSW.vhd" 
       "MSWTester.vhd" 
-      "PROM_74S472.vhd" 
+      "PROM_74S472_Eprom0_U5.vhd" 
       "SpecialRegisterTester.vhd" 
       "SpecialRegisters.vhd" 
       "eprom_defs_pack.vhd" 
       "prom0.vhd" 
+      "prom1.vhd" 
+      "prom2.vhd" 
+      "prom3.vhd" 
+      "prom4.vhd" 
       "standardDefinitions.vhd"}
 
   HandleException {
