@@ -1,0 +1,3 @@
+vhdl work "eprom_defs_pack.vhd"
+vhdl work "prom1.vhd"
+vhdl work "PROM_74S472_Eprom1_U4.vhd"

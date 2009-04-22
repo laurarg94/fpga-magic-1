@@ -24,7 +24,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEEE.numeric_std.all;
 
 use work.eprom_defs_pack.all;
-use work.eprom_pack_0.all;
+use work.eprom_pack_1.all;
 
 ---- Uncomment the following library declaration if instantiating
 ---- any Xilinx primitives in this code.

@@ -1,0 +1,3 @@
+vhdl work "C:\fpga-magic-1\eprom_defs_pack.vhd"
+vhdl work "C:\fpga-magic-1\prom2.vhd"
+vhdl work "C:\fpga-magic-1\PROM_74S472_Eprom2_U3.vhd"

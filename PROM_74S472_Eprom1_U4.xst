@@ -1,0 +1,4 @@
+set -tmpdir "./xst/projnav.tmp"
+elaborate
+-ifn PROM_74S472_Eprom1_U4.prj
+-ifmt mixed
