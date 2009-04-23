@@ -72,7 +72,7 @@ signal MICROCODE_ADDRESS : STD_LOGIC_VECTOR(0 to 7);
 signal FULL_PROM_ADDRESS : STD_LOGIC_VECTOR(0 to 8);
 signal OUTPUT_PROM_0,OUTPUT_PROM_1,OUTPUT_PROM_2,OUTPUT_PROM_3,OUTPUT_PROM_4 : STD_LOGIC_VECTOR(7 downto 0);
 signal OUTPUT_MICROINSTRUCTION : STD_LOGIC_VECTOR(39 downto 0);
-signal BR_SENSE : STD_LOGIC;
+signal BR_SENSE, OUTPUT_BRANCH_LOGIC : STD_LOGIC;
 signal NEXT_IS_ZERO,NEXT_NOT_ZERO : STD_LOGIC;
 signal FAULT_OR_NEXT_ZERO : STD_LOGIC;
 signal NEG_NEXT0_SIG : STD_LOGIC;
@@ -119,9 +119,32 @@ begin
 	end process;
 	
 	-- Process to describe circuitry used for creating signals for branches (jump if something(zero,carry,...))
-	process (MSWC,MSWZ,MSWS,MSWV,IR(1 to 3))
+	process (MSWC,MSWZ,MSWS,MSWV,IR(1 to 3),BR_SENSE, NEG_DO_BRANCH)
+	variable output_mux : std_logic;
 	begin
-	
+		     --C,B,A (Mux sel input)
+		case IR(1 to 3) is
+			when "000" =>
+				output_mux := MSWZ;
+			when "001" =>
+				output_mux := MSWZ;
+			when "010" =>
+				output_mux := MSWS xor MSWV;
+			when "011" =>
+				output_mux := MSWZ or (MSWS xor MSWV);
+			when "100" =>
+				output_mux := not MSWC;
+			when "101" =>
+				output_mux := MSWZ or (not MSWC);
+			when "110" =>
+				output_mux := MSWZ;
+			when "111" =>
+				output_mux := not MSWZ;
+			when others =>
+				output_mux := 'Z';
+		end case;
+		
+		OUTPUT_BRANCH_LOGIC <= NEG_DO_BRANCH or (output_mux xor BR_SENSE);
 	end process;
 	
 	-- If Next = 0x0 use priority encoder (Describe U24)
@@ -131,7 +154,10 @@ begin
 	
 	-- Describe U6
 	FAULT_OR_NEXT_ZERO <= FAULT_PENDING or NEXT_IS_ZERO;
-	NEG_NEXT0_SIG <= '1'; -- Remember to take out --------------------------------------------------------------
+	
+	-- U44B logic for signal NEG_NEXT0_SIG
+	NEG_NEXT0_SIG <= OUTPUT_BRANCH_LOGIC and NEXT_NOT_ZERO and (not FAULT_PENDING); 
+	
 	NEG_NEXT0 <= NEG_NEXT0_SIG;
 	OPCODE_SELECT <= FAULT_OR_NEXT_ZERO & NEG_NEXT0_SIG;
 	-- Process to describe array of 74153 to select signals from NEXT,IR,Encoder(0..3)
