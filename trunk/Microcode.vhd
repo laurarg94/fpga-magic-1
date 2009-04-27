@@ -189,7 +189,7 @@ begin
 	-- Process to describe arrays of 74273 to store Microinstrucrion of 40bits lenght
 	process (NEG_RESET,CLKM,OUTPUT_MICROINSTRUCTION)
 	begin
-		if NEG_RESET = '1' then
+		if NEG_RESET = '0' then
 			CODE_PTB <= '0';
 			RUSER_PTB <= '0';
 			LATCH_SZ <= '0';

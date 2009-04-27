@@ -29,6 +29,10 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.all;
 USE ieee.numeric_std.ALL;
+
+USE IEEE.STD_LOGIC_TEXTIO.ALL;
+USE STD.TEXTIO.ALL;
+
  
 ENTITY MicrocodeTester IS
 END MicrocodeTester;
@@ -56,8 +60,8 @@ ARCHITECTURE behavior OF MicrocodeTester IS
          NEXT_SIG : INOUT  std_logic_vector(0 to 7);
          NEG_NEXT0 : OUT  std_logic;
          R_RW : OUT  std_logic;
-         NEG_E_MDR_HI : OUT  std_logic;
-         NEG_E_MDR_LO : OUT  std_logic;
+         NEG_E_MDR_HI : INOUT  std_logic;
+         NEG_E_MDR_LO : INOUT  std_logic;
          LATCH : OUT  std_logic_vector(0 to 3);
          XL_MAR : OUT  std_logic;
          XL_MDR_LO : OUT  std_logic;
@@ -80,7 +84,7 @@ ARCHITECTURE behavior OF MicrocodeTester IS
     
 
    --Inputs
-   signal NEG_RESET : std_logic := '0';
+   signal NEG_RESET : std_logic := '1';
    signal CLKM : std_logic := '0';
    signal INIT_INST : std_logic := '0';
    signal FAULT_PENDING : std_logic := '0';
@@ -164,16 +168,14 @@ BEGIN
         );
  
    -- No clocks detected in port list. Replace <clock> below with 
-   -- appropriate port name 
+   -- appropriate port name    
  
-   constant <clock>_period := 1ns;
- 
-   <clock>_process :process
+   CLK_process :process
    begin
-		<clock> <= '0';
-		wait for <clock>_period/2;
-		<clock> <= '1';
-		wait for <clock>_period/2;
+		CLKM <= '0';
+		wait for 10 ns;
+		CLKM <= '1';
+		wait for 10 ns;
    end process;
  
 
@@ -181,12 +183,19 @@ BEGIN
    stim_proc: process
    begin		
       -- hold reset state for 100ms.
-      wait for 100ms;	
+		REPORT "Holding RESET state for a while" SEVERITY WARNING;
+		NEG_RESET <= '0';		
+		wait for 5 ns;
+		NEG_RESET <= '1';
+      wait for 10 ns;	      
 
-      wait for <clock>_period*10;
-
-      -- insert stimulus here 
-
+      -- Entering Opcode (do_halt)
+		REPORT "Entering OPCODE (do_halt) from DBUS" SEVERITY WARNING;
+		DBUS <= "00000000";
+		INIT_INST <= '1';
+		wait for 10 ns;	      
+		
+		
       wait;
    end process;
 
