@@ -185,15 +185,33 @@ BEGIN
       -- hold reset state for 100ms.
 		REPORT "Holding RESET state for a while" SEVERITY WARNING;
 		NEG_RESET <= '0';		
-		wait for 5 ns;
+		wait for 10 ns;
 		NEG_RESET <= '1';
-      wait for 10 ns;	      
+      wait for 20 ns;	      
 
       -- Entering Opcode (do_halt)
 		REPORT "Entering OPCODE (do_halt) from DBUS" SEVERITY WARNING;
 		DBUS <= "00000000";
 		INIT_INST <= '1';
-		wait for 10 ns;	      
+		wait for 20 ns;
+
+		INIT_INST <= '0';
+		wait for 20 ns;
+		
+		-- Entering Opcode (do_ld)
+		REPORT "Entering OPCODE (do_ld) from DBUS" SEVERITY WARNING;
+		DBUS <= "00000001";
+		INIT_INST <= '1';
+		wait for 20 ns;
+		
+		INIT_INST <= '0';
+		wait for 20 ns;
+		
+		-- Entering Opcode (do_push)
+		REPORT "Entering OPCODE (do_push) from DBUS" SEVERITY WARNING;
+		DBUS <= "00000010";
+		INIT_INST <= '1';
+		wait for 20 ns;
 		
 		
       wait;
