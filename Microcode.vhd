@@ -161,7 +161,7 @@ begin
 	NEG_NEXT0 <= NEG_NEXT0_SIG;
 	OPCODE_SELECT <= FAULT_OR_NEXT_ZERO & NEG_NEXT0_SIG;
 	-- Process to describe array of 74153 to select signals from NEXT,IR,Encoder(0..3)
-	process (OPCODE_SELECT,IR,NEXT_SIG,ENCODER)
+	process (INIT_INST,OPCODE_SELECT,IR,NEXT_SIG,ENCODER)
 	begin
 		case OPCODE_SELECT is 
 			when "00" =>
