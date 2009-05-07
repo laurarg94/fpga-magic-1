@@ -35,8 +35,8 @@ This module is described here:
 
 [http://code.google.com/p/fpga-magic-1/source/browse/trunk/Microcode.vhd]
 
-== IF ==
-The instruction fetch process will load the instruction from the PROMS using the opcode index
+== IF(Instruction Fetch) ==
+The instruction fetch process will load the instruction from the PROMS using the opcode index.
 
 == Field Decode ==
 The 
