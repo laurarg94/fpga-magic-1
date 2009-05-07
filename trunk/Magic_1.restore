@@ -1212,7 +1212,7 @@ proc restore { { project_dir "" } } {
       "C" "" "" "" "PROP_CompxlibSimPath" "Search in Path" 
       "C" "" "" "" "PROP_DevDevice" "xc3s500e" 
       "C" "" "" "" "PROP_DevFamilyPMName" "spartan3e" 
-      "C" "" "" "" "PROP_ISimSimulationRunTime_behav_tb" "1000 ns" 
+      "C" "" "" "" "PROP_ISimSimulationRunTime_behav_tb" "10000 ns" 
       "C" "" "" "" "PROP_ISimSimulationRunTime_behav_tbw" "1000 ns" 
       "C" "" "" "" "PROP_ISimSimulationRunTime_par_tb" "1000 ns" 
       "C" "" "" "" "PROP_ISimSimulationRunTime_par_tbw" "1000 ns" 
