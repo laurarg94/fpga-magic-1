@@ -92,7 +92,7 @@ ARCHITECTURE behavior OF MicrocodeTester IS
    signal MSWZ : std_logic := '0';
    signal MSWS : std_logic := '0';
    signal MSWV : std_logic := '0';
-   signal NEG_DO_BRANCH : std_logic := '0';
+   signal NEG_DO_BRANCH : std_logic := '1';
    signal ENCODER : std_logic_vector(0 to 3) := (others => '0');
    signal DBUS : std_logic_vector(0 to 7) := (others => '0');
    signal NEG_DMA_ACK : std_logic := '0';
@@ -171,11 +171,11 @@ BEGIN
    -- appropriate port name    
  
    CLK_process :process
-   begin
+   begin		
 		CLKM <= '0';
-		wait for 10 ns;
+		wait for 100 ns;
 		CLKM <= '1';
-		wait for 10 ns;
+		wait for 100 ns;		
    end process;
  
 
@@ -183,36 +183,40 @@ BEGIN
    stim_proc: process
    begin		
       -- hold reset state for 100ms.
+		wait for 1 ns;
 		REPORT "Holding RESET state for a while" SEVERITY WARNING;
 		NEG_RESET <= '0';		
-		wait for 10 ns;
+		wait for 20 ns;
 		NEG_RESET <= '1';
-      wait for 20 ns;	      
+      wait for 10 ns;	      
 
       -- Entering Opcode (do_halt)
 		REPORT "Entering OPCODE (do_halt) from DBUS" SEVERITY WARNING;
 		DBUS <= "00000000";
-		INIT_INST <= '1';
-		wait for 20 ns;
+		INIT_INST <= '1';		
+		--wait for 1 ns;
+		wait for 10 ns;
 
 		INIT_INST <= '0';
-		wait for 20 ns;
+		wait for 1000 ns;
 		
 		-- Entering Opcode (do_ld)
 		REPORT "Entering OPCODE (do_ld) from DBUS" SEVERITY WARNING;
 		DBUS <= "00000001";
-		INIT_INST <= '1';
-		wait for 20 ns;
+		INIT_INST <= '1';		
+		wait for 10 ns;
 		
 		INIT_INST <= '0';
-		wait for 20 ns;
-		
-		-- Entering Opcode (do_push)
-		REPORT "Entering OPCODE (do_push) from DBUS" SEVERITY WARNING;
+		wait for 1000 ns;
+
+		-- Entering Opcode (do_ld)
+		REPORT "Entering OPCODE (do_ld) from DBUS" SEVERITY WARNING;
 		DBUS <= "00000010";
-		INIT_INST <= '1';
-		wait for 20 ns;
+		INIT_INST <= '1';		
+		wait for 10 ns;
 		
+		INIT_INST <= '0';
+		wait for 1000 ns;
 		
       wait;
    end process;
