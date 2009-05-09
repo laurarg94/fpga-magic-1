@@ -28,9 +28,41 @@ start printf("Start command received\n");
 /* Code */
 }}}
 
-Anything between {% and %} will be copied to the output C file, the Rules part will be used to define the token rules as [http://en.wikipedia.org/wiki/Regular_expression regular expressions]
+For compile it:
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+{{{
+lex example1.l
+cc lex.yy.c -o example1 -ll
+}}}
+
+Anything between {% and %} will be copied to the output C file, sections will be separated with %% , the Rules part will be used to define the token rules as [http://en.wikipedia.org/wiki/Regular_expression regular expressions]. The code section will be used to define the *main* routine if you leave it empty and compile it with -ll the default main will be created, otherwise the yacc code will be used.
+
+The other example will use a regular expression to define some token:
+
+{{{
+%{
+/* Definition part */
+#include <stdio.h>
+%}
+
+/* Rules */
+%%
+[0-9]+   printf("NUMBER\n");
+[a-zA-Z][a-zA-Z0-9]*   printf("WORD\n");
+%%
+
+/* Code */
+}}}
+
+For compile it:
+
+{{{
+lex example2.l
+cc lex.yy.c -o example1 -ll
+}}}
+
+The Rules part defines 2 tokens *NUMBER* and *WORD*
+  * *NUMBER:* Defines a sequence of 1 or more characters from 0 to 9
+  * *WORD:* In the first part matches 1 and only 1 character from a to z or A to Z then the second part could be zero or more characters from a to z or A to Z or 0 to 9
+
+This way, we’ve mimicked the behaviour of many programming languages which demand that a variable name *must* start with a letter, but can contain digits afterwards. In other words, *’temperature1’* is a valid name, but *’1temperature’* is not.
