@@ -110,3 +110,19 @@ The lex file for *tokenizing* this file will be:
 
 /* Code */
 }}}
+
+The output of this tokenizer will be:
+
+{{{
+WORD OBRACE
+WORD FILENAME OBRACE WORD SEMICOLON EBRACE SEMICOLON
+WORD WORD OBRACE WORD SEMICOLON EBRACE SEMICOLON
+EBRACE SEMICOLON
+WORD QUOTE FILENAME QUOTE OBRACE
+WORD WORD SEMICOLON
+WORD QUOTE FILENAME QUOTE SEMICOLON
+EBRACE SEMICOLON
+}}}
+
+We’ve seen that Lex is able to read arbitrary input, and determine what each part of the input is. This is called ’Tokenizing’.
+Now those tokens will be the input for *YACC* 
