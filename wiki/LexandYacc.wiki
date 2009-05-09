@@ -66,3 +66,24 @@ The Rules part defines 2 tokens *NUMBER* and *WORD*
   * *WORD:* In the first part matches 1 and only 1 character from a to z or A to Z then the second part could be zero or more characters from a to z or A to Z or 0 to 9
 
 This way, we’ve mimicked the behaviour of many programming languages which demand that a variable name *must* start with a letter, but can contain digits afterwards. In other words, *’temperature1’* is a valid name, but *’1temperature’* is not.
+
+Now we're going to define a *tokenizer* for reading a file that looks like this...
+
+{{{
+logging {
+category lame-servers { null; };
+category cname { null; };
+};
+zone "." {
+type hint;
+file "/etc/bind/db.root";
+};
+}}}
+
+Just analysing this file we can see the following tokens
+  * WORDs, like ’zone’ and ’type’
+  * FILENAMEs, like ’/etc/bind/db.root’
+  * QUOTEs, like those surrounding the filename
+  * OBRACEs, {
+  * EBRACEs, }
+  * SEMICOLONs, ;
