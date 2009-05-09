@@ -9,7 +9,7 @@ The Magic-1 assembly was written in C using Lex and Yacc tools. This page will b
 = Details =
 
 == Lex ==
-First we will begin with Lex, Lex generates a C function called *Lexer* wich receives a stream of characters and recognizes some group of characters called [http://pt.wikipedia.org/wiki/Token tokens] and do some action
+First we will begin with Lex, Lex generates a C function called *Lexer* wich receives a stream of characters and recognizes some group of characters called [http://pt.wikipedia.org/wiki/Token tokens] and do some action. This is also called lexical [http://en.wikipedia.org/wiki/Lexical_analysis analysis]
 
 For example this file will generate a program that wait the tokens *start* and *stop* and do some action, otherwise will just echo what was typed.
 
@@ -128,3 +128,4 @@ We’ve seen that Lex is able to read arbitrary input, and determine what each p
 Now those tokens will be the input for *YACC* 
 
 == YACC ==
+YACC can [http://en.wikipedia.org/wiki/Parsing parse] input streams consisting of tokens witch certain values
