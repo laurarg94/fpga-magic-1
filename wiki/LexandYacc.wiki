@@ -4,6 +4,7 @@
 = Introduction =
 
 The Magic-1 assembly was written in C using Lex and Yacc tools. This page will be a small tutorial based on this [http://www.scribd.com/doc/8669782/Lex-Yacc-Tutorialshort tutorial]
+[http://i219.photobucket.com/albums/cc244/leonardoaraujo/Parser_Flow.gif]
 
 
 = Details =
@@ -34,6 +35,7 @@ For compile it:
 lex example1.l
 cc lex.yy.c -o example1 -ll
 }}}
+[http://i219.photobucket.com/albums/cc244/leonardoaraujo/Tela_Lex.jpg]
 
 Anything between {% and %} will be copied to the output C file, sections will be separated with %% , the Rules part will be used to define the token rules as [http://en.wikipedia.org/wiki/Regular_expression regular expressions]. The code section will be used to define the *main* routine if you leave it empty and compile it with -ll the default main will be created, otherwise the yacc code will be used.
 
@@ -227,11 +229,7 @@ The header part defines the token names and also some routines
   * token - This part defines all the tokens used NUMBER TOKHEAT STATE TOKTARGET TOKTEMPERATURE, those will be output if you use '-d' option of YACC.
 
 === Gramar explanation ===
-The first part is what I call the ’root’. It tells us that we have ’commands’, and that these commands consist of individual ’command’ parts. As you can see this rule is very recursive, because it again contains the word ’commands’. What this means is that the program is now capable of reducing a series of commands one by one. Read the chapter ’How do Lex and YACC work internally’ for important details on recursion. The second rule defines what a command is. We support only two kinds of commands, the ’heat switch’ and the ’target set’. This is what the j-symbol signifies - ’a command consists of either a heat switch or a target set’.
-A heat switch consists of the HEAT token, which is simply the word ’heat’, followed by a state (which we
-defined in the Lex file as ’on’ or ’off’).
-Somewhat more complicated is the target set, which consists of the TARGET token (the word ’target’), the
-TEMPERATURE token (the word ’temperature’) and a number.
+The first part is what I call the ’root’. It tells us that we have ’commands’, and that these commands consist of individual ’command’ parts. As you can see this rule is very recursive, because it again contains the word ’commands’. What this means is that the program is now capable of reducing a series of commands one by one. The second rule defines what a command is. We support only two kinds of commands, the ’heat switch’ and the ’target set’. This is what the j-symbol signifies - ’a command consists of either a heat switch or a target set’. A heat switch consists of the HEAT token, which is simply the word ’heat’, followed by a state (which we defined in the Lex file as ’on’ or ’off’). Somewhat more complicated is the target set, which consists of the TARGET token (the word ’target’), the TEMPERATURE token (the word ’temperature’) and a number.
 
 === Compiling ===
 In order to compile the example above...
