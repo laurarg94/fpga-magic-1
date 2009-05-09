@@ -14,8 +14,8 @@ First we will begin with Lex, Lex generates a C function called *Lexer* wich rec
 For example this file will generate a program that wait the tokens *start* and *stop* and do some action, otherwise will just echo what was typed.
 
 {{{
-%{
 /* Definition part */
+%{
 #include <stdio.h>
 %}
 
@@ -40,8 +40,8 @@ Anything between {% and %} will be copied to the output C file, sections will be
 The other example will use a regular expression to define some token:
 
 {{{
-%{
 /* Definition part */
+%{
 #include <stdio.h>
 %}
 
@@ -87,3 +87,26 @@ Just analysing this file we can see the following tokens
   * OBRACEs, {
   * EBRACEs, }
   * SEMICOLONs, ;
+
+The lex file for *tokenizing* this file will be:
+
+{{{
+/* Definition part */
+%{
+#include <stdio.h>
+%}
+
+/* Rules */
+%%
+[a-zA-Z][a-zA-Z0-9]* printf("WORD ");
+[a-zA-Z0-9\/.-]+ printf("FILENAME ");
+\" printf("QUOTE ");
+\{ printf("OBRACE ");
+\} printf("EBRACE ");
+; printf("SEMICOLON ");
+\n printf("\n");
+[ \t]+ /* ignore whitespace */;
+%%
+
+/* Code */
+}}}
