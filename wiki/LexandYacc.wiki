@@ -128,4 +128,38 @@ We’ve seen that Lex is able to read arbitrary input, and determine what each p
 Now those tokens will be the input for *YACC* 
 
 == YACC ==
-YACC can [http://en.wikipedia.org/wiki/Parsing parse] input streams consisting of tokens witch certain values
+YACC can [http://en.wikipedia.org/wiki/Parsing parse] input streams consisting of tokens witch certain values. The parsing is the process of interpreting the tokens following the rules of a specific language, and taking some action.
+
+We're going to control a thermostat that follows a simple language....
+The tokens we need to recognize are: heat, on/off (STATE), target, temperature, NUMBER.
+
+{{{
+heat on
+Heater on!
+heat off
+Heater off!
+target temperature 22
+New temperature set!
+}}}
+
+The LEX input source to tokenize this :
+
+
+{{{
+%{
+#include <stdio.h>
+#include "y.tab.h"
+%}
+
+%%
+[0-9]+ return NUMBER;
+heat return TOKHEAT;
+on|off return STATE;
+target return TOKTARGET;
+temperature return TOKTEMPERATURE;
+\n /* ignore end of line */;
+[ \t]+ /* ignore whitespace */;
+%%
+}}}
+
+We can observe that we don't printf things anymore, now we return values that will be send to YACC. Other point we include the file *y.tab.h* wich will define those tokens values.
