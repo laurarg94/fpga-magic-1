@@ -4,6 +4,8 @@
 = Introduction =
 
 The Magic-1 assembly was written in C using Lex and Yacc tools. This page will be a small tutorial based on this [http://www.scribd.com/doc/8669782/Lex-Yacc-Tutorialshort tutorial]
+
+
 [http://i219.photobucket.com/albums/cc244/leonardoaraujo/Parser_Flow.gif]
 
 
