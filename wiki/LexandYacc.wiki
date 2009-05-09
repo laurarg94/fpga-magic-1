@@ -8,6 +8,28 @@ The Magic-1 assembly was written in C using Lex and Yacc tools. This page will b
 
 = Details =
 
+== Lex ==
+First we will begin with Lex, Lex generates a C function called *Lexer* wich receives a stream of characters and recognizes some group of characters called [http://pt.wikipedia.org/wiki/Token tokens] and do some action
+
+For example this file will generate a program that wait the tokens *start* and *stop* and do some action, otherwise will just echo what was typed.
+
+{{{
+%{
+/* Definition part */
+#include <stdio.h>
+%}
+
+/* Rules */
+%%
+stop printf("Stop command received\n");
+start printf("Start command received\n");
+%%
+
+/* Code */
+}}}
+
+Anything between {% and %} will be copied to the output C file, the Rules part will be used to define the token rules as [http://en.wikipedia.org/wiki/Regular_expression regular expressions]
+
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
