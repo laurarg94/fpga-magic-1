@@ -1,0 +1,14 @@
+#summary Lex and Yacc tutorial.
+#labels Featured,Phase-Implementation
+
+= Introduction =
+
+The Magic-1 assembly was written in C using Lex and Yacc tools. This page will be a small tutorial based on this [http://www.scribd.com/doc/8669782/Lex-Yacc-Tutorialshort tutorial]
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
