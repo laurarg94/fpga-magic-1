@@ -190,6 +190,8 @@ main()
 
 %%
 
+/* Grammar  */
+
 commands: /* empty */
 	| commands command
 	;
@@ -214,6 +216,28 @@ target_set:
 		printf("\tTemperature set\n");
 	}
 	;
+}}}
 
+=== Header explanation ===
 
+The header part defines the token names and also some routines
+  * yyerror() - This routine is called by YACC uppon some error. We simply output the message passed but there are other smarter things to do.
+  * yywrap() - This routint is used if you want to read from another file is called when EOF is reached, when you can open another file and return 0, or else you can return 1 to indicate that is over.
+  * main() - This routine sets everything in motion.
+  * token - This part defines all the tokens used NUMBER TOKHEAT STATE TOKTARGET TOKTEMPERATURE, those will be output if you use '-d' option of YACC.
+
+=== Gramar explanation ===
+The first part is what I call the ’root’. It tells us that we have ’commands’, and that these commands consist of individual ’command’ parts. As you can see this rule is very recursive, because it again contains the word ’commands’. What this means is that the program is now capable of reducing a series of commands one by one. Read the chapter ’How do Lex and YACC work internally’ for important details on recursion. The second rule defines what a command is. We support only two kinds of commands, the ’heat switch’ and the ’target set’. This is what the j-symbol signifies - ’a command consists of either a heat switch or a target set’.
+A heat switch consists of the HEAT token, which is simply the word ’heat’, followed by a state (which we
+defined in the Lex file as ’on’ or ’off’).
+Somewhat more complicated is the target set, which consists of the TARGET token (the word ’target’), the
+TEMPERATURE token (the word ’temperature’) and a number.
+
+=== Compiling ===
+In order to compile the example above...
+
+{{{
+lex example4.l
+yacc -d example4.y
+cc lex.yy.c y.tab.c -o example4
 }}}
