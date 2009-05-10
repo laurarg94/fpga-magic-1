@@ -4,7 +4,7 @@ Copyright (c) 1995-2008 Xilinx, Inc.  All rights reserved.
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.27 secs
+Total CPU time to Xst completion: 0.28 secs
  
 --> 
 =========================================================================
@@ -28,12 +28,11 @@ Architecture behavioral of Entity prom_74s472_eprom3_u2 is up to date.
 Compiling vhdl file "C:/fpga-magic-1/PROM_74S472_Eprom4_U1.vhd" in Library work.
 Architecture behavioral of Entity prom_74s472_eprom4_u1 is up to date.
 Compiling vhdl file "C:/fpga-magic-1/Microcode.vhd" in Library work.
-Entity <microcode> compiled.
-Entity <microcode> (Architecture <behavioral>) compiled.
+Architecture behavioral of Entity microcode is up to date.
 
 
 Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.91 secs
  
 --> 
 

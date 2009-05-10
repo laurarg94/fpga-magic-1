@@ -1,0 +1,2 @@
+vhdl work "PriorityEncoder.vhd"
+vhdl work "PriorityEncoderTester.vhd"
