@@ -3,23 +3,20 @@ Copyright (c) 1995-2008 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to ./xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.26 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.25 secs
  
 --> 
 =========================================================================
 *                          HDL Compilation                              *
 =========================================================================
 Compiling vhdl file "C:/fpga-magic-1/PriorityEncoder.vhd" in Library work.
-Entity <PriorityEncoder> compiled.
-Entity <PriorityEncoder> (Architecture <Behavioral>) compiled.
-Compiling vhdl file "C:/fpga-magic-1/FaultsandInterrupts.vhd" in Library work.
-Entity <faultsandinterrupts> compiled.
-Entity <faultsandinterrupts> (Architecture <behavioral>) compiled.
+Entity <priorityencoder> compiled.
+Entity <priorityencoder> (Architecture <behavioral>) compiled.
 
 
-Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.45 secs
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.36 secs
  
 --> 
 

@@ -1,0 +1,7 @@
+xst -ise "C:/fpga-magic-1/Magic_1.ise" -intstyle ise -ifn "C:/fpga-magic-1/PriorityEncoder.xst" -ofn "C:/fpga-magic-1/PriorityEncoder.syr"
+xst -ise "C:/fpga-magic-1/Magic_1.ise" -intstyle ise -ifn "C:/fpga-magic-1/PriorityEncoder.xst" -ofn "C:/fpga-magic-1/PriorityEncoder.syr"
+xst -ise "C:/fpga-magic-1/Magic_1.ise" -intstyle ise -ifn "C:/fpga-magic-1/PriorityEncoder.xst" -ofn "C:/fpga-magic-1/PriorityEncoder.syr"
+xst -ise "C:/fpga-magic-1/Magic_1.ise" -intstyle ise -ifn "C:/fpga-magic-1/PriorityEncoder.xst" -ofn "C:/fpga-magic-1/PriorityEncoder.syr"
+xst -ise "C:/fpga-magic-1/Magic_1.ise" -intstyle ise -ifn "C:/fpga-magic-1/PriorityEncoder.xst" -ofn "C:/fpga-magic-1/PriorityEncoder.syr"
+xst -ise "C:/fpga-magic-1/Magic_1.ise" -intstyle ise -ifn "C:/fpga-magic-1/PriorityEncoder.xst" -ofn "C:/fpga-magic-1/PriorityEncoder.syr"
+xst -ise "C:/fpga-magic-1/Magic_1.ise" -intstyle ise -ifn "C:/fpga-magic-1/PriorityEncoder.xst" -ofn "C:/fpga-magic-1/PriorityEncoder.syr"

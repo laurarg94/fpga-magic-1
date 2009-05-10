@@ -1,1 +1,2 @@
+vhdl work "PriorityEncoder.vhd"
 vhdl work "FaultsandInterrupts.vhd"

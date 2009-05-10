@@ -1,7 +1,1 @@
-C:/fpga-magic-1/PROM_74S472_Eprom4_U1.vhd
-C:/fpga-magic-1/PROM_74S472_Eprom3_U2.vhd
-C:/fpga-magic-1/PROM_74S472_Eprom2_U3.vhd
-C:/fpga-magic-1/PROM_74S472_Eprom1_U4.vhd
-C:/fpga-magic-1/PROM_74S472_Eprom0_U5.vhd
-C:/fpga-magic-1/Microcode.vhd
-C:/fpga-magic-1/MicrocodeTester.vhd
+C:/fpga-magic-1/PriorityEncoderTester.vhd
