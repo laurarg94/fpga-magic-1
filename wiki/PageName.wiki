@@ -16,12 +16,18 @@ Example: x(inputs), y(outputs), X(Don't care)
 ||0||0||0||X||0||0||
 
 Note that if the input bit x3 is '1' the output will be (1,1) even if all others inputs changes. then x3 has the most priority level.
-
-
+Also note that the circuit function as specified here does not depend at all on the least significand input bit.
 
 = Details =
+In magic-1 we're going to use the CI 8-bit 74F148 (Priority Encoder)
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+[http://i219.photobucket.com/albums/cc244/leonardoaraujo/74f148.png]
+
+This chip has the following turth table.
+
+[http://i219.photobucket.com/albums/cc244/leonardoaraujo/74f148_PriorityEncoder.png]
+
+His signals are explained here:
+  * EI: Enable Inputs , If high all outputs will be high
+  * A0,A1,A2: Outputs(negate)
+  * I(7 downto 0): Inputs 
