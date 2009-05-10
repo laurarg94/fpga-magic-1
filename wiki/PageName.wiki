@@ -32,7 +32,7 @@ His signals are explained here:
   * A0,A1,A2: Outputs(negate)
   * I(7 downto 0): Inputs 
 
-The 74f148 was described in vhdl here
+The 74f148 was described in vhdl [http://code.google.com/p/fpga-magic-1/source/browse/trunk/PriorityEncoder.vhd here]
 
 The simulation is found bellow:
 [http://i219.photobucket.com/albums/cc244/leonardoaraujo/Simulation_PriorityEncoder.png]
