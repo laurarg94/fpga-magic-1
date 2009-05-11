@@ -79,58 +79,53 @@ BEGIN
 		
 		-- Test with EnableInput disabled
 		EnableInput <= '1';
-		EncoderInputs <= "00000001";
+		EncoderInputs <= "XXXXXXXX";
 		wait for 10 ns;	
 		
-		-- Test with EnableInput enabled 00000000
+		-- Test with all Inputs High (Test of Enable Output)
 		EnableInput <= '0';
-		EncoderInputs <= "00000000";
+		EncoderInputs <= "11111111";
 		wait for 10 ns;
 		
-		-- Test with EnableInput enabled 00000001
+		-- Test with EnableInput enabled 0XXXXXXX
 		EnableInput <= '0';
-		EncoderInputs <= "00000001";
+		EncoderInputs <= "0XXXXXXX";
 		wait for 10 ns;
 		
-		-- Test with EnableInput enabled 00000010
+		-- Test with EnableInput enabled X0XXXXXX
 		EnableInput <= '0';
-		EncoderInputs <= "00000010";
+		EncoderInputs <= "X0XXXXXX";
 		wait for 10 ns;
 		
-		-- Test with EnableInput enabled 00000100
+		-- Test with EnableInput enabled XX0XXXXX
 		EnableInput <= '0';
-		EncoderInputs <= "00000100";
+		EncoderInputs <= "XX0XXXXX";
 		wait for 10 ns;
 		
-		-- Test with EnableInput enabled 00001000
+		-- Test with EnableInput enabled XXX0XXXX
 		EnableInput <= '0';
-		EncoderInputs <= "00001000";
+		EncoderInputs <= "XXX0XXXX";
 		wait for 10 ns;
 		
-		-- Test with EnableInput enabled 00010000
+		-- Test with EnableInput enabled XXXX0XXX
 		EnableInput <= '0';
-		EncoderInputs <= "00010000";
+		EncoderInputs <= "XXXX0XXX";
 		wait for 10 ns;
 		
-		-- Test with EnableInput enabled 00100000
+		-- Test with EnableInput enabled XXXXX0XX
 		EnableInput <= '0';
-		EncoderInputs <= "00100000";
+		EncoderInputs <= "XXXXX0XX";
 		wait for 10 ns;
 		
-		-- Test with EnableInput enabled 01000000
+		-- Test with EnableInput enabled XXXXXX0X
 		EnableInput <= '0';
-		EncoderInputs <= "01000000";
+		EncoderInputs <= "XXXXXX0X";
 		wait for 10 ns;
 		
-		-- Test with EnableInput enabled 10000000
+		-- Test with EnableInput enabled XXXXXXX0
 		EnableInput <= '0';
-		EncoderInputs <= "10000000";
-		wait for 10 ns;
-	
-      -- Now we're going to test the priority behavior
-		EnableInput <= '0';
-		EncoderInputs <= "01000001";
-		wait for 10 ns;
+		EncoderInputs <= "XXXXXXX0";
+		wait for 10 ns;      
 		
       wait;
    end process;

@@ -29,8 +29,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity PriorityEncoder is
     Port ( EnableInput : in  STD_LOGIC;
-           EncoderInputs : in  STD_LOGIC_VECTOR (7 downto 0);
-           EncoderOutputs : out  STD_LOGIC_VECTOR (2 downto 0);
+           EncoderInputs : in  STD_LOGIC_VECTOR (7 downto 0);   -- I7 I6 I5 I4 I3 I2 I1 I0
+           EncoderOutputs : out  STD_LOGIC_VECTOR (2 downto 0); -- A2 A1 A0
            EnableOutputs : out  STD_LOGIC;
            GroupOutput : out  STD_LOGIC);	-- GroupOutput goes low on priority detect
 end PriorityEncoder;
@@ -61,6 +61,6 @@ begin
 						'1';
 	
 	-- The EO is active-Low when all inputs are High
-	EnableOutputs <= '1' when EncoderInputs = "11111111" else '0';
+	EnableOutputs <= '0' when EncoderInputs = "11111111" else '1';
 end Behavioral;
 
