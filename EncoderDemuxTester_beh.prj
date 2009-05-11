@@ -1,0 +1,2 @@
+vhdl work "EncoderDemux.vhd"
+vhdl work "EncoderDemuxTester.vhd"
