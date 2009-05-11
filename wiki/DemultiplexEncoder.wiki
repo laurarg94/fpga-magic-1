@@ -13,7 +13,7 @@ The 74F138 uses a line address (A2,A1,A0) an enable line (E3,E2,E1) and a output
 
 [http://i219.photobucket.com/albums/cc244/leonardoaraujo/Encoder_TruthTable.png]
 
-The VHDL description can be found here...
+The VHDL description can be found [http://code.google.com/p/fpga-magic-1/source/browse/trunk/EncoderDemux.vhd here]
 
 Simulation here:
 
