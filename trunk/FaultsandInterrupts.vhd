@@ -52,16 +52,18 @@ entity FaultsandInterrupts is
            CLKS : in  STD_LOGIC;
            NEG_CLR_TRAP : in  STD_LOGIC;
            L : out  STD_LOGIC_VECTOR (0 to 15);
-           RL_FAULT : out  STD_LOGIC;
-           ENCODER : out  STD_LOGIC_VECTOR (0 to 3);
+           RL_FAULT : inout  STD_LOGIC;
+           ENCODER : inout  STD_LOGIC_VECTOR (0 to 3);
            FAULT_PENDING : inout  STD_LOGIC);
 end FaultsandInterrupts;
 
 architecture Behavioral of FaultsandInterrupts is
-signal interrupt_register : std_logic_vector(0 to 7);
+signal interrupt_register,output_encoder,input_priority_encoder_46 : std_logic_vector(0 to 7);
+signal address_encoder,output_priority_encoder_46,output_priority_encoder_47 : std_logic_vector(0 to 2);
 signal interrupt_ff : std_logic_vector(0 to 5);
-signal output_priority_encoder : std_logic_vector(0 to 2);
-signal enable_input_u47 : std_logic;
+signal faults_and_interrupts_latch :  std_logic_vector (0 to 3);
+signal enable_input_u47,EnableOutputs_46,GroupOutput_46,SIG_CLEAR_56 : std_logic;
+signal E3_encoder,IRQ_0,IRQ_1,IRQ_2,IRQ_3,IRQ_4,IRQ_5 : std_logic;
 
 component PriorityEncoder
 	Port ( EnableInput : in  STD_LOGIC;
@@ -71,7 +73,23 @@ component PriorityEncoder
            GroupOutput : out  STD_LOGIC);
 end component;
 
+component EncoderDemux is
+    Port ( E3 : in  STD_LOGIC;
+           E2 : in  STD_LOGIC;
+           E1 : in  STD_LOGIC;
+           Address : in  STD_LOGIC_VECTOR (2 downto 0);  -- A2,A1,A0
+           Output : out  STD_LOGIC_VECTOR (7 downto 0)); -- O7,O6,O5,O4,O3,O2,O1,O0
+end component;
+
 begin
+	-- Negate IRQs
+	IRQ_0 <= NEG_IRQ0;
+	IRQ_1 <= NEG_IRQ1;
+	IRQ_2 <= NEG_IRQ2;
+	IRQ_3 <= NEG_IRQ3;
+	IRQ_4 <= NEG_IRQ4;
+	IRQ_5 <= NEG_IRQ5;
+	
 	-- Implement the Interrupt register U?
 	process (MSWE,interrupt_ff,NEG_DMA_REQ,NEG_RESET,CLKM)
 	begin
@@ -83,12 +101,98 @@ begin
 	end process;
 	
 	-- Implement the logic of U47 74148 (8 to 3) priority encoders (http://en.wikipedia.org/wiki/Encoder#Single_bit_4_to_2_Encoder)
-	U47: PriorityEncoder port map (enable_input_u47, interrupt_register);	
+	U47: PriorityEncoder port map (enable_input_u47, interrupt_register,output_priority_encoder_47);
+	input_priority_encoder_46 <= NEG_SYSCALL & '1' &  ((not NEG_TRAPO) nand MSWV) & (PRIV nand MSWM) & NEG_BKPT & NEG_NW & NEG_NP & '1';
+	U46: PriorityEncoder port map ('0', input_priority_encoder_46,output_priority_encoder_46,EnableOutputs_46,GroupOutput_46 );
 	
-	-- Implement the FF array U50 and U51
-	process (NEG_RESET,interrupt_ff,NEG_IRQ5,NEG_IRQ4,NEG_IRQ3,NEG_IRQ2,NEG_IRQ1,NEG_IRQ0)
+	-- Implement the logic of U45 74F138 Encoder/Demultiplexer	
+	address_encoder <= faults_and_interrupts_latch(0 to 2);
+	E3_encoder <= IOCLK and SIG_CLEAR_56;
+	U45: EncoderDemux port map(E3_encoder,faults_and_interrupts_latch(3),faults_and_interrupts_latch(3),address_encoder,output_encoder);
+	
+	-- Concatenate signal ENCODER
+	ENCODER <= (output_priority_encoder_47(0) nand output_priority_encoder_46(0)) & (output_priority_encoder_47(1) nand output_priority_encoder_46(1)) & (output_priority_encoder_47(2) nand output_priority_encoder_46(2)) & (not GroupOutput_46);
+	
+	-- Implement the behavior of U56 OctalFF for holding the faults and interrupts signal
+	RL_FAULT <= CLKS and (FAULT_PENDING or (not NEG_NEXT0));
+	SIG_CLEAR_56 <= NEG_CLR_TRAP and NEG_RESET;
+	process (ENCODER,RL_FAULT,SIG_CLEAR_56)
 	begin
-		--if (NEG_RESET
+		if SIG_CLEAR_56 = '1' then
+			faults_and_interrupts_latch <= (others => '0');
+		elsif rising_edge(RL_FAULT) then
+			faults_and_interrupts_latch <= ENCODER;
+		end if;
+	end process;
+	
+	-- Now implement the array of 74F244 Tri-state buffer
+	process(NEG_EL_FCODE,faults_and_interrupts_latch)
+	begin
+		if NEG_EL_FCODE = '0' then
+			L <= "00000000000" & faults_and_interrupts_latch & '0';
+		else
+			L <= (others => 'X');
+		end if;
+	end process;
+	
+	-- Implement the FlipFlopD for IRQ_5
+	process (NEG_RESET,output_encoder(6),IRQ_5)
+	begin
+		if (NEG_RESET and output_encoder(6)) = '0' then
+			interrupt_ff(5) <= not '0';
+		elsif rising_edge(IRQ_5) then
+			interrupt_ff(5) <= not '1';
+		end if;
+	end process;
+	
+	-- Implement the FlipFlopD for IRQ_4
+	process (NEG_RESET,output_encoder(5),IRQ_4)
+	begin
+		if (NEG_RESET and output_encoder(5)) = '0' then
+			interrupt_ff(4) <= not '0';
+		elsif rising_edge(IRQ_4) then
+			interrupt_ff(4) <= not '1';
+		end if;
+	end process;
+	
+	-- Implement the FlipFlopD for IRQ_3
+	process (NEG_RESET,output_encoder(4),IRQ_3)
+	begin
+		if (NEG_RESET and output_encoder(4)) = '0' then
+			interrupt_ff(3) <= not '0';
+		elsif rising_edge(IRQ_3) then
+			interrupt_ff(3) <= not '1';
+		end if;
+	end process;
+	
+	-- Implement the FlipFlopD for IRQ_2
+	process (NEG_RESET,output_encoder(3),IRQ_2)
+	begin
+		if (NEG_RESET and output_encoder(3)) = '0' then
+			interrupt_ff(2) <= not '0';
+		elsif rising_edge(IRQ_2) then
+			interrupt_ff(2) <= not '1';
+		end if;
+	end process;
+	
+	-- Implement the FlipFlopD for IRQ_1
+	process (NEG_RESET,output_encoder(2),IRQ_1)
+	begin
+		if (NEG_RESET and output_encoder(2)) = '0' then
+			interrupt_ff(1) <= not '0';
+		elsif rising_edge(IRQ_1) then
+			interrupt_ff(1) <= not '1';
+		end if;
+	end process;
+	
+	-- Implement the FlipFlopD for IRQ_0
+	process (NEG_RESET,output_encoder(1),IRQ_0)
+	begin
+		if (NEG_RESET and output_encoder(1)) = '0' then
+			interrupt_ff(0) <= not '0';
+		elsif rising_edge(IRQ_0) then
+			interrupt_ff(0) <= not '1';
+		end if;
 	end process;
 
 end Behavioral;

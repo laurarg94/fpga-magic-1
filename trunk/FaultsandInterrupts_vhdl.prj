@@ -1,2 +1,3 @@
 vhdl work "C:\fpga-magic-1\PriorityEncoder.vhd"
+vhdl work "C:\fpga-magic-1\EncoderDemux.vhd"
 vhdl work "C:\fpga-magic-1\FaultsandInterrupts.vhd"
