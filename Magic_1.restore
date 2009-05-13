@@ -842,6 +842,7 @@ proc restore { { project_dir "" } } {
       "EncoderDemuxTester.vhd" 
       "FaultsandInterrupts.vhd" 
       "FaultsandInterruptsTester.vhd" 
+      "FieldDecode.vhd" 
       "FieldDecode2.vhd" 
       "FieldDecode2Tester.vhd" 
       "GeneralRegisters.vhd" 
