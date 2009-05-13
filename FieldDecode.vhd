@@ -83,9 +83,44 @@ end FieldDecode;
 
 architecture Behavioral of FieldDecode is
 
+component EncoderDemux is
+    Port ( E3 : in  STD_LOGIC;
+           E2 : in  STD_LOGIC;
+           E1 : in  STD_LOGIC;
+           Address : in  STD_LOGIC_VECTOR (2 downto 0);  -- A2,A1,A0
+           Output : out  STD_LOGIC_VECTOR (7 downto 0)); -- O7,O6,O5,O4,O3,O2,O1,O0
+end component;
+
+signal EncoderAddress : std_logic_vector(0 to 2);
+signal EncoderOutputU33,EncoderOutputU32 : std_logic_vector(0 to 7);
+
 begin
 	NEG_ER_MDR <= ER(1);
 	NEG_ER_IMM <= not ER(1);
+	
+	-- Describe U32 and U33 encoder/demultiplexer behavior handling the MISC signals
+	-- the MISC(0) input will enable/disable U33 or U32
+	EncoderAddress <= MISC(1 to 3);
+	U33: EncoderDemux port map('1',MISC(0),'0',EncoderAddress,EncoderOutputU33);
+	U32: EncoderDemux port map(MISC(0),'0','0',EncoderAddress,EncoderOutputU32);
+	
+	-- Signals from U33
+	NEG_SYSCALL <= EncoderOutputU33(6);
+	NEG_HALT <= EncoderOutputU33(5);
+	NEG_BKPT <= EncoderOutputU33(4);
+	NEG_TRAPO <= EncoderOutputU33(3);
+	NEG_E_PTE <= EncoderOutputU33(2);
+	NEG_SET_FLAGS <= EncoderOutputU33(1);
+	XINIT_INST <= not EncoderOutputU33(0);
+	R_L_PTE <= EncoderOutputU33(2) or NEG_CLKS;
+	INIT_INST <= EncoderOutputU33(0) nor NEG_CLKS;
+	
+	-- Signals from U32
+	NEG_DO_RSHIFT <= EncoderOutputU32(7);
+	NEG_DMA_ACK <= EncoderOutputU32(6);
+	RL_IE <= EncoderOutputU32(5) nor NEG_CLKS;
+	NEG_DO_BRANCH <= EncoderOutputU32(4);
+	NEG_CLR_TRAP <= EncoderOutputU32(3) nor NEG_CLKS;
 
 end Behavioral;
 
