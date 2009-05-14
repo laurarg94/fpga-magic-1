@@ -1,0 +1,340 @@
+Release 10.1 - xst K.31 (nt)
+Copyright (c) 1995-2008 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to C:/fpga-magic-1/xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.27 secs
+ 
+--> Parameter xsthdpdir set to C:/fpga-magic-1/xst
+
+
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.27 secs
+ 
+--> Reading design: FieldDecode.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+     9.1) Device utilization summary
+     9.2) Partition Resource Summary
+     9.3) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "FieldDecode.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "FieldDecode"
+Output Format                      : NGC
+Target Device                      : xc3s500e-5-fg320
+
+---- Source Options
+Top Module Name                    : FieldDecode
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : lut
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : YES
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : YES
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Multiplier Style                   : auto
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 500
+Add Generic Clock Buffer(BUFG)     : 24
+Register Duplication               : YES
+Slice Packing                      : YES
+Optimize Instantiated Primitives   : NO
+Use Clock Enable                   : Yes
+Use Synchronous Set                : Yes
+Use Synchronous Reset              : Yes
+Pack IO Registers into IOBs        : auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Library Search Order               : FieldDecode.lso
+Keep Hierarchy                     : NO
+Netlist Hierarchy                  : as_optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+Verilog 2001                       : YES
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "C:/fpga-magic-1/EncoderDemux.vhd" in Library work.
+Architecture behavioral of Entity encoderdemux is up to date.
+Compiling vhdl file "C:/fpga-magic-1/FieldDecode.vhd" in Library work.
+Entity <fielddecode> compiled.
+Entity <fielddecode> (Architecture <behavioral>) compiled.
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for entity <FieldDecode> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <EncoderDemux> in library <work> (architecture <behavioral>).
+
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <FieldDecode> in library <work> (Architecture <behavioral>).
+Entity <FieldDecode> analyzed. Unit <FieldDecode> generated.
+
+Analyzing Entity <EncoderDemux> in library <work> (Architecture <behavioral>).
+INFO:Xst:1561 - "C:/fpga-magic-1/EncoderDemux.vhd" line 61: Mux is complete : default of case is discarded
+Entity <EncoderDemux> analyzed. Unit <EncoderDemux> generated.
+
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+
+Synthesizing Unit <EncoderDemux>.
+    Related source file is "C:/fpga-magic-1/EncoderDemux.vhd".
+Unit <EncoderDemux> synthesized.
+
+
+Synthesizing Unit <FieldDecode>.
+    Related source file is "C:/fpga-magic-1/FieldDecode.vhd".
+WARNING:Xst:647 - Input <NEG_STOP_CLK> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <FAULT_PENDING> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:1306 - Output <RL_B_HI> is never assigned.
+WARNING:Xst:1306 - Output <NEG_EL_FCODE> is never assigned.
+WARNING:Xst:1306 - Output <NEG_EL_MSW> is never assigned.
+WARNING:Xst:647 - Input <EL> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <LATCH_SZ> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <LATCH> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <ER<0>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:1306 - Output <RL_PTB> is never assigned.
+WARNING:Xst:1306 - Output <RL_B_LO> is never assigned.
+WARNING:Xst:1306 - Output <RL_DP> is never assigned.
+WARNING:Xst:647 - Input <MSWM> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:1306 - Output <NEG_EL_DP> is never assigned.
+WARNING:Xst:647 - Input <IR> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <RCOMMIT> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:1306 - Output <RL_A_HI> is never assigned.
+WARNING:Xst:1306 - Output <RL_PC> is never assigned.
+WARNING:Xst:1306 - Output <RL_MDR> is never assigned.
+WARNING:Xst:1306 - Output <NEG_EL_PC> is never assigned.
+WARNING:Xst:647 - Input <FP_L> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:1306 - Output <NEG_EL_A> is never assigned.
+WARNING:Xst:1306 - Output <NEG_EL_B> is never assigned.
+WARNING:Xst:1306 - Output <NEG_EL_C> is never assigned.
+WARNING:Xst:1306 - Output <RL_A_LO> is never assigned.
+WARNING:Xst:647 - Input <CLKS> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:1306 - Output <RL_SP> is never assigned.
+WARNING:Xst:1306 - Output <NEG_EL_MAR> is never assigned.
+WARNING:Xst:1306 - Output <RL_SSP> is never assigned.
+WARNING:Xst:1306 - Output <NEG_EL_SP> is never assigned.
+WARNING:Xst:1306 - Output <NEG_EL_MDR> is never assigned.
+WARNING:Xst:1306 - Output <RL_C> is never assigned.
+WARNING:Xst:1306 - Output <NEG_EL_TPC> is never assigned.
+WARNING:Xst:1306 - Output <NEG_EL_SSP> is never assigned.
+WARNING:Xst:647 - Input <RL_FPL> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:1306 - Output <RL_MSW> is never assigned.
+WARNING:Xst:646 - Signal <EncoderOutputU33<7>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <EncoderOutputU32<0:2>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+Unit <FieldDecode> synthesized.
+
+
+=========================================================================
+HDL Synthesis Report
+
+Found no macro
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Loading device for application Rf_Device from file '3s500e.nph' in environment C:\Xilinx\10.1\ISE.
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Found no macro
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+
+Optimizing unit <FieldDecode> ...
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block FieldDecode, actual ratio is 0.
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Found no macro
+=========================================================================
+
+=========================================================================
+*                           Partition Report                             *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : FieldDecode.ngr
+Top Level Output File Name         : FieldDecode
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : NO
+
+Design Statistics
+# IOs                              : 74
+
+Cell Usage :
+# BELS                             : 18
+#      GND                         : 1
+#      INV                         : 1
+#      LUT2                        : 1
+#      LUT3                        : 3
+#      LUT4                        : 11
+#      MUXF5                       : 1
+# IO Buffers                       : 22
+#      IBUF                        : 6
+#      OBUF                        : 16
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 3s500efg320-5 
+
+ Number of Slices:                        9  out of   4656     0%  
+ Number of 4 input LUTs:                 16  out of   9312     0%  
+ Number of IOs:                          74
+ Number of bonded IOBs:                  22  out of    232     9%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+No clock signals found in this design
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -5
+
+   Minimum period: No path found
+   Minimum input arrival time before clock: No path found
+   Maximum output required time after clock: No path found
+   Maximum combinational path delay: 7.375ns
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default path analysis
+  Total number of paths / destination ports: 62 / 16
+-------------------------------------------------------------------------
+Delay:               7.375ns (Levels of Logic = 4)
+  Source:            MISC<2> (PAD)
+  Destination:       R_L_PTE (PAD)
+
+  Data Path: MISC<2> to R_L_PTE
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O            13   1.106   0.988  MISC_2_IBUF (MISC_2_IBUF)
+     LUT4:I0->O            2   0.612   0.532  U33/Output<5>1 (EncoderOutputU33<2>)
+     LUT2:I0->O            1   0.612   0.357  R_L_PTE1 (R_L_PTE_OBUF)
+     OBUF:I->O                 3.169          R_L_PTE_OBUF (R_L_PTE)
+    ----------------------------------------
+    Total                      7.375ns (5.499ns logic, 1.876ns route)
+                                       (74.6% logic, 25.4% route)
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 11.00 secs
+Total CPU time to Xst completion: 10.59 secs
+ 
+--> 
+
+Total memory usage is 158436 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :   38 (   0 filtered)
+Number of infos    :    1 (   0 filtered)
+
