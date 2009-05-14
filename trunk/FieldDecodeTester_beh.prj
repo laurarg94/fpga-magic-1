@@ -1,2 +1,3 @@
 vhdl work "EncoderDemux.vhd"
 vhdl work "FieldDecode.vhd"
+vhdl work "FieldDecodeTester.vhd"

@@ -46,6 +46,7 @@ entity FieldDecode is
            RL_B_HI : out  STD_LOGIC;
            RL_SSP : out  STD_LOGIC;
            MSWM : in  STD_LOGIC;
+			  LATCH_SZ : in STD_LOGIC;
            RL_C : out  STD_LOGIC;
            RL_PC : out  STD_LOGIC;
            RL_DP : out  STD_LOGIC;
@@ -73,6 +74,8 @@ entity FieldDecode is
            R_L_PTE : out  STD_LOGIC;
            INIT_INST : out  STD_LOGIC;
            XINIT_INST : out  STD_LOGIC;
+			  NEG_DO_RSHIFT : out STD_LOGIC;
+			  NEG_DO_BRANCH : out STD_LOGIC;
            NEG_SYSCALL : out  STD_LOGIC;
            NEG_HALT : out  STD_LOGIC;
            NEG_BKPT : out  STD_LOGIC;
