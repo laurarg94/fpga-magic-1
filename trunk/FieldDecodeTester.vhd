@@ -29,6 +29,9 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.all;
 USE ieee.numeric_std.ALL;
+
+USE IEEE.STD_LOGIC_TEXTIO.ALL;
+USE STD.TEXTIO.ALL;
  
 ENTITY FieldDecodeTester IS
 END FieldDecodeTester;
@@ -42,7 +45,7 @@ ARCHITECTURE behavior OF FieldDecodeTester IS
          IR : IN  std_logic_vector(0 to 7);
          EL : IN  std_logic_vector(0 to 3);
          LATCH : IN  std_logic_vector(0 to 3);
-         RL_FPL : IN  std_logic;
+         RL_FPL : OUT  std_logic;
          FP_L : IN  std_logic_vector(0 to 3);
          NEG_STOP_CLK : IN  std_logic;
          RCOMMIT : IN  std_logic;
@@ -70,7 +73,7 @@ ARCHITECTURE behavior OF FieldDecodeTester IS
          NEG_EL_TPC : OUT  std_logic;
          NEG_EL_SSP : OUT  std_logic;
          NEG_EL_MDR : OUT  std_logic;
-         NEG_DMA_ACK : OUT  std_logic;
+         NEG_DMA_ACK : inout  std_logic;
          RL_MSW : OUT  std_logic;
          NEG_EL_MAR : OUT  std_logic;
          NEG_EL_MSW : OUT  std_logic;
@@ -99,14 +102,14 @@ ARCHITECTURE behavior OF FieldDecodeTester IS
 
    --Inputs
    signal IR : std_logic_vector(0 to 7) := (others => '0');
-   signal EL : std_logic_vector(0 to 3) := (others => '0');
-   signal LATCH : std_logic_vector(0 to 3) := (others => '0');
+   signal EL : std_logic_vector(0 to 3) := (others => 'U');
+   signal LATCH : std_logic_vector(0 to 3) := (others => 'U');
    signal RL_FPL : std_logic := '0';
    signal FP_L : std_logic_vector(0 to 3) := (others => '0');
-   signal NEG_STOP_CLK : std_logic := '0';
+   signal NEG_STOP_CLK : std_logic := '1';
    signal RCOMMIT : std_logic := '0';
    signal MISC : std_logic_vector(0 to 3) := (others => 'X');
-   signal CLKS : std_logic := '0';
+   signal CLKS : std_logic := '1';
    signal FAULT_PENDING : std_logic := '0';
    signal ER : std_logic_vector(0 to 1) := (others => '0');
    signal NEG_CLKS : std_logic := '0';
@@ -225,40 +228,127 @@ BEGIN
       wait for 10 ns;
 
 		-- Test MISC(Controls Signals)
+		REPORT "Test MISC(Controls Signals)" SEVERITY WARNING;
+		REPORT "None" SEVERITY WARNING;
 		MISC <= x"0";	-- None
 		wait for 10 ns;
 		
+		REPORT "Halt" SEVERITY WARNING;
 		MISC <= x"2";	-- Halt
 		wait for 10 ns;
 		
+		REPORT "Trap on Overflow" SEVERITY WARNING;
 		MISC <= x"4";	-- Trap on Overflow
 		wait for 10 ns;
 		
+		REPORT "Latch PTE" SEVERITY WARNING;
 		MISC <= x"5";	-- Latch PTE
 		wait for 10 ns;
 		
+		REPORT "Set Flags from alu op" SEVERITY WARNING;
 		MISC <= x"6";	-- Set Flags from alu op
 		wait for 10 ns;
      
-	   MISC <= x"7";	-- Init Inst (clear MDR, PC->TPC, latch IR)
+	   REPORT "Init Inst (clear MDR, PC->TPC, latch IR)" SEVERITY WARNING;
+		MISC <= x"7";	-- Init Inst (clear MDR, PC->TPC, latch IR)
 		wait for 10 ns;
 		
+		REPORT "Right shift alu output" SEVERITY WARNING;
 		MISC <= x"8";	-- Right shift alu output
 		wait for 10 ns;
 		
+		REPORT "DMA Ack" SEVERITY WARNING;
 		MISC <= x"9";	-- DMA Ack
 		wait for 10 ns;
 		
+		REPORT "Latch MSW (Interrupt Enable)" SEVERITY WARNING;
 		MISC <= x"A";	-- Latch MSW (Interrupt Enable)
 		wait for 10 ns;
 		
+		REPORT "Do Branch" SEVERITY WARNING;
 		MISC <= x"B";	-- Do Branch
 		wait for 10 ns;
 		
+		REPORT "Latch MSW (In trap)" SEVERITY WARNING;
 		MISC <= x"C";	-- Latch MSW (In trap)
 		wait for 10 ns;
 		
+		REPORT "Commit state" SEVERITY WARNING;
 		MISC <= x"D";	-- Commit state
+		wait for 10 ns;
+		
+		REPORT "Test EL (Enable L Bus)" SEVERITY WARNING;
+		EL <= x"0";	-- MAR
+		wait for 10 ns;
+		
+		EL <= x"1";	-- MSW
+		wait for 10 ns;
+		
+		EL <= x"2"; -- C
+		wait for 10 ns;
+		
+		EL <= x"3"; -- PC
+		wait for 10 ns;
+		
+		EL <= x"4"; -- DP
+		wait for 10 ns;
+		
+		EL <= x"5"; -- SP
+		wait for 10 ns;
+		
+		EL <= x"6"; -- A
+		wait for 10 ns;
+		
+		EL <= x"7"; -- B
+		wait for 10 ns;
+		
+		EL <= x"8"; -- MDR
+		wait for 10 ns;
+		
+		EL <= x"9"; -- PTB
+		wait for 10 ns;
+		
+		EL <= x"A"; -- SSP
+		wait for 10 ns;
+		
+		EL <= x"B"; -- TPC
+		wait for 10 ns;
+		
+		EL <= x"F"; -- (4 + IR(6..7))
+		IR <= (others => '1');
+		wait for 10 ns;
+		
+		-- Test LATCH(Register latch signal)
+		REPORT "Test LATCH(Controls Signals witch gets the value of some registers)" SEVERITY WARNING;
+		
+		LATCH <= x"0";	-- None
+		wait for 10 ns;
+		
+		LATCH <= x"1"; -- Select MSW
+		wait for 10 ns;
+		
+		LATCH <= x"2"; -- Select C
+		wait for 10 ns;
+		
+		LATCH <= x"3"; -- Select PC
+		wait for 10 ns;
+		
+		LATCH <= x"4"; -- Select DP
+		wait for 10 ns;
+		
+		LATCH <= x"5"; -- Select SP
+		wait for 10 ns;
+		
+		LATCH <= x"6"; -- Select A
+		wait for 10 ns;
+		
+		LATCH <= x"7"; -- Select B
+		wait for 10 ns;
+		
+		LATCH <= x"8"; -- Select MDR from Z
+		wait for 10 ns;
+		
+		LATCH <= x"9"; -- Select PTB
 		wait for 10 ns;
 		
       wait;
