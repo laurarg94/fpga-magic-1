@@ -35,14 +35,15 @@ This module is described here:
 
 [http://code.google.com/p/fpga-magic-1/source/browse/trunk/Microcode.vhd]
 
+=== IF(Instruction Fetch) ===
+The instruction fetch process will load the instruction from the PROMS using the opcode index.
+
+
 == Faults and Interrupts ==
 [http://i219.photobucket.com/albums/cc244/leonardoaraujo/FaultsInterrupts.png]
-
-== IF(Instruction Fetch) ==
-The instruction fetch process will load the instruction from the PROMS using the opcode index.
 
 == Field Decode ==
 [http://i219.photobucket.com/albums/cc244/leonardoaraujo/FieldDecode1.png]
 [http://i219.photobucket.com/albums/cc244/leonardoaraujo/FieldDecode2.png]
 The 
-[http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/CompOrg/fetchDecode.html decode] process consist in fetching all the needed operands. For example the {{{ "add.16 (--A),(--B)",IM_NONE,IM_NONE }}} will add the values of A and B registers, then the values of register A and B need to be fetched from Datapath. Also the FieldDecode card will be responsible to create signals depending on the bits on IR,LATCH,MISC bits. (Decoding process)
+[http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/CompOrg/fetchDecode.html decode] process consist in fetching all the needed operands. For example the {{{ "add.16 (--A),(--B)",IM_NONE,IM_NONE }}} will add the values of A and B registers, then the values of register A and B need to be fetched from Datapath. Also the FieldDecode card will be responsible to create signals depending on the bits on IR,LATCH,MISC. (Decoding process)
