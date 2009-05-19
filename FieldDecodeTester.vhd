@@ -320,6 +320,8 @@ BEGIN
 		
 		-- Test LATCH(Register latch signal)
 		REPORT "Test LATCH(Controls Signals witch gets the value of some registers)" SEVERITY WARNING;
+		LATCH_SZ <= '1';
+		IR <= (others => 'U');
 		
 		LATCH <= x"0";	-- None
 		wait for 10 ns;
@@ -351,6 +353,59 @@ BEGIN
 		LATCH <= x"9"; -- Select PTB
 		wait for 10 ns;
 		
+		LATCH <= x"A"; -- A low placeholder
+		wait for 10 ns;
+		
+		LATCH <= x"B"; -- A high placeholder
+		wait for 10 ns;
+		
+		LATCH <= x"C"; -- B low placeholder
+		wait for 10 ns;
+		
+		LATCH <= x"D"; -- C low placeholder
+		wait for 10 ns;
+		
+		LATCH <= x"E"; -- SSP placeholder
+		wait for 10 ns;
+		
+		IR <= x"00";	-- x"00" indicate 8 bits
+		wait for 1 ns;
+		LATCH <= x"F"; -- IR_REG (IR(5..7))		
+		wait for 10 ns;
+		
+		-- Select MSW by IR
+		IR <= x"01";
+		wait for 10 ns;
+		
+		-- Select C by IR
+		IR <= x"02";
+		wait for 10 ns;
+		
+		-- Select PC by IR
+		IR <= x"03";
+		wait for 10 ns;
+		
+		-- Select DP by IR
+		IR <= x"04";
+		wait for 10 ns;
+		
+		-- Select SP by IR
+		IR <= x"05";
+		wait for 10 ns;
+		
+		-- Select A by IR
+		IR <= x"06";
+		wait for 10 ns;
+		
+		-- Select B by IR
+		IR <= x"07";
+		wait for 10 ns;		
+		
+		-- Select B by IR
+		IR <= (others => 'U');
+		LATCH_SZ <= '0';
+		wait for 10 ns;
+			
       wait;
    end process;
 

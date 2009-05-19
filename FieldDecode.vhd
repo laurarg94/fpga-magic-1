@@ -203,7 +203,7 @@ begin
 	
 	-- Describe U26 and U27 encoder/demultiplexer behavior handling the IR and LATCH signals
 	-- the CLKS and FAULT_PENDING input will enable/disable U26 or U27
-	EncoderAddressU26U27 <= U34Output(1 to 3);
+	EncoderAddressU26U27 <= U36Output(1 to 3);
 	U26G2AInput <= not U36Output(0);
 	U26: EncoderDemux port map(CLKS,FAULT_PENDING,U26G2AInput,EncoderAddressU26U27,EncoderOutputU26);
 	U27: EncoderDemux port map(CLKS,FAULT_PENDING,U36Output(0),EncoderAddressU26U27,EncoderOutputU27);	
@@ -211,22 +211,22 @@ begin
 	-- U29 TristateBuffer 74F240 will just invert signals in this case.
 	InverterTristateBufferOutput <= not EncoderOutputU27;
 	
-	RL_C    <= InverterTristateBufferOutput(2);
-	RL_PC   <= InverterTristateBufferOutput(3);
-	RL_DP   <= InverterTristateBufferOutput(4);
-	RL_SP   <= InverterTristateBufferOutput(5);
-	RL_A_LO <= InverterTristateBufferOutput(6);
-	RL_B_LO <= InverterTristateBufferOutput(7);
+	RL_C    <= InverterTristateBufferOutput(5);
+	RL_PC   <= InverterTristateBufferOutput(4);
+	RL_DP   <= InverterTristateBufferOutput(3);
+	RL_SP   <= InverterTristateBufferOutput(2);
+	RL_A_LO <= InverterTristateBufferOutput(1);
+	RL_B_LO <= InverterTristateBufferOutput(0);
 	
-	RL_A_HI <= InverterTristateBufferOutput(6) and LATCH_SZ;
-	RL_B_HI <= InverterTristateBufferOutput(7) and LATCH_SZ;
+	RL_A_HI <= InverterTristateBufferOutput(1) and LATCH_SZ;
+	RL_B_HI <= InverterTristateBufferOutput(0) and LATCH_SZ;
 	
 	RL_PTB <= not EncoderOutputU26(6);
 	RL_MDR <= not EncoderOutputU26(7);
 	
-	RL_SSP <= InverterTristateBufferOutput(5) and (not MSWM);
+	RL_SSP <= InverterTristateBufferOutput(2) and (not MSWM);
 	
-	RL_MSW <= (not FAULT_PENDING) and (InverterTristateBufferOutput(1) or (NEG_CLKS nor EncoderOutputU33(1)));
+	RL_MSW <= (not FAULT_PENDING) and (InverterTristateBufferOutput(6) or (NEG_CLKS nor EncoderOutputU33(1)));
 	
 
 end Behavioral;
