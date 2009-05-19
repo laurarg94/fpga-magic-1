@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer:
 --
--- Create Date:   14:34:50 04/13/2009
+-- Create Date:   00:57:13 05/19/2009
 -- Design Name:   
 -- Module Name:   C:/fpga-magic-1/FaultsandInterruptsTester.vhd
 -- Project Name:  Magic_1
@@ -39,95 +39,97 @@ ARCHITECTURE behavior OF FaultsandInterruptsTester IS
  
     COMPONENT FaultsandInterrupts
     PORT(
-         RESET : IN  std_logic;
-         IRQ0 : IN  std_logic;
-         IRQ1 : IN  std_logic;
-         IRQ2 : IN  std_logic;
-         IRQ3 : IN  std_logic;
-         IRQ4 : IN  std_logic;
-         IRQ5 : IN  std_logic;
-         EL_FCODE : IN  std_logic;
+         NEG_RESET : IN  std_logic;
+         NEG_IRQ0 : IN  std_logic;
+         NEG_IRQ1 : IN  std_logic;
+         NEG_IRQ2 : IN  std_logic;
+         NEG_IRQ3 : IN  std_logic;
+         NEG_IRQ4 : IN  std_logic;
+         NEG_IRQ5 : IN  std_logic;
+         NEG_EL_FCODE : IN  std_logic;
          MSWM : IN  std_logic;
          PRIV : IN  std_logic;
          MSWV : IN  std_logic;
-         TRAPO : IN  std_logic;
+         NEG_TRAPO : IN  std_logic;
          CLKM : IN  std_logic;
-         DMA_REQ : IN  std_logic;
+         NEG_DMA_REQ : IN  std_logic;
          MSWE : IN  std_logic;
-         NP : IN  std_logic;
-         NW : IN  std_logic;
-         BKPT : IN  std_logic;
-         SYSCALL : IN  std_logic;
+         NEG_NP : IN  std_logic;
+         NEG_NW : IN  std_logic;
+         NEG_BKPT : IN  std_logic;
+         NEG_SYSCALL : IN  std_logic;
          IOCLK : IN  std_logic;
-         NEXT0 : IN  std_logic;
+         NEG_NEXT0 : IN  std_logic;
          CLKS : IN  std_logic;
-         CLR_TRAP : IN  std_logic;
+         NEG_CLR_TRAP : IN  std_logic;
          L : OUT  std_logic_vector(0 to 15);
-         RL_FAULT : OUT  std_logic;
-         ENCODER : OUT  std_logic_vector(0 to 3);
-         FAULT_PENDING : OUT  std_logic
+         RL_FAULT : INOUT  std_logic;
+         ENCODER : INOUT  std_logic_vector(0 to 3);
+         FAULT_PENDING : INOUT  std_logic
         );
     END COMPONENT;
     
 
    --Inputs
-   signal RESET : std_logic := '0';
-   signal IRQ0 : std_logic := '0';
-   signal IRQ1 : std_logic := '0';
-   signal IRQ2 : std_logic := '0';
-   signal IRQ3 : std_logic := '0';
-   signal IRQ4 : std_logic := '0';
-   signal IRQ5 : std_logic := '0';
-   signal EL_FCODE : std_logic := '0';
+   signal NEG_RESET : std_logic := 'U';
+   signal NEG_IRQ0 : std_logic := 'U';
+   signal NEG_IRQ1 : std_logic := 'U';
+   signal NEG_IRQ2 : std_logic := 'U';
+   signal NEG_IRQ3 : std_logic := 'U';
+   signal NEG_IRQ4 : std_logic := 'U';
+   signal NEG_IRQ5 : std_logic := 'U';
+   signal NEG_EL_FCODE : std_logic := '0';
    signal MSWM : std_logic := '0';
    signal PRIV : std_logic := '0';
    signal MSWV : std_logic := '0';
-   signal TRAPO : std_logic := '0';
+   signal NEG_TRAPO : std_logic := '0';
    signal CLKM : std_logic := '0';
-   signal DMA_REQ : std_logic := '0';
+   signal NEG_DMA_REQ : std_logic := 'U';
    signal MSWE : std_logic := '0';
-   signal NP : std_logic := '0';
-   signal NW : std_logic := '0';
-   signal BKPT : std_logic := '0';
-   signal SYSCALL : std_logic := '0';
+   signal NEG_NP : std_logic := '0';
+   signal NEG_NW : std_logic := '0';
+   signal NEG_BKPT : std_logic := '0';
+   signal NEG_SYSCALL : std_logic := '0';
    signal IOCLK : std_logic := '0';
-   signal NEXT0 : std_logic := '0';
+   signal NEG_NEXT0 : std_logic := '0';
    signal CLKS : std_logic := '0';
-   signal CLR_TRAP : std_logic := '0';
+   signal NEG_CLR_TRAP : std_logic := '0';
 
- 	--Outputs
-   signal L : std_logic_vector(0 to 15);
+	--BiDirs
    signal RL_FAULT : std_logic;
    signal ENCODER : std_logic_vector(0 to 3);
    signal FAULT_PENDING : std_logic;
+
+ 	--Outputs
+   signal L : std_logic_vector(0 to 15);
  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: FaultsandInterrupts PORT MAP (
-          RESET => RESET,
-          IRQ0 => IRQ0,
-          IRQ1 => IRQ1,
-          IRQ2 => IRQ2,
-          IRQ3 => IRQ3,
-          IRQ4 => IRQ4,
-          IRQ5 => IRQ5,
-          EL_FCODE => EL_FCODE,
+          NEG_RESET => NEG_RESET,
+          NEG_IRQ0 => NEG_IRQ0,
+          NEG_IRQ1 => NEG_IRQ1,
+          NEG_IRQ2 => NEG_IRQ2,
+          NEG_IRQ3 => NEG_IRQ3,
+          NEG_IRQ4 => NEG_IRQ4,
+          NEG_IRQ5 => NEG_IRQ5,
+          NEG_EL_FCODE => NEG_EL_FCODE,
           MSWM => MSWM,
           PRIV => PRIV,
           MSWV => MSWV,
-          TRAPO => TRAPO,
+          NEG_TRAPO => NEG_TRAPO,
           CLKM => CLKM,
-          DMA_REQ => DMA_REQ,
+          NEG_DMA_REQ => NEG_DMA_REQ,
           MSWE => MSWE,
-          NP => NP,
-          NW => NW,
-          BKPT => BKPT,
-          SYSCALL => SYSCALL,
+          NEG_NP => NEG_NP,
+          NEG_NW => NEG_NW,
+          NEG_BKPT => NEG_BKPT,
+          NEG_SYSCALL => NEG_SYSCALL,
           IOCLK => IOCLK,
-          NEXT0 => NEXT0,
+          NEG_NEXT0 => NEG_NEXT0,
           CLKS => CLKS,
-          CLR_TRAP => CLR_TRAP,
+          NEG_CLR_TRAP => NEG_CLR_TRAP,
           L => L,
           RL_FAULT => RL_FAULT,
           ENCODER => ENCODER,
@@ -135,16 +137,14 @@ BEGIN
         );
  
    -- No clocks detected in port list. Replace <clock> below with 
-   -- appropriate port name 
+   -- appropriate port name    
  
-   constant <clock>_period := 1ns;
- 
-   <clock>_process :process
+   CLKM_process :process
    begin
-		<clock> <= '0';
-		wait for <clock>_period/2;
-		<clock> <= '1';
-		wait for <clock>_period/2;
+		CLKM <= '0';
+		wait for 5 ns;
+		CLKM <= '1';
+		wait for 5 ns;
    end process;
  
 
@@ -152,9 +152,11 @@ BEGIN
    stim_proc: process
    begin		
       -- hold reset state for 100ms.
-      wait for 100ms;	
+		NEG_RESET <= '0';
+      wait for 10 ns;	
 
-      wait for <clock>_period*10;
+      NEG_RESET <= '1';
+		wait for 10 ns;		
 
       -- insert stimulus here 
 
