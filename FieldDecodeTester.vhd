@@ -101,7 +101,7 @@ ARCHITECTURE behavior OF FieldDecodeTester IS
     
 
    --Inputs
-   signal IR : std_logic_vector(0 to 7) := (others => '0');
+   signal IR : std_logic_vector(0 to 7) := (others => 'U');
    signal EL : std_logic_vector(0 to 3) := (others => 'U');
    signal LATCH : std_logic_vector(0 to 3) := (others => 'U');
    signal RL_FPL : std_logic := '0';
@@ -315,7 +315,19 @@ BEGIN
 		wait for 10 ns;
 		
 		EL <= x"F"; -- (4 + IR(6..7))
-		IR <= (others => '1');
+		IR <= (others => '0');	-- DP
+		wait for 10 ns;
+		
+		EL <= x"F"; -- (4 + IR(6..7))
+		IR <= "00000001";	-- SP
+		wait for 10 ns;
+		
+		EL <= x"F"; -- (4 + IR(6..7))
+		IR <= "00000010";	-- A
+		wait for 10 ns;
+		
+		EL <= x"F"; -- (4 + IR(6..7))
+		IR <= "00000011";	-- B
 		wait for 10 ns;
 		
 		-- Test LATCH(Register latch signal)
