@@ -42,6 +42,12 @@ The instruction fetch process will load the instruction from the PROMS using the
 == Faults and Interrupts ==
 [http://i219.photobucket.com/albums/cc244/leonardoaraujo/FaultsInterrupts.png]
 
+There are times that we want to break the endless loop of Magic-1 instruction engine, for doing this we will need:
+ * Faults: Represent situations in which something has happened during the execution of the code that prevents further progress.
+ * Interrupts: Requests for attention by devices outside of the CPU
+
+Complete explanation [http://www.homebrewcpu.com/braindump.htm here]
+
 == Field Decode ==
 [http://i219.photobucket.com/albums/cc244/leonardoaraujo/FieldDecode1.png]
 [http://i219.photobucket.com/albums/cc244/leonardoaraujo/FieldDecode2.png]
