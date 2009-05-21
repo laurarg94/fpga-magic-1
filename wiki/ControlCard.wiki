@@ -56,6 +56,8 @@ Here is a list of common Interrupts and Faults samples:
 || interrupt Serial port || Interrupt ||
 ||  Keyboard || Interrupt ||
 
+There's also the syscall instruction, which will be implemented as a flavor of fault. This instruction must cause a transition into supervisor mode, which faults and interrupts automatically do. A difference between syscall and normal faults is that when we return after processing a syscall, we want to return to the instruction following the sysceall op.
+
 
 Complete explanation [http://www.homebrewcpu.com/braindump.htm here]
 
