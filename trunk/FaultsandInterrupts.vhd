@@ -63,7 +63,7 @@ signal address_encoder,output_priority_encoder_46,output_priority_encoder_47 : s
 signal interrupt_ff : std_logic_vector(0 to 5);
 signal faults_and_interrupts_latch :  std_logic_vector (0 to 3);
 signal enable_input_u47,GroupOutput_46,SIG_CLEAR_56 : std_logic;
-signal E3_encoder,IRQ_0,IRQ_1,IRQ_2,IRQ_3,IRQ_4,IRQ_5 : std_logic;
+signal E3_encoder : std_logic;
 
 component PriorityEncoder
 	Port ( EnableInput : in  STD_LOGIC;
@@ -81,14 +81,7 @@ component EncoderDemux is
            Output : out  STD_LOGIC_VECTOR (7 downto 0)); -- O7,O6,O5,O4,O3,O2,O1,O0
 end component;
 
-begin
-	-- Negate IRQs
-	IRQ_0 <= NEG_IRQ0;
-	IRQ_1 <= NEG_IRQ1;
-	IRQ_2 <= NEG_IRQ2;
-	IRQ_3 <= NEG_IRQ3;
-	IRQ_4 <= NEG_IRQ4;
-	IRQ_5 <= NEG_IRQ5;
+begin	
 	
 	-- Implement the Interrupt register U?
 	process (MSWE,interrupt_ff,NEG_DMA_REQ,NEG_RESET,CLKM)
@@ -120,7 +113,7 @@ begin
 	SIG_CLEAR_56 <= NEG_CLR_TRAP and NEG_RESET;
 	process (ENCODER,RL_FAULT,SIG_CLEAR_56)
 	begin
-		if SIG_CLEAR_56 = '1' then
+		if SIG_CLEAR_56 = '0' then
 			faults_and_interrupts_latch <= (others => '0');
 		elsif rising_edge(RL_FAULT) then
 			faults_and_interrupts_latch <= ENCODER;
@@ -133,66 +126,66 @@ begin
 		if NEG_EL_FCODE = '0' then
 			L <= "00000000000" & faults_and_interrupts_latch & '0';
 		else
-			L <= (others => 'X');
+			L <= (others => 'U');
 		end if;
 	end process;
 	
 	-- Implement the FlipFlopD for IRQ_5
-	process (NEG_RESET,output_encoder(6),IRQ_5)
+	process (NEG_RESET,output_encoder(6),NEG_IRQ5)
 	begin
 		if (NEG_RESET and output_encoder(6)) = '0' then
 			interrupt_ff(5) <= not '0';
-		elsif rising_edge(IRQ_5) then
+		elsif falling_edge(NEG_IRQ5) then
 			interrupt_ff(5) <= not '1';
 		end if;
 	end process;
 	
 	-- Implement the FlipFlopD for IRQ_4
-	process (NEG_RESET,output_encoder(5),IRQ_4)
+	process (NEG_RESET,output_encoder(5),NEG_IRQ4)
 	begin
 		if (NEG_RESET and output_encoder(5)) = '0' then
 			interrupt_ff(4) <= not '0';
-		elsif rising_edge(IRQ_4) then
+		elsif falling_edge(NEG_IRQ4) then
 			interrupt_ff(4) <= not '1';
 		end if;
 	end process;
 	
 	-- Implement the FlipFlopD for IRQ_3
-	process (NEG_RESET,output_encoder(4),IRQ_3)
+	process (NEG_RESET,output_encoder(4),NEG_IRQ3)
 	begin
 		if (NEG_RESET and output_encoder(4)) = '0' then
 			interrupt_ff(3) <= not '0';
-		elsif rising_edge(IRQ_3) then
+		elsif falling_edge(NEG_IRQ3) then
 			interrupt_ff(3) <= not '1';
 		end if;
 	end process;
 	
 	-- Implement the FlipFlopD for IRQ_2
-	process (NEG_RESET,output_encoder(3),IRQ_2)
+	process (NEG_RESET,output_encoder(3),NEG_IRQ2)
 	begin
 		if (NEG_RESET and output_encoder(3)) = '0' then
 			interrupt_ff(2) <= not '0';
-		elsif rising_edge(IRQ_2) then
+		elsif falling_edge(NEG_IRQ2) then
 			interrupt_ff(2) <= not '1';
 		end if;
 	end process;
 	
 	-- Implement the FlipFlopD for IRQ_1
-	process (NEG_RESET,output_encoder(2),IRQ_1)
+	process (NEG_RESET,output_encoder(2),NEG_IRQ1)
 	begin
 		if (NEG_RESET and output_encoder(2)) = '0' then
 			interrupt_ff(1) <= not '0';
-		elsif rising_edge(IRQ_1) then
+		elsif falling_edge(NEG_IRQ1) then
 			interrupt_ff(1) <= not '1';
 		end if;
 	end process;
 	
 	-- Implement the FlipFlopD for IRQ_0
-	process (NEG_RESET,output_encoder(1),IRQ_0)
+	process (NEG_RESET,output_encoder(1),NEG_IRQ0)
 	begin
 		if (NEG_RESET and output_encoder(1)) = '0' then
 			interrupt_ff(0) <= not '0';
-		elsif rising_edge(IRQ_0) then
+		elsif falling_edge(NEG_IRQ0) then
 			interrupt_ff(0) <= not '1';
 		end if;
 	end process;

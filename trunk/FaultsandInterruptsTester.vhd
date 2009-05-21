@@ -29,6 +29,9 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_unsigned.all;
 USE ieee.numeric_std.ALL;
+
+USE IEEE.STD_LOGIC_TEXTIO.ALL;
+USE STD.TEXTIO.ALL;
  
 ENTITY FaultsandInterruptsTester IS
 END FaultsandInterruptsTester;
@@ -71,29 +74,29 @@ ARCHITECTURE behavior OF FaultsandInterruptsTester IS
     
 
    --Inputs
-   signal NEG_RESET : std_logic := 'U';
-   signal NEG_IRQ0 : std_logic := 'U';
-   signal NEG_IRQ1 : std_logic := 'U';
-   signal NEG_IRQ2 : std_logic := 'U';
-   signal NEG_IRQ3 : std_logic := 'U';
-   signal NEG_IRQ4 : std_logic := 'U';
-   signal NEG_IRQ5 : std_logic := 'U';
-   signal NEG_EL_FCODE : std_logic := '0';
+   signal NEG_RESET : std_logic := '1';
+   signal NEG_IRQ0 : std_logic := '1';
+   signal NEG_IRQ1 : std_logic := '1';
+   signal NEG_IRQ2 : std_logic := '1';
+   signal NEG_IRQ3 : std_logic := '1';
+   signal NEG_IRQ4 : std_logic := '1';
+   signal NEG_IRQ5 : std_logic := '1';
+   signal NEG_EL_FCODE : std_logic := '1';
    signal MSWM : std_logic := '0';
    signal PRIV : std_logic := '0';
    signal MSWV : std_logic := '0';
-   signal NEG_TRAPO : std_logic := '0';
+   signal NEG_TRAPO : std_logic := '1';
    signal CLKM : std_logic := '0';
-   signal NEG_DMA_REQ : std_logic := 'U';
+   signal NEG_DMA_REQ : std_logic := '1';
    signal MSWE : std_logic := '0';
-   signal NEG_NP : std_logic := '0';
-   signal NEG_NW : std_logic := '0';
-   signal NEG_BKPT : std_logic := '0';
-   signal NEG_SYSCALL : std_logic := '0';
+   signal NEG_NP : std_logic := '1';
+   signal NEG_NW : std_logic := '1';
+   signal NEG_BKPT : std_logic := '1';
+   signal NEG_SYSCALL : std_logic := '1';
    signal IOCLK : std_logic := '0';
-   signal NEG_NEXT0 : std_logic := '0';
+   signal NEG_NEXT0 : std_logic := '1';
    signal CLKS : std_logic := '0';
-   signal NEG_CLR_TRAP : std_logic := '0';
+   signal NEG_CLR_TRAP : std_logic := '1';
 
 	--BiDirs
    signal RL_FAULT : std_logic;
@@ -139,12 +142,28 @@ BEGIN
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name    
  
-   CLKM_process :process
+   CLKS_process :process
+   begin
+		CLKS <= '0';
+		wait for 2 ns;
+		CLKS <= '1';
+		wait for 2 ns;
+   end process;
+	
+	CLKM_process :process
    begin
 		CLKM <= '0';
 		wait for 5 ns;
 		CLKM <= '1';
 		wait for 5 ns;
+   end process;
+	
+	IOCLK_process :process
+   begin
+		IOCLK <= '0';
+		wait for 8 ns;
+		IOCLK <= '1';
+		wait for 8 ns;
    end process;
  
 
@@ -156,9 +175,41 @@ BEGIN
       wait for 10 ns;	
 
       NEG_RESET <= '1';
-		wait for 10 ns;		
+		wait for 20 ns;		
 
-      -- insert stimulus here 
+      REPORT "Testing Interrupts..." SEVERITY WARNING;		
+		
+		-- Signals to propagate one interrupt
+		MSWM <= '1';
+		PRIV <= '1';
+		
+		-- Show Interrupt register on L bus
+		NEG_EL_FCODE <= '0';
+		
+		-- Interrupt on IRQ_5
+		NEG_IRQ5 <= '0';
+		wait for 10 ns;
+		
+		NEG_IRQ5 <= '1';
+		wait for 10 ns;
+		
+		-- Clear Interrupts
+		NEG_CLR_TRAP <= '0';
+		MSWM <= '0';
+		PRIV <= '0';
+		wait for 10 ns;
+		NEG_CLR_TRAP <= '1';
+		wait for 30 ns;
+		
+		-- IRQ_4 occured
+		NEG_EL_FCODE <= '0';
+		MSWM <= '1';
+		PRIV <= '1';
+		NEG_IRQ0 <= '0';
+		wait for 10 ns;
+		
+		NEG_IRQ0 <= '1';
+		wait for 10 ns;
 
       wait;
    end process;
