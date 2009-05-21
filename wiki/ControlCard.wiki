@@ -46,6 +46,17 @@ There are times that we want to break the endless loop of Magic-1 instruction en
  * Faults: Represent situations in which something has happened during the execution of the code that prevents further progress.
  * Interrupts: Requests for attention by devices outside of the CPU
 
+Here is a list of common Interrupts and Faults samples:
+
+|| *Event* || *Kind* ||
+|| Page not present || Fault ||
+|| Page not writeable || Fault ||
+|| Privilege violation || Fault ||
+|| Heartbeat timer || Interrupt ||
+|| interrupt Serial port || Interrupt ||
+||  Keyboard || Interrupt ||
+
+
 Complete explanation [http://www.homebrewcpu.com/braindump.htm here]
 
 == Field Decode ==
