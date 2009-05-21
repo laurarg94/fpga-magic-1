@@ -203,8 +203,9 @@ BEGIN
 		
 		-- IRQ_4 occured
 		NEG_EL_FCODE <= '0';
-		MSWM <= '1';
-		PRIV <= '1';
+		--MSWM <= '1';
+		--PRIV <= '1';
+		NEG_SYSCALL <= '0';
 		NEG_IRQ0 <= '0';
 		wait for 10 ns;
 		
