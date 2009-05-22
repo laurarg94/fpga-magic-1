@@ -178,39 +178,120 @@ BEGIN
 		wait for 20 ns;		
 
       REPORT "Testing Interrupts..." SEVERITY WARNING;		
+				
 		
-		-- Signals to propagate one interrupt
-		MSWM <= '1';
-		PRIV <= '1';
-		
-		-- Show Interrupt register on L bus
-		NEG_EL_FCODE <= '0';
-		
-		-- Interrupt on IRQ_5
-		NEG_IRQ5 <= '0';
-		wait for 10 ns;
+		-- Interrupt on IRQ_5		
+		MSWE <= '1';			-- Signals to propagate one interrupt		
+		NEG_EL_FCODE <= '0'; -- Signal to enable L BUS with Interrupt or fault
+		NEG_NEXT0 <= '0';		-- Latch Interrupt into U56
+		NEG_IRQ5 <= '0';		-- Interrupt line 5
+		wait for 20 ns;
 		
 		NEG_IRQ5 <= '1';
-		wait for 10 ns;
+		wait for 20 ns;
 		
-		-- Clear Interrupts
-		NEG_CLR_TRAP <= '0';
-		MSWM <= '0';
-		PRIV <= '0';
-		wait for 10 ns;
-		NEG_CLR_TRAP <= '1';
+		-- Clear Interrupts		
+		MSWE <= '0';				
+		NEG_EL_FCODE <= '1';
+		NEG_NEXT0 <= '1';
 		wait for 30 ns;
 		
-		-- IRQ_4 occured
-		NEG_EL_FCODE <= '0';
-		--MSWM <= '1';
-		--PRIV <= '1';
-		NEG_SYSCALL <= '0';
-		NEG_IRQ0 <= '0';
-		wait for 10 ns;
+		-- Interrupt on IRQ_4
+		MSWE <= '1';			-- Signals to propagate one interrupt		
+		NEG_EL_FCODE <= '0'; -- Signal to enable L BUS with Interrupt or fault
+		NEG_NEXT0 <= '0';		-- Latch Interrupt into U56
+		NEG_IRQ4 <= '0';		-- Interrupt line 4
+		wait for 20 ns;
+		
+		NEG_IRQ4 <= '1';
+		wait for 20 ns;
+		
+		-- Clear Interrupts		
+		MSWE <= '0';				
+		NEG_EL_FCODE <= '1';
+		NEG_NEXT0 <= '1';
+		wait for 30 ns;
+		
+		-- Interrupt on IRQ_3
+		MSWE <= '1';			-- Signals to propagate one interrupt		
+		NEG_EL_FCODE <= '0'; -- Signal to enable L BUS with Interrupt or fault
+		NEG_NEXT0 <= '0';		-- Latch Interrupt into U56
+		NEG_IRQ3 <= '0';		-- Interrupt line 3
+		wait for 20 ns;
+		
+		NEG_IRQ3 <= '1';
+		wait for 20 ns;
+		
+		-- Clear Interrupts		
+		MSWE <= '0';				
+		NEG_EL_FCODE <= '1';
+		NEG_NEXT0 <= '1';
+		wait for 30 ns;
+		
+		-- Interrupt on IRQ_2
+		MSWE <= '1';			-- Signals to propagate one interrupt		
+		NEG_EL_FCODE <= '0'; -- Signal to enable L BUS with Interrupt or fault
+		NEG_NEXT0 <= '0';		-- Latch Interrupt into U56
+		NEG_IRQ2 <= '0';		-- Interrupt line 2
+		wait for 20 ns;
+		
+		NEG_IRQ2 <= '1';
+		wait for 20 ns;
+		
+		-- Clear Interrupts		
+		MSWE <= '0';				
+		NEG_EL_FCODE <= '1';
+		NEG_NEXT0 <= '1';
+		wait for 30 ns;
+		
+		-- Interrupt on IRQ_1
+		MSWE <= '1';			-- Signals to propagate one interrupt		
+		NEG_EL_FCODE <= '0'; -- Signal to enable L BUS with Interrupt or fault
+		NEG_NEXT0 <= '0';		-- Latch Interrupt into U56
+		NEG_IRQ1 <= '0';		-- Interrupt line 1
+		wait for 20 ns;
+		
+		NEG_IRQ1 <= '1';
+		wait for 20 ns;
+		
+		-- Clear Interrupts		
+		MSWE <= '0';				
+		NEG_EL_FCODE <= '1';
+		NEG_NEXT0 <= '1';
+		wait for 30 ns;
+		
+		-- Interrupt on IRQ_0 (Most priority Interrupt)
+		MSWE <= '1';			-- Signals to propagate one interrupt		
+		NEG_EL_FCODE <= '0'; -- Signal to enable L BUS with Interrupt or fault
+		NEG_NEXT0 <= '0';		-- Latch Interrupt into U56
+		NEG_IRQ0 <= '0';		-- Interrupt line 0
+		wait for 20 ns;
 		
 		NEG_IRQ0 <= '1';
-		wait for 10 ns;
+		wait for 20 ns;
+		
+		-- Clear Interrupts		
+		MSWE <= '0';				
+		NEG_EL_FCODE <= '1';
+		NEG_NEXT0 <= '1';
+		wait for 30 ns;
+		
+		-- Interrupt on NEG_DMA_REQ (Even Most priority Interrupt)
+		MSWE <= '1';			-- Signals to propagate one interrupt		
+		NEG_EL_FCODE <= '0'; -- Signal to enable L BUS with Interrupt or fault
+		NEG_NEXT0 <= '0';		-- Latch Interrupt into U56
+		NEG_DMA_REQ <= '0';		-- Interrupt DMA
+		wait for 20 ns;
+		
+		NEG_DMA_REQ <= '1';
+		wait for 20 ns;
+		
+		-- Clear Interrupts		
+		MSWE <= '0';				
+		NEG_EL_FCODE <= '1';
+		NEG_NEXT0 <= '1';
+		wait for 30 ns;
+		
 
       wait;
    end process;

@@ -45,14 +45,14 @@ begin
    -- the highest priority.
 	
 	--A2 & A1 & A0
-	EncoderOutputs_Buffer <= "000" when (EncoderInputs(7) = '0') else		-- More priority (EncoderInputs(0)) NEG_I7
+	EncoderOutputs_Buffer <= "000" when (EncoderInputs(7) = '0') else		-- More priority (EncoderInputs(7)) NEG_I7
 									 "001" when (EncoderInputs(6) = '0') else
 									 "010" when (EncoderInputs(5) = '0') else
 									 "011" when (EncoderInputs(4) = '0') else
 									 "100" when (EncoderInputs(3) = '0') else
 									 "101" when (EncoderInputs(2) = '0') else
 									 "110" when (EncoderInputs(1) = '0') else	   
-									 "111";												   -- Less priority (EncoderInputs(7))
+									 "111";												   -- Less priority (EncoderInputs(0))
 	
 	EncoderOutputs <= EncoderOutputs_Buffer when (EnableInput = '0') else "111";
 	

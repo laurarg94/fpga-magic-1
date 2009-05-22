@@ -95,7 +95,7 @@ begin
 	
 	-- Implement the logic of U47 74148 (8 to 3) priority encoders (http://en.wikipedia.org/wiki/Encoder#Single_bit_4_to_2_Encoder)	
 	enable_input_u47 <= FAULT_PENDING or (interrupt_register(0) nor (not interrupt_register(7)));
-	input_priority_encoder_47 <= '0' & interrupt_register(1 to 7);
+	input_priority_encoder_47 <= interrupt_register(1 to 7) & '0';
 	U47: PriorityEncoder port map (enable_input_u47, input_priority_encoder_47,output_priority_encoder_47);
 	
 	input_priority_encoder_46 <= NEG_SYSCALL & '1' &  ((not NEG_TRAPO) nand MSWV) & (PRIV nand MSWM) & NEG_BKPT & NEG_NW & NEG_NP & '1';
