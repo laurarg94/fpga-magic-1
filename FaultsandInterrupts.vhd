@@ -102,7 +102,7 @@ begin
 	U46: PriorityEncoder port map ('0', input_priority_encoder_46,output_priority_encoder_46,FAULT_PENDING,GroupOutput_46 );
 	
 	-- Implement the logic of U45 74F138 Encoder/Demultiplexer	
-	address_encoder <= faults_and_interrupts_latch(0 to 2);
+	address_encoder <= faults_and_interrupts_latch(3) & faults_and_interrupts_latch(2) & faults_and_interrupts_latch(1);
 	E3_encoder <= IOCLK and SIG_CLEAR_56;
 	U45: EncoderDemux port map(E3_encoder,faults_and_interrupts_latch(3),faults_and_interrupts_latch(3),address_encoder,output_encoder);
 	
